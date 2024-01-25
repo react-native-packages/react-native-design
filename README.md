@@ -34,12 +34,12 @@ import { Text } from 'react-native-design';
 </Text>
 ```
 ## Props
-| Prop name                 | Description                                   | type                                              |
-| ------------------------- | --------------------------------------------- | ------------------------------------------------- | 
-| testID                    | Used for testing                              | string                                            |
+| Prop name                 | Description                                   | type                                                  |
+| ------------------------- | --------------------------------------------- | ----------------------------------------------------- | 
+| testID                    | Used for testing                              | string                                                |
 | variant                   | Access different type of text                 | `title` \| `text` \| `label` \| `error` \| `button`   |
-| numberOfLines             | Number of lines for text                      | number                                            |
-| style                     | Text styles                                   | TextStyle                                            |
+| numberOfLines             | Number of lines for text                      | number                                                |
+| style                     | Text styles                                   | TextStyle                                             |
 
 ## Contributing
 
