@@ -5,25 +5,27 @@ import {
   type StyleProp,
   type TextStyle as RNTextStyle,
 } from 'react-native';
-import {
-  responsiveHeight,
-  responsiveSize,
-} from 'react-native-responsive-helper';
 
-export type TextVariant = 'title' | 'text' | 'label' | 'error' | 'button';
+import { responsive } from './../helpers';
 
-export interface TextProps {
+type TextVariant = 'title' | 'text' | 'label' | 'error' | 'button';
+
+interface TextProps {
   variant?: TextVariant;
   style?: StyleProp<RNTextStyle>;
   numberOfLines?: number;
   children?: ReactNode;
   testID?: string;
+  accessible?: boolean;
+  accessibilityLabel?: string;
 }
 
 function Text(props: TextProps) {
   return (
     <RNText
       testID={props?.testID}
+      accessible={props?.accessible}
+      accessibilityLabel={props?.accessibilityLabel}
       style={[
         textStyles?.common,
         textStyles?.text,
@@ -37,7 +39,7 @@ function Text(props: TextProps) {
   );
 }
 
-export const textStyles = StyleSheet.create({
+const textStyles = StyleSheet.create({
   common: {
     color: '#000',
   },
@@ -48,19 +50,20 @@ export const textStyles = StyleSheet.create({
   },
   label: {
     color: 'black',
-    fontSize: responsiveSize(15),
+    fontSize: responsive.size(15),
     fontWeight: '500',
   },
   error: {
     color: '#FF9494',
-    fontSize: responsiveSize(14),
+    fontSize: responsive.size(14),
   },
   button: {
     fontWeight: 'bold',
-    fontSize: responsiveSize(20),
+    fontSize: responsive.size(20),
     includeFontPadding: false,
-    lineHeight: responsiveHeight(25),
+    lineHeight: responsive.height(25),
   },
 });
 
-export default Text;
+export type { TextVariant, TextProps };
+export { Text, textStyles };

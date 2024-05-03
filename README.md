@@ -10,7 +10,7 @@ npm install react-native-design
 
 ## Required dependencies
 ```sh
-npm i react-native-responsive-helper
+npm i react-native-vector-icons
 ```
 
 ## Usage
@@ -32,6 +32,8 @@ import { Text } from 'react-native-design';
 >
     text
 </Text>
+
+// ...
 ```
 ## Props
 | Prop name                 | Description                                   | type                                                  |
