@@ -10,8 +10,10 @@ interface IconButtonProps {
   color?: number | ColorValue;
   onPress?: () => void;
   containerStyle?: StyleProp<ViewStyle>;
-  testID?: string;
   disabled?: boolean;
+  testID?: string;
+  accessible?: boolean;
+  accessibilityLabel?: string;
 }
 
 function IconButton(props: IconButtonProps) {
@@ -23,7 +25,9 @@ function IconButton(props: IconButtonProps) {
 
   return (
     <TouchableOpacity
-      testID={`${props?.testID}.container`}
+      testID={props?.testID}
+      accessible={props?.accessible}
+      accessibilityLabel={props?.accessibilityLabel}
       onPress={onPress}
       style={[iconButtonStyles?.container, props?.containerStyle]}
       disabled={props?.disabled}
@@ -31,7 +35,6 @@ function IconButton(props: IconButtonProps) {
       {props?.icon}
       {props?.name && (
         <MaterialCommunityIcons
-          testID={`${props?.testID}.icon`}
           name={props?.name}
           size={props?.size ?? 24}
           color={props?.disabled ? '#D3D3D3' : props?.color ?? '#676767'}
