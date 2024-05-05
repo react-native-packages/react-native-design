@@ -35,6 +35,15 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/no-unused-prop-types': [1],
+    'react-native/no-color-literals': [1],
+    'react-native/sort-styles': [
+      'warn',
+      'asc',
+      { ignoreClassNames: true, ignoreStyleProperties: false },
+    ],
+    'react-native/no-raw-text': [1],
+    'react-native/no-single-element-style-arrays': [1],
+    'react-native/no-unused-styles': [1],
   },
   ignorePatterns: ['*.config.js'],
 };
