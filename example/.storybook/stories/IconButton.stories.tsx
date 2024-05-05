@@ -35,7 +35,7 @@ export const Normal: Story = {
     color: '#0000FF',
     size: 48,
     onPress: () => {
-      Alert.alert('adjust');
+      Alert.alert('Pressed Icon');
     },
   },
 };
