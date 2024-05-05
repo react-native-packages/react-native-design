@@ -5468,6 +5468,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-test-renderer@npm:^18.3.0":
+  version: 18.3.0
+  resolution: "@types/react-test-renderer@npm:18.3.0"
+  dependencies:
+    "@types/react": "*"
+  checksum: c53683990bd194cb68e3987bda79c78eff41517f7a747e92f3e54217c2ce3addd031b8a45bf631982c909cc2caeeb905372f322758e05bb76c03754a3f24426e
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:17.0.21":
   version: 17.0.21
   resolution: "@types/react@npm:17.0.21"
@@ -16831,6 +16840,7 @@ __metadata:
     "@types/react": ~17.0.21
     "@types/react-native": 0.70.0
     "@types/react-native-vector-icons": ^6.4.18
+    "@types/react-test-renderer": ^18.3.0
     commitlint: ^17.0.2
     del-cli: ^5.0.0
     eslint: ^8.4.1
