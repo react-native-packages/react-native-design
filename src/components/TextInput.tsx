@@ -16,15 +16,22 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { IconButton } from './IconButton';
 import { Text } from './Text';
 import { responsive } from '../helpers';
+import { colors } from '../themes/appColors';
 
 interface TextInputProps {
   name: string;
   value?: string;
   label?: string;
-  icon?: ReactNode;
-  iconName?: string;
-  iconSize?: number;
-  iconColor?: ColorValue;
+  leftIcon?: ReactNode;
+  leftIconName?: string;
+  leftIconSize?: number;
+  leftIconColor?: ColorValue;
+  onPressLeftIcon?: () => void;
+  rightIcon?: ReactNode;
+  rightIconName?: string;
+  rightIconSize?: number;
+  rightIconColor?: ColorValue;
+  onPressRightIcon?: () => void;
   autoCapitalize?: Pick<RNTextInputProps, 'autoCapitalize'>['autoCapitalize'];
   multiline?: Pick<RNTextInputProps, 'multiline'>['multiline'];
   numberOfLines?: Pick<RNTextInputProps, 'numberOfLines'>['numberOfLines'];
@@ -78,7 +85,17 @@ const TextInput = forwardRef(function TextInput(
       style={[styles?.inputContainer, props?.inputContainerStyle]}
     >
       {props?.label && (
-        <Text variant="label" style={props?.labelStyle}>
+        <Text
+          variant={
+            !props?.editable
+              ? 'label'
+              : props?.touched && props?.error
+              ? 'error'
+              : 'label'
+          }
+          disabled={!props?.editable}
+          style={props?.labelStyle}
+        >
           {props?.label}
         </Text>
       )}
@@ -88,74 +105,129 @@ const TextInput = forwardRef(function TextInput(
         accessibilityLabel={`${props?.accessibilityLabel}.content`}
         style={styles?.inputIconSection}
       >
-        {props?.icon ||
-          (props?.iconName && (
+        {props?.leftIcon ||
+          (props?.leftIconName && (
             <View
-              testID={`${props?.testID}.iconContainer`}
+              testID={`${props?.testID}.leftIconContainer`}
               accessible={props?.accessible}
-              accessibilityLabel={`${props?.accessibilityLabel}.iconContainer`}
-              style={styles?.iconContainer}
+              accessibilityLabel={`${props?.accessibilityLabel}.leftIconContainer`}
+              style={styles?.leftIconContainer}
             >
-              <FontAwesomeIcon
-                testID={`${props?.testID}.leftIcon`}
-                accessible={props?.accessible}
-                accessibilityLabel={`${props?.accessibilityLabel}.leftIcon`}
-                name={props?.iconName}
-                size={props?.iconSize ?? 24}
-                color={props?.iconColor ?? '#676767'}
-              />
+              <IconButton
+                containerStyle={styles?.iconButtonContainer}
+                onPress={props?.onPressLeftIcon}
+              >
+                <FontAwesomeIcon
+                  testID={`${props?.testID}.leftIcon`}
+                  accessible={props?.accessible}
+                  accessibilityLabel={`${props?.accessibilityLabel}.leftIcon`}
+                  name={props?.leftIconName}
+                  size={props?.leftIconSize ?? 24}
+                  color={
+                    !props?.editable
+                      ? colors?.grey?.light?.main
+                      : props?.touched && props?.error
+                      ? colors?.red?.normal?.main
+                      : props?.leftIconColor ?? '#676767'
+                  }
+                  disabled={!props?.editable}
+                />
+              </IconButton>
             </View>
           ))}
-        <RNTextInput
-          ref={ref}
-          testID={`${props?.testID}.input`}
-          accessible={props?.accessible}
-          accessibilityLabel={`${props?.accessibilityLabel}.input`}
-          secureTextEntry={
-            props?.showPasswordVisibility
-              ? !isPasswordVisible
-              : props?.secureTextEntry
-          }
-          editable={props?.editable}
-          autoCapitalize={props?.autoCapitalize}
-          style={[
-            styles?.inputStyle,
-            props?.inputStyle,
-            props?.editable ?? true
-              ? styles?.editableInput
-              : styles?.uneditableInput,
-          ]}
-          value={props?.value}
-          placeholder={props?.placeholder}
-          placeholderTextColor={props?.placeholderTextColor ?? '#D3D3D3'}
-          onChangeText={onChangeText}
-          onBlur={onBlur}
-          keyboardType={props?.keyboardType ?? 'default'}
-          multiline={props?.multiline}
-          numberOfLines={props?.numberOfLines}
-          maxLength={props?.maxLength}
-          {...props?.textInputProps}
-        />
-        {props?.showPasswordVisibility && (
-          <IconButton
-            testID={`${props?.testID}.rightIconButton`}
+        <View style={styles?.inputContent}>
+          <RNTextInput
+            ref={ref}
+            testID={`${props?.testID}.input`}
             accessible={props?.accessible}
-            accessibilityLabel={`${props?.accessibilityLabel}.righIconButton`}
-            name={isPasswordVisible ? 'eye-off' : 'eye'}
-            size={props?.iconSize ?? 24}
-            onPress={togglePasswordVisibility}
-            containerStyle={styles?.rightIconButtonContainer}
+            accessibilityLabel={`${props?.accessibilityLabel}.input`}
+            secureTextEntry={
+              props?.showPasswordVisibility
+                ? !isPasswordVisible
+                : props?.secureTextEntry
+            }
+            editable={props?.editable}
+            autoCapitalize={props?.autoCapitalize}
+            style={[
+              styles?.inputStyle,
+              props?.showPasswordVisibility
+                ? styles?.passwordInputStyle
+                : undefined,
+              props?.inputStyle,
+              !props?.editable
+                ? styles?.uneditableInput
+                : props?.touched && props?.error
+                ? styles?.errorInput
+                : styles?.editableInput,
+            ]}
+            value={props?.value}
+            placeholder={props?.placeholder}
+            placeholderTextColor={props?.placeholderTextColor ?? '#D3D3D3'}
+            onChangeText={onChangeText}
+            onBlur={onBlur}
+            keyboardType={props?.keyboardType ?? 'default'}
+            multiline={props?.multiline}
+            numberOfLines={props?.numberOfLines}
+            maxLength={props?.maxLength}
+            {...props?.textInputProps}
           />
-        )}
+          {props?.showPasswordVisibility && (
+            <IconButton
+              testID={`${props?.testID}.rightIconButton`}
+              accessible={props?.accessible}
+              accessibilityLabel={`${props?.accessibilityLabel}.righIconButton`}
+              name={isPasswordVisible ? 'eye-off' : 'eye'}
+              size={props?.leftIconSize ?? 24}
+              onPress={togglePasswordVisibility}
+              containerStyle={styles?.passwordVisibilityContainer}
+              disabled={!props?.editable}
+              color={
+                props?.touched && props?.error
+                  ? colors?.red?.normal?.main
+                  : undefined
+              }
+            />
+          )}
+        </View>
+        {props?.rightIcon ||
+          (props?.rightIconName && (
+            <View
+              testID={`${props?.testID}.rightIconContainer`}
+              accessible={props?.accessible}
+              accessibilityLabel={`${props?.accessibilityLabel}.rightIconContainer`}
+              style={styles?.rightIconContainer}
+            >
+              <IconButton
+                containerStyle={styles?.iconButtonContainer}
+                onPress={props?.onPressRightIcon}
+              >
+                <FontAwesomeIcon
+                  testID={`${props?.testID}.rightIcon`}
+                  accessible={props?.accessible}
+                  accessibilityLabel={`${props?.accessibilityLabel}.rightIcon`}
+                  name={props?.rightIconName}
+                  size={props?.rightIconSize ?? 24}
+                  color={
+                    !props?.editable
+                      ? colors?.grey?.light?.main
+                      : props?.touched && props?.error
+                      ? colors?.red?.normal?.main
+                      : props?.rightIconColor ?? '#676767'
+                  }
+                  disabled={!props?.editable}
+                />
+              </IconButton>
+            </View>
+          ))}
       </View>
-      {props?.touched && props?.error && (
+      {props?.editable && props?.touched && props?.error && (
         <Text
           variant="error"
           testID={`${props?.testID}.errorText`}
           accessible={props?.accessible}
           accessibilityLabel={`${props?.accessibilityLabel}.errorText`}
         >
-          {props?.touched && props?.error}
+          {props?.error}
         </Text>
       )}
     </View>
@@ -164,45 +236,63 @@ const TextInput = forwardRef(function TextInput(
 
 const styles = StyleSheet.create({
   errorText: {
-    color: '#FF9494',
-    fontSize: 14,
+    color: colors?.monaLisa?.normal?.main,
+    fontSize: responsive.size(14),
   },
   inputContainer: {
     rowGap: 15,
   },
   labelStyle: {
-    fontWeight: '500',
+    color: colors?.black?.normal?.main,
     fontSize: 16,
-    color: '#000000',
+    fontWeight: '500',
   },
-  inputStyle: {
+  inputContent: {
     flex: 1,
-    width: '100%',
-    margin: 5,
-    fontWeight: '400',
-    borderBottomWidth: 0.5,
-    paddingLeft: 10,
-    paddingBottom: 5,
-    color: '#000000',
     height: responsive.height(30),
   },
-  iconContainer: {
+  inputStyle: {
+    borderBottomWidth: 0.5,
+    color: colors?.black?.normal?.main,
+    flex: 1,
+    fontWeight: '400',
+    paddingLeft: responsive.size(5),
+    width: '100%',
+  },
+  passwordInputStyle: {
+    paddingRight: responsive.size(25),
+  },
+  leftIconContainer: {
     paddingRight: responsive.size(5),
   },
+  rightIconContainer: {
+    paddingLeft: responsive.size(10),
+  },
   inputIconSection: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    position: 'relative',
   },
-  rightIconButtonContainer: {
+  passwordVisibilityContainer: {
+    bottom: responsive.size(3),
+    padding: 0,
     position: 'absolute',
     right: 0,
   },
   editableInput: {
-    color: '#000000',
+    color: colors?.black?.normal?.main,
   },
   uneditableInput: {
-    color: '#D3D3D3',
+    borderColor: colors?.grey?.light?.main,
+    color: colors?.grey?.light?.main,
+  },
+  errorInput: {
+    borderColor: colors?.red?.normal?.main,
+    color: colors?.red?.normal?.main,
+  },
+  iconButtonContainer: {
+    padding: 0,
   },
 });
 
