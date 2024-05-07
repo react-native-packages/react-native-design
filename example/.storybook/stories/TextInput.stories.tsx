@@ -75,7 +75,7 @@ export const Normal: Story = {
     name: 'name',
     placeholder: 'Enter your name',
     label: 'Name',
-    iconName: 'user',
+    leftIconName: 'user',
   },
 };
 
@@ -84,7 +84,19 @@ export const Password: Story = {
     name: 'password',
     placeholder: 'Enter your password',
     label: 'Password',
-    iconName: 'key',
+    leftIconName: 'key',
+    showPasswordVisibility: true,
+  },
+};
+
+export const Error: Story = {
+  args: {
+    name: 'email',
+    placeholder: 'Enter your email',
+    label: 'Email',
+    leftIconName: 'envelope',
+    error: 'Please enter valid email',
+    touched: true,
     showPasswordVisibility: true,
   },
 };
