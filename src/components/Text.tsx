@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-unused-styles */
 import React, { type ReactNode } from 'react';
 import {
   Text as RNText,
@@ -7,6 +8,7 @@ import {
 } from 'react-native';
 
 import { responsive } from './../helpers';
+import { colors } from '../themes/appColors';
 
 type TextVariant = 'title' | 'text' | 'label' | 'error' | 'button';
 
@@ -18,6 +20,7 @@ interface TextProps {
   testID?: string;
   accessible?: boolean;
   accessibilityLabel?: string;
+  disabled?: boolean;
 }
 
 function Text(props: TextProps) {
@@ -28,11 +31,12 @@ function Text(props: TextProps) {
       accessibilityLabel={props?.accessibilityLabel}
       style={[
         textStyles?.common,
-        textStyles?.text,
         textStyles[props?.variant ?? 'text'],
+        props?.disabled ? textStyles?.disabled : undefined,
         props?.style,
       ]}
       numberOfLines={props?.numberOfLines}
+      disabled={props?.disabled}
     >
       {props?.children}
     </RNText>
@@ -41,7 +45,7 @@ function Text(props: TextProps) {
 
 const textStyles = StyleSheet.create({
   common: {
-    color: '#000',
+    color: colors?.black?.normal?.main,
   },
   text: {},
   title: {
@@ -49,19 +53,22 @@ const textStyles = StyleSheet.create({
     fontWeight: 'bold',
   },
   label: {
-    color: 'black',
+    color: colors?.black?.normal?.main,
     fontSize: responsive.size(15),
     fontWeight: '500',
   },
   error: {
-    color: '#FF9494',
+    color: colors?.monaLisa?.normal?.main,
     fontSize: responsive.size(14),
   },
   button: {
-    fontWeight: 'bold',
     fontSize: responsive.size(20),
+    fontWeight: 'bold',
     includeFontPadding: false,
     lineHeight: responsive.height(25),
+  },
+  disabled: {
+    color: colors?.grey?.light?.main,
   },
 });
 
