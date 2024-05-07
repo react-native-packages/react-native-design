@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { type PropsWithChildren } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import type { ViewStyle, ColorValue, StyleProp } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { responsive } from '../helpers';
+import { colors } from '../themes/appColors';
 
 interface IconButtonProps {
-  icon?: React.ReactNode;
   name?: string;
   size?: number;
   color?: number | ColorValue;
@@ -16,7 +17,7 @@ interface IconButtonProps {
   accessibilityLabel?: string;
 }
 
-function IconButton(props: IconButtonProps) {
+function IconButton(props: PropsWithChildren<IconButtonProps>) {
   function onPress() {
     if (props?.onPress) {
       props?.onPress();
@@ -32,21 +33,25 @@ function IconButton(props: IconButtonProps) {
       style={[iconButtonStyles?.container, props?.containerStyle]}
       disabled={props?.disabled}
     >
-      {props?.icon}
-      {props?.name && (
-        <MaterialCommunityIcons
-          name={props?.name}
-          size={props?.size ?? 24}
-          color={props?.disabled ? '#D3D3D3' : props?.color ?? '#676767'}
-        />
-      )}
+      {props?.children ??
+        (props?.name && (
+          <MaterialCommunityIcons
+            name={props?.name}
+            size={props?.size ?? 24}
+            color={
+              props?.disabled
+                ? colors?.grey?.light?.main
+                : props?.color ?? colors?.grey?.granite?.main
+            }
+          />
+        ))}
     </TouchableOpacity>
   );
 }
 
 const iconButtonStyles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: responsive.size(5),
   },
 });
 
