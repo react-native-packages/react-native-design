@@ -9,8 +9,17 @@ const appColors = {
 const colors = {
   white: { normal: { main: '#fff' } },
   black: { normal: { main: '#000', shadow: 'rgba(0, 0, 0, 0.2)' } },
-  red: { normal: { main: 'red', shadow: 'rgba(255, 0, 0, 0.2)' } },
-  grey: { normal: { main: '#808080' } },
+  red: {
+    normal: {
+      main: '#FF3333',
+      shadow: 'rgba(255, 0, 0, 0.2)',
+    },
+  },
+  grey: {
+    normal: { main: '#808080' },
+    light: { main: '#D3D3D3' },
+    granite: { main: '#676767' },
+  },
   green: { normal: { main: 'green' } },
   blue: {
     normal: { main: '#0000FF' },
@@ -22,6 +31,7 @@ const colors = {
   yellow: {
     normal: { main: 'rgb(255, 255, 0)', shadow: 'rgba(255, 255, 0, 0.1)' },
   },
+  monaLisa: { normal: { main: '#FF9494' } },
 };
 
 export { appColors, colors };
