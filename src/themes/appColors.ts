@@ -4,6 +4,7 @@ const appColors = {
   placeholder: '#99b3c3',
   border: '#f1f1f1',
   shadow: 'rgba(0,0,0,.2)',
+  transparent: 'transparent',
 };
 
 const colors = {
@@ -19,6 +20,7 @@ const colors = {
     normal: { main: '#808080' },
     light: { main: '#D3D3D3' },
     granite: { main: '#676767' },
+    dark: { main: '#A9A9A9' },
   },
   green: { normal: { main: 'green' } },
   blue: {
