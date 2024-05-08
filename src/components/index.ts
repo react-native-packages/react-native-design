@@ -5,3 +5,4 @@ export * from './Banner';
 export * from './Card';
 
 export * from './loaders';
+export * from './icons';
