@@ -49,7 +49,7 @@ const textStyles = StyleSheet.create({
   },
   text: {},
   title: {
-    fontSize: 20,
+    fontSize: responsive.size(20),
     fontWeight: 'bold',
   },
   label: {
@@ -62,7 +62,7 @@ const textStyles = StyleSheet.create({
     fontSize: responsive.size(14),
   },
   button: {
-    fontSize: responsive.size(20),
+    fontSize: responsive.size(18),
     fontWeight: 'bold',
     includeFontPadding: false,
     lineHeight: responsive.height(25),
