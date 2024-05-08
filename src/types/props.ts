@@ -4,4 +4,6 @@ interface TestProps {
   accessibilityLabel?: string;
 }
 
-export type { TestProps };
+type SpinnerSize = 'small' | 'large';
+
+export type { TestProps, SpinnerSize };
