@@ -10,6 +10,8 @@ type ButtonVariant = 'contained' | 'outlined' | 'text';
 
 type ButtonLoadingPosition = 'left' | 'right';
 
+type ModalAnimationType = 'fade' | 'none' | 'slide';
+
 type DividerOrientation = 'horizontal' | 'vertical';
 
 export type {
@@ -17,5 +19,6 @@ export type {
   SpinnerSize,
   ButtonVariant,
   ButtonLoadingPosition,
+  ModalAnimationType,
   DividerOrientation,
 };
