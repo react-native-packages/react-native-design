@@ -4,10 +4,18 @@ interface TestProps {
   accessibilityLabel?: string;
 }
 
-type ButtonVariant = 'contained' | 'outlined' | 'text';
-
 type SpinnerSize = 'small' | 'large';
+
+type ButtonVariant = 'contained' | 'outlined' | 'text';
 
 type ButtonLoadingPosition = 'left' | 'right';
 
-export type { TestProps, SpinnerSize, ButtonVariant, ButtonLoadingPosition };
+type DividerOrientation = 'horizontal' | 'vertical';
+
+export type {
+  TestProps,
+  SpinnerSize,
+  ButtonVariant,
+  ButtonLoadingPosition,
+  DividerOrientation,
+};

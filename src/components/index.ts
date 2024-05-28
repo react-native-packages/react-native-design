@@ -7,3 +7,4 @@ export * from './Button';
 
 export * from './loaders';
 export * from './icons';
+export * from './dividers';

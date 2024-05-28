@@ -9,7 +9,13 @@ const appColors = {
 
 const colors = {
   white: { normal: { main: '#fff' } },
-  black: { normal: { main: '#000', shadow: 'rgba(0, 0, 0, 0.2)' } },
+  black: {
+    normal: {
+      main: '#000',
+      shadow: 'rgba(0, 0, 0, 0.2)',
+      shadow40: 'rgba(0, 0, 0, 0.4)',
+    },
+  },
   red: {
     normal: {
       main: '#FF3333',
