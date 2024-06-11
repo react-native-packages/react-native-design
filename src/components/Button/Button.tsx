@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     columnGap: responsive.size(10),
     flexDirection: 'row',
+    justifyContent: 'center',
   },
   pressedButton: { opacity: 0.6 },
   notPressedButton: { opacity: 1 },
