@@ -8,17 +8,18 @@ import type {
   NativeSyntheticEvent,
   TextInputFocusEventData,
   StyleProp,
-  TextStyle,
+  TextStyle as RNTextStyle,
   ViewStyle,
 } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 import { IconButton } from './IconButton';
-import { Text } from './Text';
 import { responsive } from '../helpers';
 import { colors } from '../themes/appColors';
+import type { TestProps } from '../types';
+import { FormField } from './FormField';
 
-interface TextInputProps {
+interface TextInputProps extends TestProps {
   name: string;
   value?: string;
   label?: string;
@@ -33,9 +34,9 @@ interface TextInputProps {
   rightIconColor?: ColorValue;
   onPressRightIcon?: () => void;
   autoCapitalize?: Pick<RNTextInputProps, 'autoCapitalize'>['autoCapitalize'];
-  multiline?: Pick<RNTextInputProps, 'multiline'>['multiline'];
-  numberOfLines?: Pick<RNTextInputProps, 'numberOfLines'>['numberOfLines'];
-  maxLength?: Pick<RNTextInputProps, 'maxLength'>['maxLength'];
+  multiline?: boolean;
+  numberOfLines?: number;
+  maxLength?: number;
   placeholder?: string;
   placeholderTextColor?: ColorValue;
   onChangeText?: (text: string) => void;
@@ -43,16 +44,14 @@ interface TextInputProps {
   keyboardType?: KeyboardTypeOptions;
   touched?: boolean;
   error?: string;
-  labelStyle?: StyleProp<TextStyle>;
-  inputStyle?: StyleProp<TextStyle>;
+  labelStyle?: StyleProp<RNTextStyle>;
+  inputStyle?: StyleProp<RNTextStyle>;
   editable?: boolean;
   inputContainerStyle?: StyleProp<ViewStyle>;
   showPasswordVisibility?: boolean;
   secureTextEntry?: boolean;
   textInputProps?: RNTextInputProps;
-  testID?: string;
-  accessible?: boolean;
-  accessibilityLabel?: string;
+  errorStyle?: StyleProp<RNTextStyle>;
 }
 
 const TextInput = forwardRef(function TextInput(
@@ -78,27 +77,15 @@ const TextInput = forwardRef(function TextInput(
   }
 
   return (
-    <View
-      testID={`${props?.testID}.container`}
-      accessible={props?.accessible}
-      accessibilityLabel={`${props?.accessibilityLabel}.container`}
-      style={[styles?.inputContainer, props?.inputContainerStyle]}
+    <FormField
+      label={props?.label}
+      touched={props?.touched}
+      error={props?.error}
+      containerStyle={props?.inputContainerStyle}
+      labelStyle={props?.labelStyle}
+      errorStyle={props?.errorStyle}
+      isDisabled={!props?.editable}
     >
-      {props?.label && (
-        <Text
-          variant={
-            !props?.editable
-              ? 'label'
-              : props?.touched && props?.error
-              ? 'error'
-              : 'label'
-          }
-          disabled={!props?.editable}
-          style={props?.labelStyle}
-        >
-          {props?.label}
-        </Text>
-      )}
       <View
         testID={`${props?.testID}.content`}
         accessible={props?.accessible}
@@ -220,17 +207,7 @@ const TextInput = forwardRef(function TextInput(
             </View>
           ))}
       </View>
-      {props?.editable && props?.touched && props?.error && (
-        <Text
-          variant="error"
-          testID={`${props?.testID}.errorText`}
-          accessible={props?.accessible}
-          accessibilityLabel={`${props?.accessibilityLabel}.errorText`}
-        >
-          {props?.error}
-        </Text>
-      )}
-    </View>
+    </FormField>
   );
 });
 
