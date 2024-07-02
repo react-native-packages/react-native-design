@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import type {
   StyleProp,
   TextStyle as RNTextStyle,
@@ -7,6 +7,7 @@ import type {
 } from 'react-native';
 
 import { Text } from './Text';
+import { responsive } from '../helpers';
 
 interface EmptySearchResultProps {
   text?: string;
@@ -15,11 +16,23 @@ interface EmptySearchResultProps {
 }
 function EmptySearchResult(props: EmptySearchResultProps) {
   return (
-    <View style={props?.containerStyle}>
-      <Text style={props?.textStyle}>{props.text || 'Nothing found'}</Text>
+    <View style={[styles?.container, props?.containerStyle]}>
+      <Text style={[styles?.text, props?.textStyle]}>
+        {props.text || 'Nothing found'}
+      </Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: responsive.size(12),
+    paddingVertical: responsive.height(12),
+  },
+  text: {
+    fontSize: responsive.size(14),
+  },
+});
 
 export type { EmptySearchResultProps };
 export { EmptySearchResult };
