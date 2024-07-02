@@ -24,7 +24,7 @@ const colors = {
   },
   grey: {
     normal: { main: '#808080' },
-    light: { main: '#D3D3D3' },
+    light: { main: '#D3D3D3', shade100: '#ECECEC' },
     granite: { main: '#676767' },
     dark: { main: '#A9A9A9' },
   },

@@ -119,7 +119,7 @@ function AutocompleteDropdown(props: AutocompleteDropdownProps) {
           {
             backgroundColor: props?.isDisabled
               ? colors?.grey?.normal?.main
-              : '#ECECEC',
+              : colors?.grey?.light?.shade100,
             opacity: props?.isDisabled ? 0.4 : 1,
             padding: responsive.size(8),
             borderRadius: 4,
@@ -128,17 +128,11 @@ function AutocompleteDropdown(props: AutocompleteDropdownProps) {
         )}
         suggestionsListContainerStyle={mergeObjects(
           {
-            backgroundColor: '#FFFFFF',
-            // color: appColors?.common?.black,
+            backgroundColor: colors?.white?.normal?.main,
           },
           props?.suggestionsListContainerStyle
         )}
-        suggestionsListTextStyle={mergeObjects(
-          {
-            // color: appColors?.common?.black,
-          },
-          props?.suggestionsListTextStyle
-        )}
+        suggestionsListTextStyle={props?.suggestionsListTextStyle}
         containerStyle={mergeObjects(
           { flexGrow: 1, flexShrink: 1 },
           props?.autocompleteContainerStyle
