@@ -1,1 +1,1 @@
-export * from './ReactNativeDesignProvider';
+export * from './DesignProvider';
