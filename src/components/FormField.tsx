@@ -6,6 +6,7 @@ import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 import type { TestProps } from '../types';
 import { Text } from './Text';
 import { colors } from '../themes';
+import { responsive } from '../helpers';
 
 interface FormFieldProps extends TestProps {
   label?: string;
@@ -66,7 +67,7 @@ function FormField(props: PropsWithChildren<FormFieldProps>) {
 
 const styles = StyleSheet.create({
   container: {
-    rowGap: 15,
+    rowGap: responsive.height(10),
   },
 });
 
