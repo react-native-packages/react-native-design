@@ -2,4 +2,12 @@ function mergeObjects(...data: Array<any>) {
   return Object.assign({}, ...data);
 }
 
-export { mergeObjects };
+function isEmpty(str: any): boolean {
+  return !str || /^\s*$/.test(str);
+}
+
+function isNotEmpty(str: any): boolean {
+  return !isEmpty(str);
+}
+
+export { mergeObjects, isEmpty, isNotEmpty };
