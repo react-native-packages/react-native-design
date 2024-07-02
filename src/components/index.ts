@@ -7,6 +7,7 @@ export * from './Button';
 export * from './Dialog';
 export * from './FormField';
 export * from './EmptySearchResult';
+export * from './AutocompleteDropdown';
 
 export * from './loaders';
 export * from './icons';
