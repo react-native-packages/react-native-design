@@ -10,7 +10,7 @@ npm install react-native-design
 
 ## Required dependencies
 ```sh
-npm i react-native-vector-icons
+npm i react-native-vector-icons @rnpack/utils
 ```
 
 ## Usage
@@ -24,10 +24,10 @@ import { Text } from 'react-native-design';
 
 // ...
 
-<Text 
-    testID="text" 
-    variant="text" 
-    numberOfLines={1} 
+<Text
+    testID="text"
+    variant="text"
+    numberOfLines={1}
     style={styles?.text}
 >
     text
@@ -37,7 +37,7 @@ import { Text } from 'react-native-design';
 ```
 ## Props
 | Prop name                 | Description                                   | type                                                  |
-| ------------------------- | --------------------------------------------- | ----------------------------------------------------- | 
+| ------------------------- | --------------------------------------------- | ----------------------------------------------------- |
 | testID                    | Used for testing                              | string                                                |
 | variant                   | Access different type of text                 | `title` \| `text` \| `label` \| `error` \| `button`   |
 | numberOfLines             | Number of lines for text                      | number                                                |

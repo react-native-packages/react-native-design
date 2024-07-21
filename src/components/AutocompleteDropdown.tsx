@@ -17,12 +17,12 @@ import type {
   TAutocompleteDropdownItem as TRNAutocompleteDropdownItem,
   AutocompleteDropdownProps as RNAutocompleteDropdownProps,
 } from 'react-native-autocomplete-dropdown';
+import { mergeObjects } from '@rnpack/utils';
 
 import type { BaseProps } from '../types';
 import type { TextInputProps } from './TextInput';
 import { FormField } from './FormField';
 import { EmptySearchResult } from './EmptySearchResult';
-import { mergeObjects } from '../utils/operation';
 import { responsive } from '../helpers';
 import { colors } from '../themes';
 import { Feather } from './icons';
@@ -110,33 +110,39 @@ function AutocompleteDropdown(props: AutocompleteDropdownProps) {
               color: colors?.black?.normal?.main,
             },
             props?.placeholderStyle
-          ),
+          ) as RNStyleProp<RNTextStyle>,
           ...props?.textInputProps,
         }}
         renderItem={props?.renderItem}
         rightButtonsContainerStyle={props?.rightButtonsContainerStyle}
-        inputContainerStyle={mergeObjects(
-          {
-            backgroundColor: props?.isDisabled
-              ? colors?.grey?.normal?.main
-              : colors?.grey?.light?.shade100,
-            opacity: props?.isDisabled ? 0.4 : 1,
-            padding: responsive.size(8),
-            borderRadius: 4,
-          },
-          props?.inputContainerStyle
-        )}
-        suggestionsListContainerStyle={mergeObjects(
-          {
-            backgroundColor: colors?.white?.normal?.main,
-          },
-          props?.suggestionsListContainerStyle
-        )}
+        inputContainerStyle={
+          mergeObjects(
+            {
+              backgroundColor: props?.isDisabled
+                ? colors?.grey?.normal?.main
+                : colors?.grey?.light?.shade100,
+              opacity: props?.isDisabled ? 0.4 : 1,
+              padding: responsive.size(8),
+              borderRadius: 4,
+            },
+            props?.inputContainerStyle
+          ) as RNStyleProp<RNViewStyle>
+        }
+        suggestionsListContainerStyle={
+          mergeObjects(
+            {
+              backgroundColor: colors?.white?.normal?.main,
+            },
+            props?.suggestionsListContainerStyle
+          ) as RNStyleProp<RNViewStyle>
+        }
         suggestionsListTextStyle={props?.suggestionsListTextStyle}
-        containerStyle={mergeObjects(
-          { flexGrow: 1, flexShrink: 1 },
-          props?.autocompleteContainerStyle
-        )}
+        containerStyle={
+          mergeObjects(
+            { flexGrow: 1, flexShrink: 1 },
+            props?.autocompleteContainerStyle
+          ) as RNStyleProp<RNViewStyle>
+        }
         ChevronIconComponent={
           props?.chevronIconComponent ?? (
             <Feather name="chevron-down" size={20} color="#000000" />

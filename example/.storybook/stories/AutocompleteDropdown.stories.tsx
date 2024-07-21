@@ -1,11 +1,11 @@
 import React, { useState, type ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { StyleSheet, View } from 'react-native';
+import { isEmpty } from '@rnpack/utils';
 
 import {
   AutocompleteDropdown,
   DesignProvider,
-  isEmpty,
   responsive,
 } from 'react-native-design';
 import type { AutocompleteDropdownProps } from 'react-native-design';
