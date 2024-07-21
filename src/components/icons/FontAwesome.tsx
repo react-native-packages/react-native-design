@@ -1,15 +1,15 @@
 import React from 'react';
-import type { ColorValue } from 'react-native';
+import type { ColorValue as RNColorValue } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
-import type { TestProps } from '../../types/props';
+import type { BaseProps } from '../../types';
 import { responsive } from '../../helpers';
 import { colors } from '../../themes/appColors';
 
-interface FontAwesomeProps extends TestProps {
+interface FontAwesomeProps extends BaseProps {
   name: string;
   size?: number;
-  color?: ColorValue;
+  color?: RNColorValue;
 }
 
 function FontAwesome(props: FontAwesomeProps) {

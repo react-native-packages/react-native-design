@@ -1,15 +1,15 @@
 import React from 'react';
-import type { ColorValue } from 'react-native';
+import type { ColorValue as RNColorValue } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
-import type { TestProps } from '../../types/props';
+import type { BaseProps } from '../../types';
 import { responsive } from '../../helpers';
 import { colors } from '../../themes/appColors';
 
-interface FeatherProps extends TestProps {
+interface FeatherProps extends BaseProps {
   name: string;
   size?: number;
-  color?: ColorValue;
+  color?: RNColorValue;
 }
 
 function Feather(props: FeatherProps) {

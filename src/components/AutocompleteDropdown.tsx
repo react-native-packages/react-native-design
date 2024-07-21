@@ -1,24 +1,24 @@
 import React from 'react';
-import type { ReactElement } from 'react';
-import { Dimensions } from 'react-native';
+import type { ReactElement, MutableRefObject } from 'react';
+import { Dimensions as RNDimensions } from 'react-native';
 import type {
-  StyleProp,
-  ViewStyle,
+  StyleProp as RNStyleProp,
+  ViewStyle as RNViewStyle,
   TextStyle as RNTextStyle,
   TextInputProps as RNTextInputProps,
-  ColorValue,
-  NativeSyntheticEvent,
-  TextInputSubmitEditingEventData,
-  TextInputFocusEventData,
+  ColorValue as RNColorValue,
+  NativeSyntheticEvent as RNNativeSyntheticEvent,
+  TextInputSubmitEditingEventData as RNTextInputSubmitEditingEventData,
+  TextInputFocusEventData as RNTextInputFocusEventData,
 } from 'react-native';
 import { AutocompleteDropdown as RNAutocompleteDropdown } from 'react-native-autocomplete-dropdown';
 import type {
   AutocompleteDropdownRef as RNAutocompleteDropdownRef,
-  TAutocompleteDropdownItem,
+  TAutocompleteDropdownItem as TRNAutocompleteDropdownItem,
   AutocompleteDropdownProps as RNAutocompleteDropdownProps,
 } from 'react-native-autocomplete-dropdown';
 
-import type { TestProps } from '../types';
+import type { BaseProps } from '../types';
 import type { TextInputProps } from './TextInput';
 import { FormField } from './FormField';
 import { EmptySearchResult } from './EmptySearchResult';
@@ -27,36 +27,36 @@ import { responsive } from '../helpers';
 import { colors } from '../themes';
 import { Feather } from './icons';
 
-interface AutocompleteDropdownProps extends TestProps {
+interface AutocompleteDropdownProps extends BaseProps {
   dataSet?: Pick<RNAutocompleteDropdownProps, 'dataSet'>['dataSet'];
-  containerStyle?: StyleProp<ViewStyle>;
+  containerStyle?: RNStyleProp<RNViewStyle>;
   label?: string;
-  labelStyle?: StyleProp<RNTextStyle>;
+  labelStyle?: RNStyleProp<RNTextStyle>;
   touched?: boolean;
   error?: string;
-  errorStyle?: StyleProp<RNTextStyle>;
+  errorStyle?: RNStyleProp<RNTextStyle>;
   placeholder?: string;
-  placeholderStyle?: StyleProp<RNTextStyle>;
-  placeholderTextColor?: ColorValue;
+  placeholderStyle?: RNStyleProp<RNTextStyle>;
+  placeholderTextColor?: RNColorValue;
   initialValue?: string | object;
-  rightButtonsContainerStyle?: StyleProp<ViewStyle>;
-  inputContainerStyle?: StyleProp<ViewStyle>;
-  suggestionsListContainerStyle?: StyleProp<ViewStyle>;
-  autocompleteContainerStyle?: StyleProp<ViewStyle>;
+  rightButtonsContainerStyle?: RNStyleProp<RNViewStyle>;
+  inputContainerStyle?: RNStyleProp<RNViewStyle>;
+  suggestionsListContainerStyle?: RNStyleProp<RNViewStyle>;
+  autocompleteContainerStyle?: RNStyleProp<RNViewStyle>;
   chevronIconComponent?: ReactElement;
   clearIconComponent?: ReactElement;
   renderItem?: Pick<RNAutocompleteDropdownProps, 'renderItem'>['renderItem'];
   emptyResultComponent?: ReactElement;
-  suggestionsListTextStyle?: StyleProp<RNTextStyle>;
+  suggestionsListTextStyle?: RNStyleProp<RNTextStyle>;
   emptyResultText?: string;
   onChangeText?: (text: string) => void;
-  onSelectItem?: (item: TAutocompleteDropdownItem) => void;
+  onSelectItem?: (item: TRNAutocompleteDropdownItem) => void;
   onClearPress?: () => void;
   onSubmitSearch?: (
-    e: NativeSyntheticEvent<TextInputSubmitEditingEventData>
+    e: RNNativeSyntheticEvent<RNTextInputSubmitEditingEventData>
   ) => void;
   onOpenSuggestionsList?: (isOpened: boolean) => void;
-  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onBlur?: (e: RNNativeSyntheticEvent<RNTextInputFocusEventData>) => void;
   showChevron?: boolean;
   closeOnBlur?: boolean;
   clearOnFocus?: boolean;
@@ -65,7 +65,7 @@ interface AutocompleteDropdownProps extends TestProps {
   autoCapitalize?: Pick<TextInputProps, 'autoCapitalize'>['autoCapitalize'];
   isLoading?: boolean;
   useFilter?: boolean;
-  dropdownControllerRef?: React.MutableRefObject<
+  dropdownControllerRef?: MutableRefObject<
     RNAutocompleteDropdownRef | undefined
   >;
   textInputProps?: RNTextInputProps;
@@ -93,7 +93,7 @@ function AutocompleteDropdown(props: AutocompleteDropdownProps) {
         onChangeText={props?.onChangeText}
         onSelectItem={props?.onSelectItem}
         debounce={600}
-        suggestionsListMaxHeight={Dimensions.get('window').height * 0.4}
+        suggestionsListMaxHeight={RNDimensions.get('window').height * 0.4}
         onClear={props?.onClearPress}
         onSubmit={props?.onSubmitSearch}
         onOpenSuggestionsList={props?.onOpenSuggestionsList}

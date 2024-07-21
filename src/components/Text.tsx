@@ -1,31 +1,21 @@
 /* eslint-disable react-native/no-unused-styles */
-import React, { type ReactNode } from 'react';
-import {
-  Text as RNText,
-  StyleSheet,
-  type StyleProp,
-  type TextStyle as RNTextStyle,
-} from 'react-native';
+import React from 'react';
+import { Text as RNText, StyleSheet as RNStyleSheet } from 'react-native';
+import type { TextProps as RNTextProps } from 'react-native';
 
 import { responsive } from './../helpers';
 import { colors } from '../themes/appColors';
 
 type TextVariant = 'title' | 'text' | 'label' | 'error' | 'button';
 
-interface TextProps {
+interface TextProps extends RNTextProps {
   variant?: TextVariant;
-  style?: StyleProp<RNTextStyle>;
-  numberOfLines?: number;
-  children?: ReactNode;
-  testID?: string;
-  accessible?: boolean;
-  accessibilityLabel?: string;
-  disabled?: boolean;
 }
 
 function Text(props: TextProps) {
   return (
     <RNText
+      {...props}
       testID={props?.testID}
       accessible={props?.accessible}
       accessibilityLabel={props?.accessibilityLabel}
@@ -43,7 +33,7 @@ function Text(props: TextProps) {
   );
 }
 
-const textStyles = StyleSheet.create({
+const textStyles = RNStyleSheet.create({
   common: {
     color: colors?.black?.normal?.main,
   },

@@ -1,11 +1,12 @@
 /* eslint-disable react-native/no-unused-styles */
 import React from 'react';
 import type { PropsWithChildren } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet as RNStyleSheet, View as RNView } from 'react-native';
 import type {
-  StyleProp,
+  StyleProp as RNStyleProp,
   TextStyle as RNTextStyle,
-  ViewStyle,
+  ViewStyle as RNViewStyle,
+  ColorValue as RNColorValue,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -13,34 +14,30 @@ import { Text } from './Text';
 import type { TextVariant } from './Text';
 import { colors } from '../themes/appColors';
 import { responsive } from '../helpers';
-import type { ColorValue } from 'react-native';
+import type { BaseProps } from '../types';
 
 type BannerVariant = 'default' | 'warn' | 'info' | 'error';
 
-interface BannerProps {
+interface BannerProps extends BaseProps {
   variant?: BannerVariant;
   content?: string;
   textVariant?: TextVariant;
-  textStyle?: StyleProp<RNTextStyle>;
-  containerStyle?: StyleProp<ViewStyle>;
+  textStyle?: RNStyleProp<RNTextStyle>;
+  containerStyle?: RNStyleProp<RNViewStyle>;
   hideIcon?: boolean;
   iconSize?: number;
-  iconColor?: ColorValue;
+  iconColor?: RNColorValue;
   icon?: React.ReactNode;
-  testID?: string;
-  accessible?: boolean;
-  accessibilityLabel?: string;
 }
 
-function getBannerIcon(args: {
+interface GetBannerIconArgs extends BaseProps {
   variant: BannerVariant;
   size?: number;
-  color?: ColorValue;
-  style?: StyleProp<RNTextStyle>;
-  testID?: string;
-  accessible?: boolean;
-  accessibilityLabel?: string;
-}) {
+  color?: RNColorValue;
+  style?: RNStyleProp<RNTextStyle>;
+}
+
+function getBannerIcon(args: GetBannerIconArgs) {
   switch (args?.variant) {
     case 'default':
       return <></>;
@@ -82,7 +79,7 @@ function getBannerIcon(args: {
 
 function Banner(props: PropsWithChildren<BannerProps>) {
   return (
-    <View
+    <RNView
       testID={`${props?.testID}.container`}
       accessible={props?.accessible}
       accessibilityLabel={`${props?.accessibilityLabel}.container`}
@@ -93,7 +90,7 @@ function Banner(props: PropsWithChildren<BannerProps>) {
       ]}
     >
       {props?.content && (
-        <View
+        <RNView
           testID={`${props?.testID}.content`}
           accessible={props?.accessible}
           accessibilityLabel={`${props?.accessibilityLabel}.content`}
@@ -121,14 +118,14 @@ function Banner(props: PropsWithChildren<BannerProps>) {
           >
             {props?.content}
           </Text>
-        </View>
+        </RNView>
       )}
       {props?.children}
-    </View>
+    </RNView>
   );
 }
 
-const styles = StyleSheet.create({
+const styles = RNStyleSheet.create({
   container: {
     borderRadius: 10,
     borderStyle: 'solid',

@@ -1,15 +1,15 @@
 import React from 'react';
-import type { ColorValue } from 'react-native';
+import type { ColorValue as RNColorValue } from 'react-native';
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 
-import type { TestProps } from '../../types/props';
+import type { BaseProps } from '../../types';
 import { responsive } from '../../helpers';
 import { colors } from '../../themes/appColors';
 
-interface IoniconsProps extends TestProps {
+interface IoniconsProps extends BaseProps {
   name: string;
   size?: number;
-  color?: ColorValue;
+  color?: RNColorValue;
 }
 
 function Ionicons(props: IoniconsProps) {

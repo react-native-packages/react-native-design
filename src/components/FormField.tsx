@@ -1,26 +1,30 @@
 import React from 'react';
 import type { PropsWithChildren } from 'react';
-import { View, StyleSheet } from 'react-native';
-import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { View as RNView, StyleSheet as RNStyleSheet } from 'react-native';
+import type {
+  StyleProp as RNStyleProp,
+  TextStyle as RNTextStyle,
+  ViewStyle as RNViewStyle,
+} from 'react-native';
 
-import type { TestProps } from '../types';
+import type { BaseProps } from '../types';
 import { Text } from './Text';
 import { colors } from '../themes';
 import { responsive } from '../helpers';
 
-interface FormFieldProps extends TestProps {
+interface FormFieldProps extends BaseProps {
   label?: string;
   touched?: boolean;
   error?: string;
-  containerStyle?: StyleProp<ViewStyle>;
-  labelStyle?: StyleProp<TextStyle>;
-  errorStyle?: StyleProp<TextStyle>;
+  containerStyle?: RNStyleProp<RNViewStyle>;
+  labelStyle?: RNStyleProp<RNTextStyle>;
+  errorStyle?: RNStyleProp<RNTextStyle>;
   isDisabled?: boolean;
 }
 
 function FormField(props: PropsWithChildren<FormFieldProps>) {
   return (
-    <View
+    <RNView
       testID={`${props?.testID}.container`}
       accessible={props?.accessible}
       accessibilityLabel={`${props?.accessibilityLabel}.container`}
@@ -61,11 +65,11 @@ function FormField(props: PropsWithChildren<FormFieldProps>) {
           {props?.error}
         </Text>
       )}
-    </View>
+    </RNView>
   );
 }
 
-const styles = StyleSheet.create({
+const styles = RNStyleSheet.create({
   container: {
     rowGap: responsive.height(10),
   },

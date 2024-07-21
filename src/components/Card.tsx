@@ -1,15 +1,22 @@
 import React from 'react';
 import type { PropsWithChildren } from 'react';
-import { View, StyleSheet, Pressable } from 'react-native';
-import type { StyleProp, ViewStyle } from 'react-native';
+import {
+  View as RNView,
+  StyleSheet as RNStyleSheet,
+  Pressable as RNPressable,
+} from 'react-native';
+import type {
+  StyleProp as RNStyleProp,
+  ViewStyle as RNViewStyle,
+} from 'react-native';
 
 import { responsive } from '../helpers';
 import { colors } from '../themes/appColors';
-import type { TestProps } from '../types/props';
+import type { BaseProps } from '../types';
 
-interface CardProps extends TestProps {
-  containerStyle?: StyleProp<ViewStyle>;
-  contentStyle?: StyleProp<ViewStyle>;
+interface CardProps extends BaseProps {
+  containerStyle?: RNStyleProp<RNViewStyle>;
+  contentStyle?: RNStyleProp<RNViewStyle>;
   onPress?: () => void;
   disabled?: boolean;
 }
@@ -23,7 +30,7 @@ function Card(props: PropsWithChildren<CardProps>) {
 
   return (
     <React.Fragment>
-      <Pressable
+      <RNPressable
         testID={`${props?.testID}.container`}
         accessible={props?.accessible}
         accessibilityLabel={`${props?.accessibilityLabel}.container`}
@@ -31,20 +38,20 @@ function Card(props: PropsWithChildren<CardProps>) {
         onPress={onPress}
         style={props?.containerStyle}
       >
-        <View
+        <RNView
           testID={`${props?.testID}.content`}
           accessible={props?.accessible}
           accessibilityLabel={`${props?.accessibilityLabel}.content`}
           style={[styles?.content, styles?.boxShadow, props?.contentStyle]}
         >
           {props?.children}
-        </View>
-      </Pressable>
+        </RNView>
+      </RNPressable>
     </React.Fragment>
   );
 }
 
-const styles = StyleSheet.create({
+const styles = RNStyleSheet.create({
   content: {
     backgroundColor: colors?.white?.normal?.main,
     elevation: 5,

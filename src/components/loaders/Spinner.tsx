@@ -1,21 +1,21 @@
-import React from 'react';
-import { ActivityIndicator } from 'react-native';
-import type { ColorValue } from 'react-native';
+import React, { Fragment } from 'react';
+import { ActivityIndicator as RNActivityIndicator } from 'react-native';
+import type { ColorValue as RNColorValue } from 'react-native';
 
 import { appColors } from '../../themes/appColors';
-import type { SpinnerSize, TestProps } from '../../types/props';
+import type { SpinnerSize, BaseProps } from '../../types';
 
-interface SpinnerProps extends TestProps {
+interface SpinnerProps extends BaseProps {
   isVisible?: boolean;
   size?: SpinnerSize;
-  color?: ColorValue;
+  color?: RNColorValue;
 }
 
 function Spinner(props: SpinnerProps) {
   return (
-    <React.Fragment>
+    <Fragment>
       {props?.isVisible && (
-        <ActivityIndicator
+        <RNActivityIndicator
           testID={props?.testID}
           accessible={props?.accessible}
           accessibilityLabel={props?.accessibilityLabel}
@@ -23,7 +23,7 @@ function Spinner(props: SpinnerProps) {
           color={props?.color ?? appColors?.primary}
         />
       )}
-    </React.Fragment>
+    </Fragment>
   );
 }
 

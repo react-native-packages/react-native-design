@@ -1,23 +1,27 @@
 import React from 'react';
-import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet as RNStyleSheet, View as RNView } from 'react-native';
+import type {
+  StyleProp as RNStyleProp,
+  TextStyle as RNTextStyle,
+  ViewStyle as RNViewStyle,
+} from 'react-native';
 
-import type { TestProps } from '../../types/props';
+import type { BaseProps } from '../../types';
 import { Divider } from './Divider';
 import { Text } from '../Text';
 import { responsive } from '../../helpers';
 
-interface DividerWithTextProps extends TestProps {
+interface DividerWithTextProps extends BaseProps {
   text: React.ReactNode;
-  containerStyle?: StyleProp<ViewStyle>;
-  textStyle?: StyleProp<TextStyle>;
-  startDividerStyle?: StyleProp<ViewStyle>;
-  endDividerStyle?: StyleProp<ViewStyle>;
+  containerStyle?: RNStyleProp<RNViewStyle>;
+  textStyle?: RNStyleProp<RNTextStyle>;
+  startDividerStyle?: RNStyleProp<RNViewStyle>;
+  endDividerStyle?: RNStyleProp<RNViewStyle>;
 }
 
 function DividerWithText(props: DividerWithTextProps) {
   return (
-    <View
+    <RNView
       testID={`${props?.testID}.container`}
       accessible={props?.accessible}
       accessibilityLabel={`${props?.accessibilityLabel}.container`}
@@ -43,11 +47,11 @@ function DividerWithText(props: DividerWithTextProps) {
         accessibilityLabel={`${props?.accessibilityLabel}.divider.end`}
         lineStyle={[styles?.dividerLine, props?.endDividerStyle]}
       />
-    </View>
+    </RNView>
   );
 }
 
-const styles = StyleSheet.create({
+const styles = RNStyleSheet.create({
   container: {
     alignItems: 'center',
     columnGap: responsive.size(10),

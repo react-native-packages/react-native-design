@@ -1,13 +1,22 @@
 import React from 'react';
 import type { PropsWithChildren, ReactNode } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
-import type { StyleProp, TextStyle, ViewStyle, ColorValue } from 'react-native';
+import {
+  Pressable as RNPressable,
+  StyleSheet as RNStyleSheet,
+  View as RNView,
+} from 'react-native';
+import type {
+  StyleProp as RNStyleProp,
+  TextStyle as RNTextStyle,
+  ViewStyle as RNViewStyle,
+  ColorValue as RNColorValue,
+} from 'react-native';
 
 import type {
+  BaseProps,
   ButtonLoadingPosition,
   ButtonVariant,
-  TestProps,
-} from '../../types/props';
+} from '../../types';
 import { Text } from '../Text';
 import { responsive } from '../../helpers';
 import {
@@ -17,10 +26,10 @@ import {
 } from '../../utils';
 import { ButtonAddon } from './ButtonAddon';
 
-interface ButtonProps extends TestProps {
+interface ButtonProps extends BaseProps {
   onPress?: () => void;
-  containerStyle?: StyleProp<ViewStyle>;
-  contentStyle?: StyleProp<ViewStyle>;
+  containerStyle?: RNStyleProp<RNViewStyle>;
+  contentStyle?: RNStyleProp<RNViewStyle>;
   title?: string;
   leftIcon?: ReactNode;
   leftIconName?: string;
@@ -32,16 +41,16 @@ interface ButtonProps extends TestProps {
   rightIconSize?: number;
   disabled?: boolean;
   variant?: ButtonVariant;
-  titleStyle?: StyleProp<TextStyle>;
+  titleStyle?: RNStyleProp<RNTextStyle>;
   isLoading?: boolean;
   loadingPosition?: ButtonLoadingPosition;
-  loaderColor?: ColorValue;
+  loaderColor?: RNColorValue;
 }
 
 function Button(props: PropsWithChildren<ButtonProps>) {
   const variantProp: ButtonVariant = props?.variant ?? 'contained';
   return (
-    <Pressable
+    <RNPressable
       testID={`${props?.testID}.container`}
       accessible={props?.accessible}
       accessibilityLabel={`${props?.accessibilityLabel}.container`}
@@ -63,7 +72,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
         props?.containerStyle,
       ]}
     >
-      <View
+      <RNView
         testID={`${props?.testID}.content`}
         accessible={props?.accessible}
         accessibilityLabel={`${props?.accessibilityLabel}.content`}
@@ -129,12 +138,12 @@ function Button(props: PropsWithChildren<ButtonProps>) {
             color: props?.rightIconColor,
           })}
         />
-      </View>
-    </Pressable>
+      </RNView>
+    </RNPressable>
   );
 }
 
-const styles = StyleSheet.create({
+const styles = RNStyleSheet.create({
   container: {
     paddingHorizontal: responsive.size(15),
     paddingVertical: responsive.height(10),

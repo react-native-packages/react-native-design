@@ -1,20 +1,24 @@
 import React from 'react';
-import type { ColorValue, StyleProp, ViewStyle } from 'react-native';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet as RNStyleSheet, View as RNView } from 'react-native';
+import type {
+  ColorValue as RNColorValue,
+  StyleProp as RNStyleProp,
+  ViewStyle as RNViewStyle,
+} from 'react-native';
 
 import { colors } from '../../themes/appColors';
 import { responsive } from '../../helpers';
-import type { DividerOrientation, TestProps } from '../../types/props';
+import type { BaseProps, DividerOrientation } from '../../types';
 
-interface DividerProps extends TestProps {
-  lineStyle?: StyleProp<ViewStyle>;
-  color?: ColorValue;
+interface DividerProps extends BaseProps {
+  lineStyle?: RNStyleProp<RNViewStyle>;
+  color?: RNColorValue;
   orientation?: DividerOrientation;
 }
 
 function Divider(props: DividerProps) {
   return (
-    <View
+    <RNView
       testID={props?.testID}
       accessible={props?.accessible}
       accessibilityLabel={props?.accessibilityLabel}
@@ -31,7 +35,7 @@ function Divider(props: DividerProps) {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = RNStyleSheet.create({
   /* eslint-disable react-native/no-unused-styles */
   horizontal: {
     borderBottomColor: colors?.black?.normal?.main,

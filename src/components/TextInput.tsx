@@ -1,57 +1,61 @@
 import React, { forwardRef, useState } from 'react';
 import type { ReactNode, Ref } from 'react';
-import { View, TextInput as RNTextInput, StyleSheet } from 'react-native';
+import {
+  View as RNView,
+  TextInput as RNTextInput,
+  StyleSheet as RNStyleSheet,
+} from 'react-native';
 import type {
   TextInputProps as RNTextInputProps,
-  ColorValue,
-  KeyboardTypeOptions,
-  NativeSyntheticEvent,
-  TextInputFocusEventData,
-  StyleProp,
+  ColorValue as RNColorValue,
+  KeyboardTypeOptions as RNKeyboardTypeOptions,
+  NativeSyntheticEvent as RNNativeSyntheticEvent,
+  TextInputFocusEventData as RNTextInputFocusEventData,
+  StyleProp as RNStyleProp,
   TextStyle as RNTextStyle,
-  ViewStyle,
+  ViewStyle as RNViewStyle,
 } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 import { IconButton } from './IconButton';
 import { responsive } from '../helpers';
 import { colors } from '../themes/appColors';
-import type { TestProps } from '../types';
+import type { BaseProps } from '../types';
 import { FormField } from './FormField';
 
-interface TextInputProps extends TestProps {
+interface TextInputProps extends BaseProps {
   name: string;
   value?: string;
   label?: string;
   leftIcon?: ReactNode;
   leftIconName?: string;
   leftIconSize?: number;
-  leftIconColor?: ColorValue;
+  leftIconColor?: RNColorValue;
   onPressLeftIcon?: () => void;
   rightIcon?: ReactNode;
   rightIconName?: string;
   rightIconSize?: number;
-  rightIconColor?: ColorValue;
+  rightIconColor?: RNColorValue;
   onPressRightIcon?: () => void;
   autoCapitalize?: Pick<RNTextInputProps, 'autoCapitalize'>['autoCapitalize'];
   multiline?: boolean;
   numberOfLines?: number;
   maxLength?: number;
   placeholder?: string;
-  placeholderTextColor?: ColorValue;
+  placeholderTextColor?: RNColorValue;
   onChangeText?: (text: string) => void;
-  onBlur?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-  keyboardType?: KeyboardTypeOptions;
+  onBlur?: (event: RNNativeSyntheticEvent<RNTextInputFocusEventData>) => void;
+  keyboardType?: RNKeyboardTypeOptions;
   touched?: boolean;
   error?: string;
-  labelStyle?: StyleProp<RNTextStyle>;
-  inputStyle?: StyleProp<RNTextStyle>;
+  labelStyle?: RNStyleProp<RNTextStyle>;
+  inputStyle?: RNStyleProp<RNTextStyle>;
   editable?: boolean;
-  inputContainerStyle?: StyleProp<ViewStyle>;
+  inputContainerStyle?: RNStyleProp<RNViewStyle>;
   showPasswordVisibility?: boolean;
   secureTextEntry?: boolean;
   textInputProps?: RNTextInputProps;
-  errorStyle?: StyleProp<RNTextStyle>;
+  errorStyle?: RNStyleProp<RNTextStyle>;
 }
 
 const TextInput = forwardRef(function TextInput(
@@ -66,7 +70,7 @@ const TextInput = forwardRef(function TextInput(
     }
   }
 
-  function onBlur(event: NativeSyntheticEvent<TextInputFocusEventData>) {
+  function onBlur(event: RNNativeSyntheticEvent<RNTextInputFocusEventData>) {
     if (props?.onBlur) {
       props?.onBlur(event);
     }
@@ -86,7 +90,7 @@ const TextInput = forwardRef(function TextInput(
       errorStyle={props?.errorStyle}
       isDisabled={!props?.editable}
     >
-      <View
+      <RNView
         testID={`${props?.testID}.content`}
         accessible={props?.accessible}
         accessibilityLabel={`${props?.accessibilityLabel}.content`}
@@ -94,7 +98,7 @@ const TextInput = forwardRef(function TextInput(
       >
         {props?.leftIcon ||
           (props?.leftIconName && (
-            <View
+            <RNView
               testID={`${props?.testID}.leftIconContainer`}
               accessible={props?.accessible}
               accessibilityLabel={`${props?.accessibilityLabel}.leftIconContainer`}
@@ -120,9 +124,9 @@ const TextInput = forwardRef(function TextInput(
                   disabled={!props?.editable}
                 />
               </IconButton>
-            </View>
+            </RNView>
           ))}
-        <View style={styles?.inputContent}>
+        <RNView style={styles?.inputContent}>
           <RNTextInput
             ref={ref}
             testID={`${props?.testID}.input`}
@@ -175,10 +179,10 @@ const TextInput = forwardRef(function TextInput(
               }
             />
           )}
-        </View>
+        </RNView>
         {props?.rightIcon ||
           (props?.rightIconName && (
-            <View
+            <RNView
               testID={`${props?.testID}.rightIconContainer`}
               accessible={props?.accessible}
               accessibilityLabel={`${props?.accessibilityLabel}.rightIconContainer`}
@@ -204,14 +208,14 @@ const TextInput = forwardRef(function TextInput(
                   disabled={!props?.editable}
                 />
               </IconButton>
-            </View>
+            </RNView>
           ))}
-      </View>
+      </RNView>
     </FormField>
   );
 });
 
-const styles = StyleSheet.create({
+const styles = RNStyleSheet.create({
   errorText: {
     color: colors?.monaLisa?.normal?.main,
     fontSize: responsive.size(14),

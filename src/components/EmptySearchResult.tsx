@@ -1,30 +1,31 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet as RNStyleSheet, View as RNView } from 'react-native';
 import type {
-  StyleProp,
+  StyleProp as RNStyleProp,
   TextStyle as RNTextStyle,
-  ViewStyle,
+  ViewStyle as RNViewStyle,
 } from 'react-native';
 
 import { Text } from './Text';
 import { responsive } from '../helpers';
+import type { BaseProps } from '../types';
 
-interface EmptySearchResultProps {
+interface EmptySearchResultProps extends BaseProps {
   text?: string;
-  containerStyle?: StyleProp<ViewStyle>;
-  textStyle?: StyleProp<RNTextStyle>;
+  containerStyle?: RNStyleProp<RNViewStyle>;
+  textStyle?: RNStyleProp<RNTextStyle>;
 }
 function EmptySearchResult(props: EmptySearchResultProps) {
   return (
-    <View style={[styles?.container, props?.containerStyle]}>
+    <RNView style={[styles?.container, props?.containerStyle]}>
       <Text style={[styles?.text, props?.textStyle]}>
         {props.text || 'Nothing found'}
       </Text>
-    </View>
+    </RNView>
   );
 }
 
-const styles = StyleSheet.create({
+const styles = RNStyleSheet.create({
   container: {
     paddingHorizontal: responsive.size(12),
     paddingVertical: responsive.height(12),
