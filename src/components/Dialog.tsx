@@ -1,15 +1,20 @@
-import React from 'react';
-import type { PropsWithChildren } from 'react';
-import { Modal, Pressable, StyleSheet, View } from 'react-native';
+import React, { Fragment } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
+import {
+  Modal as RNModal,
+  Pressable as RNPressable,
+  StyleSheet as RNStyleSheet,
+  View as RNView,
+} from 'react-native';
 import type {
-  NativeSyntheticEvent,
-  StyleProp,
-  ViewStyle,
+  NativeSyntheticEvent as RNNativeSyntheticEvent,
+  StyleProp as RNStyleProp,
+  ViewStyle as RNViewStyle,
   TextStyle as RNTextStyle,
-  ColorValue,
+  ColorValue as RNColorValue,
 } from 'react-native';
 
-import type { ModalAnimationType, TestProps } from '../types/props';
+import type { ModalAnimationType, BaseProps } from '../types/props';
 import { Text, type TextVariant } from './Text';
 import { responsive } from '../helpers';
 import { colors } from '../themes/appColors';
@@ -18,40 +23,44 @@ import { Ionicons } from './icons';
 import { Divider } from './dividers';
 import { Button } from './Button';
 
-interface DialogProps extends TestProps {
+interface DialogProps extends BaseProps {
   isVisible?: boolean;
   onDismiss?: () => void;
   isCollapsable?: boolean;
-  rootStyle?: StyleProp<ViewStyle>;
-  containerStyle?: StyleProp<ViewStyle>;
-  contentStyle?: StyleProp<ViewStyle>;
+  rootStyle?: RNStyleProp<RNViewStyle>;
+  containerStyle?: RNStyleProp<RNViewStyle>;
+  contentStyle?: RNStyleProp<RNViewStyle>;
   title?: string;
   transparent?: boolean;
   animationType?: ModalAnimationType;
-  onRequestClose?: (event: NativeSyntheticEvent<any>) => void;
-  dialogTitleContainerStyle?: StyleProp<ViewStyle>;
-  dialogTitleStyle?: StyleProp<RNTextStyle>;
+  onRequestClose?: (event: RNNativeSyntheticEvent<unknown>) => void;
+  dialogTitleContainerStyle?: RNStyleProp<RNViewStyle>;
+  dialogTitleStyle?: RNStyleProp<RNTextStyle>;
   dialogTitleVariant?: TextVariant;
   hideDialogTitleDivider?: boolean;
-  dialogContentContainerStyle?: StyleProp<ViewStyle>;
-  titleDividerColor?: ColorValue;
-  actionDividerColor?: ColorValue;
-  actionContainerStyle?: StyleProp<ViewStyle>;
+  dialogContentContainerStyle?: RNStyleProp<RNViewStyle>;
+  titleDividerColor?: RNColorValue;
+  actionDividerColor?: RNColorValue;
+  actionContainerStyle?: RNStyleProp<RNViewStyle>;
   hideActionContainerDivider?: boolean;
-  actionContentStyle?: StyleProp<ViewStyle>;
+  actionContentStyle?: RNStyleProp<RNViewStyle>;
   acceptText?: string;
   onPressAccept?: () => void;
+  hideAccept?: boolean;
   rejectText?: string;
   onPressReject?: () => void;
-  actionButtonContainerStyle?: StyleProp<ViewStyle>;
-  actionButtonTitleStyle?: StyleProp<RNTextStyle>;
+  hideReject?: boolean;
+  actionButtonContainerStyle?: RNStyleProp<RNViewStyle>;
+  actionButtonTitleStyle?: RNStyleProp<RNTextStyle>;
   numberOfLinesForTitle?: number;
+  customAction?: ReactNode;
+  hideClose?: boolean;
 }
 
 function Dialog(props: PropsWithChildren<DialogProps>) {
   return (
-    <>
-      <Modal
+    <Fragment>
+      <RNModal
         visible={props?.isVisible}
         onDismiss={props?.onDismiss}
         collapsable={props?.isCollapsable}
@@ -60,13 +69,13 @@ function Dialog(props: PropsWithChildren<DialogProps>) {
         onRequestClose={props?.onRequestClose}
         style={props?.rootStyle}
       >
-        <Pressable
+        <RNPressable
           style={[styles?.container, props?.containerStyle]}
           onPress={props?.isCollapsable ? props?.onDismiss : null}
         >
-          <View style={[styles?.content, props?.contentStyle]}>
+          <RNView style={[styles?.content, props?.contentStyle]}>
             {props?.title && (
-              <View
+              <RNView
                 style={[
                   styles?.dialogTitleContainer,
                   props?.dialogTitleContainerStyle,
@@ -86,20 +95,20 @@ function Dialog(props: PropsWithChildren<DialogProps>) {
                     }
                   />
                 )}
-              </View>
+              </RNView>
             )}
             {props?.children && (
-              <View
+              <RNView
                 style={[
                   styles?.dialogContentContainer,
                   props?.dialogContentContainerStyle,
                 ]}
               >
                 {props?.children}
-              </View>
+              </RNView>
             )}
             {(props?.onPressAccept || props?.onPressReject) && (
-              <View
+              <RNView
                 style={[styles?.actionContainer, props?.actionContainerStyle]}
               >
                 {!props?.hideActionContainerDivider && (
@@ -109,58 +118,62 @@ function Dialog(props: PropsWithChildren<DialogProps>) {
                     }
                   />
                 )}
-                <View
-                  style={[styles?.actionContent, props?.actionContentStyle]}
-                >
-                  {props?.onPressAccept && (
-                    <Button
-                      containerStyle={[
-                        styles?.actionButtonContainer,
-                        props?.actionButtonContainerStyle,
-                      ]}
-                      titleStyle={[
-                        styles?.actionButtonTitle,
-                        props?.actionButtonTitleStyle,
-                      ]}
-                      title={props?.acceptText ?? 'Accept'}
-                      onPress={props?.onPressAccept}
-                    />
-                  )}
-                  {props?.onPressReject && (
-                    <Button
-                      containerStyle={[
-                        styles?.actionButtonContainer,
-                        props?.actionButtonContainerStyle,
-                      ]}
-                      titleStyle={[
-                        styles?.actionButtonTitle,
-                        props?.actionButtonTitleStyle,
-                      ]}
-                      title={props?.rejectText ?? 'Reject'}
-                      onPress={props?.onPressReject}
-                    />
-                  )}
-                </View>
-              </View>
+                {props?.customAction ?? (
+                  <RNView
+                    style={[styles?.actionContent, props?.actionContentStyle]}
+                  >
+                    {!props?.hideAccept && props?.onPressAccept && (
+                      <Button
+                        containerStyle={[
+                          styles?.actionButtonContainer,
+                          props?.actionButtonContainerStyle,
+                        ]}
+                        titleStyle={[
+                          styles?.actionButtonTitle,
+                          props?.actionButtonTitleStyle,
+                        ]}
+                        title={props?.acceptText ?? 'Accept'}
+                        onPress={props?.onPressAccept}
+                      />
+                    )}
+                    {!props?.hideReject && props?.onPressReject && (
+                      <Button
+                        containerStyle={[
+                          styles?.actionButtonContainer,
+                          props?.actionButtonContainerStyle,
+                        ]}
+                        titleStyle={[
+                          styles?.actionButtonTitle,
+                          props?.actionButtonTitleStyle,
+                        ]}
+                        title={props?.rejectText ?? 'Reject'}
+                        onPress={props?.onPressReject}
+                      />
+                    )}
+                  </RNView>
+                )}
+              </RNView>
             )}
-            <IconButton
-              containerStyle={styles?.closeIconContainer}
-              onPress={props?.onDismiss}
-            >
-              <Ionicons
-                name="close-circle-sharp"
-                size={responsive.size(32)}
-                color={colors?.red?.normal?.main}
-              />
-            </IconButton>
-          </View>
-        </Pressable>
-      </Modal>
-    </>
+            {!props?.hideClose && (
+              <IconButton
+                containerStyle={styles?.closeIconContainer}
+                onPress={props?.onDismiss}
+              >
+                <Ionicons
+                  name="close-circle-sharp"
+                  size={responsive.size(32)}
+                  color={colors?.red?.normal?.main}
+                />
+              </IconButton>
+            )}
+          </RNView>
+        </RNPressable>
+      </RNModal>
+    </Fragment>
   );
 }
 
-const styles = StyleSheet.create({
+const styles = RNStyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: colors?.black?.normal?.shadow40,

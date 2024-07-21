@@ -1,8 +1,13 @@
+import type { Attributes } from 'react';
+import type { AccessibilityProps } from 'react-native';
+
 interface TestProps {
   testID?: string;
   accessible?: boolean;
   accessibilityLabel?: string;
 }
+
+interface BaseProps extends AccessibilityProps, TestProps, Attributes {}
 
 type SpinnerSize = 'small' | 'large';
 
@@ -21,4 +26,5 @@ export type {
   ButtonLoadingPosition,
   ModalAnimationType,
   DividerOrientation,
+  BaseProps,
 };
