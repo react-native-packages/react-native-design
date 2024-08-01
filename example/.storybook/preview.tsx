@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/react';
+import { DesignProvider } from 'react-native-design';
 
 const preview: Preview = {
   parameters: {
@@ -9,6 +10,13 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <DesignProvider>
+        <Story />
+      </DesignProvider>
+    ),
+  ],
 };
 
 export default preview;

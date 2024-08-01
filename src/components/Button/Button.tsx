@@ -16,6 +16,7 @@ import type {
   BaseProps,
   ButtonLoadingPosition,
   ButtonVariant,
+  MakeStyles,
 } from '../../types';
 import { Text } from '../Text';
 import { responsive } from '../../helpers';
@@ -25,6 +26,7 @@ import {
   getButtonBackgroundColor,
 } from '../../utils';
 import { ButtonAddon } from './ButtonAddon';
+import { useAppTheme } from '../../hooks';
 
 interface ButtonProps extends BaseProps {
   onPress?: () => void;
@@ -49,6 +51,11 @@ interface ButtonProps extends BaseProps {
 
 function Button(props: PropsWithChildren<ButtonProps>) {
   const variantProp: ButtonVariant = props?.variant ?? 'contained';
+
+  const { colors } = useAppTheme();
+
+  const styles = makeStyles({ colors });
+
   return (
     <RNPressable
       testID={`${props?.testID}.container`}
@@ -61,6 +68,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
           backgroundColor: getButtonBackgroundColor({
             variant: variantProp,
             disabled: props?.disabled,
+            colors,
           }),
         },
         pressed ? styles?.pressedButton : styles?.notPressedButton,
@@ -68,6 +76,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
         getButtonBorderStyle({
           variant: variantProp,
           disabled: props?.disabled,
+          colors,
         }),
         props?.containerStyle,
       ]}
@@ -90,6 +99,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
             variant: variantProp,
             disabled: props?.disabled,
             color: props?.loaderColor,
+            colors,
           })}
           icon={props?.leftIcon}
           iconName={props?.leftIconName}
@@ -98,6 +108,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
             variant: variantProp,
             disabled: props?.disabled,
             color: props?.leftIconColor,
+            colors,
           })}
         />
         <Text
@@ -112,6 +123,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
                 variant: variantProp,
                 disabled: props?.disabled,
                 color: props?.leftIconColor,
+                colors,
               }),
             },
             props?.titleStyle,
@@ -128,6 +140,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
             variant: variantProp,
             disabled: props?.disabled,
             color: props?.loaderColor,
+            colors,
           })}
           icon={props?.rightIcon}
           iconName={props?.rightIconName}
@@ -136,6 +149,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
             variant: variantProp,
             disabled: props?.disabled,
             color: props?.rightIconColor,
+            colors,
           })}
         />
       </RNView>
@@ -143,20 +157,24 @@ function Button(props: PropsWithChildren<ButtonProps>) {
   );
 }
 
-const styles = RNStyleSheet.create({
-  container: {
-    paddingHorizontal: responsive.size(15),
-    paddingVertical: responsive.height(10),
-  },
-  content: {
-    alignItems: 'center',
-    columnGap: responsive.size(10),
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  pressedButton: { opacity: 0.6 },
-  notPressedButton: { opacity: 1 },
-});
+function makeStyles({ colors: _colors }: MakeStyles) {
+  const styles = RNStyleSheet.create({
+    container: {
+      paddingHorizontal: responsive.size(15),
+      paddingVertical: responsive.height(10),
+    },
+    content: {
+      alignItems: 'center',
+      columnGap: responsive.size(10),
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
+    pressedButton: { opacity: 0.6 },
+    notPressedButton: { opacity: 1 },
+  });
+
+  return styles;
+}
 
 export type { ButtonProps };
 export { Button };

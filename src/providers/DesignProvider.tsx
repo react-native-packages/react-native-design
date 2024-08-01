@@ -3,15 +3,20 @@ import type { PropsWithChildren } from 'react';
 import { AutocompleteDropdownContextProvider as RNAutocompleteDropdownContextProvider } from 'react-native-autocomplete-dropdown';
 
 import type { BaseProps } from '../types';
+import { AppThemeProvider } from '../contexts';
+import type { AppTheme } from '../themes';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface DesignProviderProps extends BaseProps {}
+interface DesignProviderProps extends BaseProps {
+  theme?: AppTheme;
+}
 
 function DesignProvider(props: PropsWithChildren<DesignProviderProps>) {
   return (
-    <RNAutocompleteDropdownContextProvider {...props}>
-      {props?.children}
-    </RNAutocompleteDropdownContextProvider>
+    <AppThemeProvider theme={props?.theme}>
+      <RNAutocompleteDropdownContextProvider {...props}>
+        {props?.children}
+      </RNAutocompleteDropdownContextProvider>
+    </AppThemeProvider>
   );
 }
 

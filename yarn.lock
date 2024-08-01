@@ -4305,14 +4305,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-async-storage/async-storage@npm:^1.23.1":
-  version: 1.23.1
-  resolution: "@react-native-async-storage/async-storage@npm:1.23.1"
+"@react-native-async-storage/async-storage@npm:^1.24.0":
+  version: 1.24.0
+  resolution: "@react-native-async-storage/async-storage@npm:1.24.0"
   dependencies:
     merge-options: ^3.0.4
   peerDependencies:
     react-native: ^0.0.0-0 || >=0.60 <1.0
-  checksum: 7096546ed4a5faf1f6e0425e2e15713575f1a7493a04524da386ff35c3844b57b8fd20544fad4157b4a61e048b10235f2f06124f262da5b327edc74fbc31e02b
+  checksum: 7e56a2e97f48332f57c56ebf473b763c7ca2b1ef82f4b5f8e1c73350231ec91b8eafc4e4d1f972c4c1005da0d304816fa725dc6f07a8a7543e90f8bd16c22ab4
   languageName: node
   linkType: hard
 
@@ -5106,13 +5106,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rnpack/utils@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "@rnpack/utils@npm:0.1.3"
+"@rnpack/utils@npm:^0.1.5":
+  version: 0.1.5
+  resolution: "@rnpack/utils@npm:0.1.5"
   peerDependencies:
+    "@react-native-async-storage/async-storage": "*"
     react: "*"
     react-native: "*"
-  checksum: 3065f99f77e37e11f1a1524b13a46b9784c9f2c851cd880b3527090aa53c86ef7be8246bb68b64f500aba79c06a6098b7d5706daa0254ca2ad6888a7ced16d8a
+  checksum: 0857f650863734c6c56c87fd1876eb2344aa5bf440100045f3a731d8baf239233a458b082c50898d28ec4d829b28f98beed8b88a755315c334c2f74973e882af
   languageName: node
   linkType: hard
 
@@ -17467,10 +17468,10 @@ __metadata:
   dependencies:
     "@babel/core": ^7.20.0
     "@expo/webpack-config": ~19.0.1
-    "@react-native-async-storage/async-storage": ^1.23.1
+    "@react-native-async-storage/async-storage": ^1.24.0
     "@react-native-community/datetimepicker": 8.0.1
     "@react-native-community/slider": ^4.5.2
-    "@rnpack/utils": ^0.1.3
+    "@rnpack/utils": ^0.1.5
     "@storybook/addon-ondevice-actions": ^7.6.18
     "@storybook/addon-ondevice-controls": ^7.6.18
     "@storybook/react-native": ^7.6.18
@@ -17493,9 +17494,10 @@ __metadata:
   dependencies:
     "@commitlint/config-conventional": ^17.0.2
     "@evilmartians/lefthook": ^1.5.0
+    "@react-native-async-storage/async-storage": ^1.24.0
     "@react-native/eslint-config": ^0.72.2
     "@release-it/conventional-changelog": ^5.0.0
-    "@rnpack/utils": ^0.1.3
+    "@rnpack/utils": ^0.1.5
     "@testing-library/react-native": ^12.4.3
     "@types/jest": ^28.1.2
     "@types/react": ~17.0.21
@@ -17520,6 +17522,7 @@ __metadata:
     release-it: ^15.0.0
     typescript: ^5.0.2
   peerDependencies:
+    "@react-native-async-storage/async-storage": "*"
     "@rnpack/utils": "*"
     react: "*"
     react-native: "*"
