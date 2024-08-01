@@ -208,6 +208,7 @@ const styles = RNStyleSheet.create({
   actionContent: {
     alignItems: 'center',
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: responsive.size(10),
     justifyContent: 'flex-end',
   },
