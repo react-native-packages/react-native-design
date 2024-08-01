@@ -9,6 +9,7 @@ npm install react-native-design
 ```
 
 ## Required dependencies
+
 ```sh
 npm i react-native-vector-icons @rnpack/utils
 ```
@@ -17,7 +18,7 @@ npm i react-native-vector-icons @rnpack/utils
 
 ## Components
 
-# Text
+## Text
 
 ```js
 import { Text } from 'react-native-design';
@@ -35,7 +36,9 @@ import { Text } from 'react-native-design';
 
 // ...
 ```
+
 ## Props
+
 | Prop name                 | Description                                   | type                                                  |
 | ------------------------- | --------------------------------------------- | ----------------------------------------------------- |
 | testID                    | Used for testing                              | string                                                |
@@ -72,6 +75,4 @@ Thank you to all our sponsors! [Become a sponsor](https://opencollective.com/rea
 
 <a href="https://opencollective.com/react-native-design#sponsors" target="_blank"><img src="https://opencollective.com/react-native-design/sponsors.svg?width=890" alt="@react-native-ui-design/dialog"></a>
 
-
 ---
-

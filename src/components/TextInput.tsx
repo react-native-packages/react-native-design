@@ -56,6 +56,7 @@ interface TextInputProps extends BaseProps {
   secureTextEntry?: boolean;
   textInputProps?: RNTextInputProps;
   errorStyle?: RNStyleProp<RNTextStyle>;
+  inputContentStyle?: RNStyleProp<RNViewStyle>;
 }
 
 const TextInput = forwardRef(function TextInput(
@@ -126,7 +127,7 @@ const TextInput = forwardRef(function TextInput(
               </IconButton>
             </RNView>
           ))}
-        <RNView style={styles?.inputContent}>
+        <RNView style={[styles?.inputContent, props?.inputContentStyle]}>
           <RNTextInput
             ref={ref}
             testID={`${props?.testID}.input`}
@@ -137,7 +138,7 @@ const TextInput = forwardRef(function TextInput(
                 ? !isPasswordVisible
                 : props?.secureTextEntry
             }
-            editable={props?.editable}
+            editable={props?.editable ?? true}
             autoCapitalize={props?.autoCapitalize}
             style={[
               styles?.inputStyle,
@@ -230,7 +231,7 @@ const styles = RNStyleSheet.create({
   },
   inputContent: {
     flex: 1,
-    height: responsive.height(30),
+    height: responsive.height(40),
   },
   inputStyle: {
     borderBottomWidth: 0.5,
