@@ -1,6 +1,6 @@
 {
   "name": "react-native-design",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "react-native-design have lot of ui components with lot of predefined function and features",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
