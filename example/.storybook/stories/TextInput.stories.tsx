@@ -1,16 +1,25 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { StyleSheet, View } from 'react-native';
-import { TextInput, responsive } from 'react-native-design';
+import {
+  TextInput,
+  responsive,
+  useAppTheme,
+  type MakeStyles,
+} from 'react-native-design';
 
 const meta = {
   component: TextInput,
   decorators: [
-    (Story) => (
-      <View style={styles?.container}>
-        <Story />
-      </View>
-    ),
+    (Story) => {
+      const { colors } = useAppTheme();
+      const styles = makeStyles({ colors });
+      return (
+        <View style={styles?.container}>
+          <Story />
+        </View>
+      );
+    },
   ],
   args: {
     editable: true,
@@ -19,6 +28,7 @@ const meta = {
     secureTextEntry: false,
     showPasswordVisibility: false,
     keyboardType: 'default',
+    variant: 'border',
   },
   argTypes: {
     editable: {
@@ -63,6 +73,10 @@ const meta = {
         'web-search',
       ],
     },
+    variant: {
+      control: { type: 'select' },
+      options: ['base', 'boreder', 'noborder'],
+    },
   },
 } satisfies Meta<typeof TextInput>;
 
@@ -101,10 +115,15 @@ export const Error: Story = {
   },
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: responsive.size(20),
-  },
-});
+function makeStyles({ colors }: MakeStyles) {
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      paddingHorizontal: responsive.size(20),
+      backgroundColor: colors?.surface,
+    },
+  });
+
+  return styles;
+}

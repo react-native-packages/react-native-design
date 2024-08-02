@@ -1,19 +1,21 @@
 import React from 'react';
-import type { PropsWithChildren } from 'react';
 import {
   StyleSheet as RNStyleSheet,
   TouchableOpacity as RNTouchableOpacity,
 } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import type { PropsWithChildren } from 'react';
 import type {
   ViewStyle as RNViewStyle,
   ColorValue as RNColorValue,
   StyleProp as RNStyleProp,
 } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { responsive } from '../helpers';
-import { colors } from '../themes/appColors';
-import type { BaseProps } from '../types';
+import { useAppTheme } from '../hooks';
+
+import type { BaseProps, MakeStyles } from '../types';
 
 interface IconButtonProps extends BaseProps {
   name?: string;
@@ -28,6 +30,10 @@ interface IconButtonProps extends BaseProps {
 }
 
 function IconButton(props: PropsWithChildren<IconButtonProps>) {
+  const { colors } = useAppTheme();
+
+  const styles = makeStyles({ colors });
+
   function onPress() {
     if (props?.onPress) {
       props?.onPress();
@@ -41,7 +47,7 @@ function IconButton(props: PropsWithChildren<IconButtonProps>) {
       accessible={props?.accessible}
       accessibilityLabel={props?.accessibilityLabel}
       onPress={onPress}
-      style={[iconButtonStyles?.container, props?.containerStyle]}
+      style={[styles?.container, props?.containerStyle]}
       disabled={props?.disabled}
     >
       {props?.children ??
@@ -51,8 +57,8 @@ function IconButton(props: PropsWithChildren<IconButtonProps>) {
             size={props?.size ?? 24}
             color={
               props?.disabled
-                ? colors?.grey?.light?.main
-                : props?.color ?? colors?.grey?.granite?.main
+                ? colors?.onSurfaceDisabled
+                : props?.color ?? colors?.onSurface
             }
           />
         ))}
@@ -60,11 +66,15 @@ function IconButton(props: PropsWithChildren<IconButtonProps>) {
   );
 }
 
-const iconButtonStyles = RNStyleSheet.create({
-  container: {
-    padding: responsive.size(5),
-  },
-});
+function makeStyles({ colors: _colors }: MakeStyles) {
+  const styles = RNStyleSheet.create({
+    container: {
+      padding: responsive.size(5),
+    },
+  });
+
+  return styles;
+}
 
 export type { IconButtonProps };
-export { IconButton, iconButtonStyles };
+export { IconButton };

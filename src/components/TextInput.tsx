@@ -1,10 +1,11 @@
 import React, { forwardRef, useState } from 'react';
-import type { ReactNode, Ref } from 'react';
 import {
   View as RNView,
   TextInput as RNTextInput,
   StyleSheet as RNStyleSheet,
 } from 'react-native';
+
+import type { ReactNode, Ref } from 'react';
 import type {
   TextInputProps as RNTextInputProps,
   ColorValue as RNColorValue,
@@ -15,13 +16,14 @@ import type {
   TextStyle as RNTextStyle,
   ViewStyle as RNViewStyle,
 } from 'react-native';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
+import { FontAwesome } from './icons/FontAwesome';
 import { IconButton } from './IconButton';
 import { responsive } from '../helpers';
-import { colors } from '../themes/appColors';
-import type { BaseProps } from '../types';
 import { FormField } from './FormField';
+import { useAppTheme } from '../hooks';
+
+import type { BaseProps, InputVariant, MakeStyles } from '../types';
 
 interface TextInputProps extends BaseProps {
   name: string;
@@ -57,12 +59,17 @@ interface TextInputProps extends BaseProps {
   textInputProps?: RNTextInputProps;
   errorStyle?: RNStyleProp<RNTextStyle>;
   inputContentStyle?: RNStyleProp<RNViewStyle>;
+  variant?: InputVariant;
 }
 
 const TextInput = forwardRef(function TextInput(
   props: TextInputProps,
   ref: Ref<RNTextInput>
 ) {
+  const { colors } = useAppTheme();
+
+  const styles = makeStyles({ colors });
+
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
   function onChangeText(text: string) {
@@ -90,6 +97,7 @@ const TextInput = forwardRef(function TextInput(
       labelStyle={props?.labelStyle}
       errorStyle={props?.errorStyle}
       isDisabled={!props?.editable}
+      variant={props?.variant}
     >
       <RNView
         testID={`${props?.testID}.content`}
@@ -108,8 +116,9 @@ const TextInput = forwardRef(function TextInput(
               <IconButton
                 containerStyle={styles?.iconButtonContainer}
                 onPress={props?.onPressLeftIcon}
+                disabled={!props?.editable}
               >
-                <FontAwesomeIcon
+                <FontAwesome
                   testID={`${props?.testID}.leftIcon`}
                   accessible={props?.accessible}
                   accessibilityLabel={`${props?.accessibilityLabel}.leftIcon`}
@@ -117,12 +126,11 @@ const TextInput = forwardRef(function TextInput(
                   size={props?.leftIconSize ?? 24}
                   color={
                     !props?.editable
-                      ? colors?.grey?.light?.main
+                      ? colors?.onSurfaceDisabled
                       : props?.touched && props?.error
-                      ? colors?.red?.normal?.main
-                      : props?.leftIconColor ?? '#676767'
+                      ? colors?.error
+                      : props?.leftIconColor ?? colors?.onSurface
                   }
-                  disabled={!props?.editable}
                 />
               </IconButton>
             </RNView>
@@ -154,7 +162,9 @@ const TextInput = forwardRef(function TextInput(
             ]}
             value={props?.value}
             placeholder={props?.placeholder}
-            placeholderTextColor={props?.placeholderTextColor ?? '#D3D3D3'}
+            placeholderTextColor={
+              props?.placeholderTextColor ?? colors?.onSurfaceDisabled
+            }
             onChangeText={onChangeText}
             onBlur={onBlur}
             keyboardType={props?.keyboardType ?? 'default'}
@@ -174,9 +184,11 @@ const TextInput = forwardRef(function TextInput(
               containerStyle={styles?.passwordVisibilityContainer}
               disabled={!props?.editable}
               color={
-                props?.touched && props?.error
-                  ? colors?.red?.normal?.main
-                  : undefined
+                !props?.editable
+                  ? colors?.onSurfaceDisabled
+                  : props?.touched && props?.error
+                  ? colors?.error
+                  : colors?.onSurface
               }
             />
           )}
@@ -192,8 +204,9 @@ const TextInput = forwardRef(function TextInput(
               <IconButton
                 containerStyle={styles?.iconButtonContainer}
                 onPress={props?.onPressRightIcon}
+                disabled={!props?.editable}
               >
-                <FontAwesomeIcon
+                <FontAwesome
                   testID={`${props?.testID}.rightIcon`}
                   accessible={props?.accessible}
                   accessibilityLabel={`${props?.accessibilityLabel}.rightIcon`}
@@ -201,12 +214,11 @@ const TextInput = forwardRef(function TextInput(
                   size={props?.rightIconSize ?? 24}
                   color={
                     !props?.editable
-                      ? colors?.grey?.light?.main
+                      ? colors?.onSurfaceDisabled
                       : props?.touched && props?.error
-                      ? colors?.red?.normal?.main
-                      : props?.rightIconColor ?? '#676767'
+                      ? colors?.error
+                      : props?.rightIconColor ?? colors?.primary
                   }
-                  disabled={!props?.editable}
                 />
               </IconButton>
             </RNView>
@@ -216,67 +228,68 @@ const TextInput = forwardRef(function TextInput(
   );
 });
 
-const styles = RNStyleSheet.create({
-  errorText: {
-    color: colors?.monaLisa?.normal?.main,
-    fontSize: responsive.size(14),
-  },
-  inputContainer: {
-    rowGap: 15,
-  },
-  labelStyle: {
-    color: colors?.black?.normal?.main,
-    fontSize: 16,
-    fontWeight: '500',
-  },
-  inputContent: {
-    flex: 1,
-    height: responsive.height(40),
-  },
-  inputStyle: {
-    borderBottomWidth: 0.5,
-    color: colors?.black?.normal?.main,
-    flex: 1,
-    fontWeight: '400',
-    paddingLeft: responsive.size(5),
-    width: '100%',
-  },
-  passwordInputStyle: {
-    paddingRight: responsive.size(25),
-  },
-  leftIconContainer: {
-    paddingRight: responsive.size(5),
-  },
-  rightIconContainer: {
-    paddingLeft: responsive.size(10),
-  },
-  inputIconSection: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  passwordVisibilityContainer: {
-    bottom: responsive.size(3),
-    padding: 0,
-    position: 'absolute',
-    right: 0,
-  },
-  editableInput: {
-    color: colors?.black?.normal?.main,
-  },
-  uneditableInput: {
-    borderColor: colors?.grey?.light?.main,
-    color: colors?.grey?.light?.main,
-  },
-  errorInput: {
-    borderColor: colors?.red?.normal?.main,
-    color: colors?.red?.normal?.main,
-  },
-  iconButtonContainer: {
-    padding: 0,
-  },
-});
+function makeStyles({ colors }: MakeStyles) {
+  const styles = RNStyleSheet.create({
+    errorText: {
+      color: colors?.error,
+      fontSize: responsive.size(14),
+    },
+    inputContainer: {
+      rowGap: 15,
+    },
+    labelStyle: {
+      color: colors?.onSurface,
+      fontSize: 16,
+      fontWeight: '500',
+    },
+    inputContent: {
+      flex: 1,
+      height: responsive.height(40),
+    },
+    inputStyle: {
+      color: colors?.onSurface,
+      flex: 1,
+      fontWeight: '400',
+      paddingLeft: responsive.size(5),
+      width: '100%',
+    },
+    passwordInputStyle: {
+      paddingRight: responsive.size(25),
+    },
+    leftIconContainer: {
+      paddingRight: responsive.size(5),
+    },
+    rightIconContainer: {
+      paddingLeft: responsive.size(10),
+    },
+    inputIconSection: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      position: 'relative',
+    },
+    passwordVisibilityContainer: {
+      bottom: responsive.size(3),
+      position: 'absolute',
+      right: 0,
+    },
+    editableInput: {
+      color: colors?.onSurface,
+    },
+    uneditableInput: {
+      color: colors?.onSurfaceDisabled,
+    },
+    errorInput: {
+      borderColor: colors?.error,
+      color: colors?.error,
+    },
+    iconButtonContainer: {
+      padding: 0,
+    },
+  });
+
+  return styles;
+}
 
 export type { TextInputProps };
 export { TextInput };

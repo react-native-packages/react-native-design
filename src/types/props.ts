@@ -19,6 +19,8 @@ type ModalAnimationType = 'fade' | 'none' | 'slide';
 
 type DividerOrientation = 'horizontal' | 'vertical';
 
+type InputVariant = 'base' | 'border' | 'noborder';
+
 export type {
   TestProps,
   SpinnerSize,
@@ -27,4 +29,5 @@ export type {
   ModalAnimationType,
   DividerOrientation,
   BaseProps,
+  InputVariant,
 };
