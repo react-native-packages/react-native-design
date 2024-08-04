@@ -16,9 +16,10 @@ import { responsive } from '../helpers';
 import { useAppTheme } from '../hooks';
 
 import type { BaseProps, MakeStyles } from '../types';
+import type { MaterialCommunityIconName } from './icons';
 
 interface IconButtonProps extends BaseProps {
-  name?: string;
+  name?: MaterialCommunityIconName;
   size?: number;
   color?: number | RNColorValue;
   onPress?: () => void;

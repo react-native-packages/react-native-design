@@ -1,16 +1,27 @@
 import React from 'react';
-import type { PropsWithChildren, ReactNode } from 'react';
 import {
   Pressable as RNPressable,
   StyleSheet as RNStyleSheet,
   View as RNView,
 } from 'react-native';
+import { responsive } from '@rnpack/utils';
+
+import type { PropsWithChildren, ReactNode } from 'react';
 import type {
   StyleProp as RNStyleProp,
   TextStyle as RNTextStyle,
   ViewStyle as RNViewStyle,
   ColorValue as RNColorValue,
 } from 'react-native';
+
+import { Text } from '../Text';
+import {
+  getButtonBorderStyle,
+  getButtonContentColor,
+  getButtonBackgroundColor,
+} from '../../utils';
+import { ButtonAddon } from './ButtonAddon';
+import { useAppTheme } from '../../hooks';
 
 import type {
   BaseProps,
@@ -20,15 +31,7 @@ import type {
   ButtonVariant,
   MakeStyles,
 } from '../../types';
-import { Text } from '../Text';
-import { responsive } from '../../helpers';
-import {
-  getButtonBorderStyle,
-  getButtonContentColor,
-  getButtonBackgroundColor,
-} from '../../utils';
-import { ButtonAddon } from './ButtonAddon';
-import { useAppTheme } from '../../hooks';
+import type { FontAwesomeIconName } from '../icons';
 
 interface ButtonProps extends BaseProps {
   onPress?: () => void;
@@ -36,11 +39,11 @@ interface ButtonProps extends BaseProps {
   contentStyle?: RNStyleProp<RNViewStyle>;
   title?: string;
   leftIcon?: ReactNode;
-  leftIconName?: string;
+  leftIconName?: FontAwesomeIconName;
   leftIconColor?: string;
   leftIconSize?: number;
   rightIcon?: ReactNode;
-  rightIconName?: string;
+  rightIconName?: FontAwesomeIconName;
   rightIconColor?: string;
   rightIconSize?: number;
   disabled?: boolean;

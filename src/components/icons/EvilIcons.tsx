@@ -1,25 +1,25 @@
 import React from 'react';
 import { responsive } from '@rnpack/utils';
-import RNVIFontAwesome from 'react-native-vector-icons/FontAwesome';
+import RNVIEvilIcons from 'react-native-vector-icons/EvilIcons';
 
 import type { ColorValue as RNColorValue } from 'react-native';
 
 import { useAppTheme } from '../../hooks';
 
-import type { BaseProps } from '../../types';
-import type { FontAwesomeIconName } from './type';
+import type { TestProps } from '../../types';
+import type { EvilIconName } from './type';
 
-interface FontAwesomeProps extends BaseProps {
-  name: FontAwesomeIconName;
+interface EvilIconsProps extends TestProps {
+  name: EvilIconName;
   size?: number;
   color?: RNColorValue;
 }
 
-function FontAwesome(props: FontAwesomeProps) {
+function EvilIcons(props: EvilIconsProps) {
   const { colors } = useAppTheme();
 
   return (
-    <RNVIFontAwesome
+    <RNVIEvilIcons
       testID={props?.testID}
       accessible={props?.accessible}
       accessibilityLabel={props?.accessibilityLabel}
@@ -30,5 +30,5 @@ function FontAwesome(props: FontAwesomeProps) {
   );
 }
 
-export type { FontAwesomeProps };
-export { FontAwesome };
+export type { EvilIconsProps };
+export { EvilIcons };

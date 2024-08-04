@@ -1,25 +1,25 @@
 import React from 'react';
 import { responsive } from '@rnpack/utils';
-import RNVIFontAwesome from 'react-native-vector-icons/FontAwesome';
+import RNVIAntDesign from 'react-native-vector-icons/AntDesign';
 
 import type { ColorValue as RNColorValue } from 'react-native';
 
 import { useAppTheme } from '../../hooks';
 
-import type { BaseProps } from '../../types';
-import type { FontAwesomeIconName } from './type';
+import type { TestProps } from '../../types';
+import type { AntDesignIconName } from './type';
 
-interface FontAwesomeProps extends BaseProps {
-  name: FontAwesomeIconName;
+interface AntDesignProps extends TestProps {
+  name: AntDesignIconName;
   size?: number;
   color?: RNColorValue;
 }
 
-function FontAwesome(props: FontAwesomeProps) {
+function AntDesign(props: AntDesignProps) {
   const { colors } = useAppTheme();
 
   return (
-    <RNVIFontAwesome
+    <RNVIAntDesign
       testID={props?.testID}
       accessible={props?.accessible}
       accessibilityLabel={props?.accessibilityLabel}
@@ -30,5 +30,5 @@ function FontAwesome(props: FontAwesomeProps) {
   );
 }
 
-export type { FontAwesomeProps };
-export { FontAwesome };
+export type { AntDesignProps };
+export { AntDesign };

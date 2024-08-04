@@ -1,15 +1,17 @@
 import React from 'react';
 import type { ColorValue as RNColorValue } from 'react-native';
 
-import type { BaseProps } from '../../types';
 import { Spinner } from '../loaders';
 import { FontAwesome } from '../icons';
+
+import type { FontAwesomeIconName } from '../icons';
+import type { BaseProps } from '../../types';
 
 interface ButtonAddonProps extends BaseProps {
   isLoading?: boolean;
   loaderColor?: RNColorValue;
   icon?: React.ReactNode;
-  iconName?: string;
+  iconName?: FontAwesomeIconName;
   iconSize?: number;
   iconColor?: RNColorValue;
 }

@@ -1,25 +1,25 @@
 import React from 'react';
 import { responsive } from '@rnpack/utils';
-import RNVIFontAwesome from 'react-native-vector-icons/FontAwesome';
+import RNVIFontistoIcon from 'react-native-vector-icons/Fontisto';
 
 import type { ColorValue as RNColorValue } from 'react-native';
 
 import { useAppTheme } from '../../hooks';
 
 import type { BaseProps } from '../../types';
-import type { FontAwesomeIconName } from './type';
+import type { FontistoIconName } from './type';
 
-interface FontAwesomeProps extends BaseProps {
-  name: FontAwesomeIconName;
+interface FontistoProps extends BaseProps {
+  name: FontistoIconName;
   size?: number;
   color?: RNColorValue;
 }
 
-function FontAwesome(props: FontAwesomeProps) {
+function Fontisto(props: FontistoProps) {
   const { colors } = useAppTheme();
 
   return (
-    <RNVIFontAwesome
+    <RNVIFontistoIcon
       testID={props?.testID}
       accessible={props?.accessible}
       accessibilityLabel={props?.accessibilityLabel}
@@ -30,5 +30,5 @@ function FontAwesome(props: FontAwesomeProps) {
   );
 }
 
-export type { FontAwesomeProps };
-export { FontAwesome };
+export type { FontistoProps };
+export { Fontisto };

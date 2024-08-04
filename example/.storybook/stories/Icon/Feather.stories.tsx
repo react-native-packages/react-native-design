@@ -3,10 +3,10 @@ import { StyleSheet, View } from 'react-native';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { FontAwesome, FontAwesomeIconsName } from 'react-native-design';
+import { Feather, FeatherIconsName } from 'react-native-design';
 
 const meta = {
-  component: FontAwesome,
+  component: Feather,
   decorators: [
     (Story) => (
       <View style={styles?.container}>
@@ -20,7 +20,7 @@ const meta = {
   argTypes: {
     name: {
       control: { type: 'select' },
-      options: Object.keys(FontAwesomeIconsName),
+      options: Object.keys(FeatherIconsName),
     },
     size: {
       control: { type: 'number' },
@@ -30,7 +30,7 @@ const meta = {
     },
     color: { control: { type: 'color' } },
   },
-} satisfies Meta<typeof FontAwesome>;
+} satisfies Meta<typeof Feather>;
 
 export default meta;
 
@@ -38,7 +38,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    name: 'bullseye',
+    name: 'activity',
   },
 };
 

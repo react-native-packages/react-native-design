@@ -1,25 +1,30 @@
 import React from 'react';
+import { responsive } from '@rnpack/utils';
+import RNVIIonicons from 'react-native-vector-icons/Ionicons';
+
 import type { ColorValue as RNColorValue } from 'react-native';
-import IoniconsIcon from 'react-native-vector-icons/Ionicons';
+
+import { useAppTheme } from '../../hooks';
 
 import type { BaseProps } from '../../types';
-import { responsive } from '../../helpers';
-import { colors } from '../../themes/appColors';
+import type { IonIconName } from './type';
 
 interface IoniconsProps extends BaseProps {
-  name: string;
+  name: IonIconName;
   size?: number;
   color?: RNColorValue;
 }
 
 function Ionicons(props: IoniconsProps) {
+  const { colors } = useAppTheme();
+
   return (
-    <IoniconsIcon
+    <RNVIIonicons
       testID={props?.testID}
       accessible={props?.accessible}
       accessibilityLabel={props?.accessibilityLabel}
       name={props?.name}
-      color={props?.color ?? colors?.grey?.granite?.main}
+      color={props?.color ?? colors?.onSurfaceDisabled}
       size={props?.size ?? responsive.size(21)}
     />
   );

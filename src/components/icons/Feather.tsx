@@ -1,25 +1,30 @@
 import React from 'react';
+import { responsive } from '@rnpack/utils';
+import RNVIFeatherIcon from 'react-native-vector-icons/Feather';
+
 import type { ColorValue as RNColorValue } from 'react-native';
-import FeatherIcon from 'react-native-vector-icons/Feather';
+
+import { useAppTheme } from '../../hooks';
 
 import type { BaseProps } from '../../types';
-import { responsive } from '../../helpers';
-import { colors } from '../../themes/appColors';
+import type { FeatherIconName } from './type';
 
 interface FeatherProps extends BaseProps {
-  name: string;
+  name: FeatherIconName;
   size?: number;
   color?: RNColorValue;
 }
 
 function Feather(props: FeatherProps) {
+  const { colors } = useAppTheme();
+
   return (
-    <FeatherIcon
+    <RNVIFeatherIcon
       testID={props?.testID}
       accessible={props?.accessible}
       accessibilityLabel={props?.accessibilityLabel}
       name={props?.name}
-      color={props?.color ?? colors?.grey?.granite?.main}
+      color={props?.color ?? colors?.onSurfaceDisabled}
       size={props?.size ?? responsive.size(21)}
     />
   );
