@@ -1,6 +1,9 @@
 import React from 'react';
+import { Dimensions as RNDimensions, StyleSheet } from 'react-native';
+import { mergeObjects, responsive } from '@rnpack/utils';
+import { AutocompleteDropdown as RNAutocompleteDropdown } from 'react-native-autocomplete-dropdown';
+
 import type { ReactElement, MutableRefObject } from 'react';
-import { Dimensions as RNDimensions } from 'react-native';
 import type {
   StyleProp as RNStyleProp,
   ViewStyle as RNViewStyle,
@@ -11,21 +14,19 @@ import type {
   TextInputSubmitEditingEventData as RNTextInputSubmitEditingEventData,
   TextInputFocusEventData as RNTextInputFocusEventData,
 } from 'react-native';
-import { AutocompleteDropdown as RNAutocompleteDropdown } from 'react-native-autocomplete-dropdown';
 import type {
   AutocompleteDropdownRef as RNAutocompleteDropdownRef,
   TAutocompleteDropdownItem as TRNAutocompleteDropdownItem,
   AutocompleteDropdownProps as RNAutocompleteDropdownProps,
 } from 'react-native-autocomplete-dropdown';
-import { mergeObjects } from '@rnpack/utils';
 
-import type { BaseProps } from '../types';
-import type { TextInputProps } from './TextInput';
 import { FormField } from './FormField';
 import { EmptySearchResult } from './EmptySearchResult';
-import { responsive } from '../helpers';
-import { colors } from '../themes';
 import { Feather } from './icons';
+import { useAppTheme } from '../hooks';
+
+import type { BaseProps, MakeStyles } from '../types';
+import type { TextInputProps } from './TextInput';
 
 interface AutocompleteDropdownProps extends BaseProps {
   dataSet?: Pick<RNAutocompleteDropdownProps, 'dataSet'>['dataSet'];
@@ -36,7 +37,7 @@ interface AutocompleteDropdownProps extends BaseProps {
   error?: string;
   errorStyle?: RNStyleProp<RNTextStyle>;
   placeholder?: string;
-  placeholderStyle?: RNStyleProp<RNTextStyle>;
+  textInputStyle?: RNStyleProp<RNTextStyle>;
   placeholderTextColor?: RNColorValue;
   initialValue?: string | object;
   rightButtonsContainerStyle?: RNStyleProp<RNViewStyle>;
@@ -73,14 +74,21 @@ interface AutocompleteDropdownProps extends BaseProps {
 }
 
 function AutocompleteDropdown(props: AutocompleteDropdownProps) {
+  const { colors } = useAppTheme();
+
+  const styles = makeStyles({ colors, isDisabled: props?.isDisabled });
+
   return (
     <FormField
       label={props?.label}
-      labelStyle={props?.labelStyle}
+      labelStyle={[props?.labelStyle, styles?.label]}
       touched={props?.touched}
       error={props?.error}
-      errorStyle={props?.errorStyle}
-      containerStyle={props?.containerStyle}
+      errorStyle={[styles?.error, props?.errorStyle]}
+      containerStyle={[styles?.container, props?.containerStyle]}
+      contentStyle={[styles?.content]}
+      isDisabled={props?.isDisabled}
+      variant="border"
     >
       <RNAutocompleteDropdown
         controller={(controller) => {
@@ -103,55 +111,50 @@ function AutocompleteDropdown(props: AutocompleteDropdownProps) {
           placeholder: props?.placeholder,
           autoCorrect: props?.autoCorrect ?? false,
           autoCapitalize: props?.autoCapitalize ?? 'none',
-          placeholderTextColor: props?.placeholderTextColor ?? '#454545',
+          placeholderTextColor:
+            props?.placeholderTextColor ?? colors?.onSurfaceDisabled,
           style: mergeObjects(
-            {
-              fontSize: responsive.size(14),
-              color: colors?.black?.normal?.main,
-            },
-            props?.placeholderStyle
+            styles?.textInput,
+            props?.textInputStyle
           ) as RNStyleProp<RNTextStyle>,
           ...props?.textInputProps,
         }}
         renderItem={props?.renderItem}
-        rightButtonsContainerStyle={props?.rightButtonsContainerStyle}
+        rightButtonsContainerStyle={[
+          styles?.rightButtonsContainer,
+          props?.rightButtonsContainerStyle,
+        ]}
         inputContainerStyle={
           mergeObjects(
-            {
-              backgroundColor: props?.isDisabled
-                ? colors?.grey?.normal?.main
-                : colors?.grey?.light?.shade100,
-              opacity: props?.isDisabled ? 0.4 : 1,
-              padding: responsive.size(8),
-              borderRadius: 4,
-            },
+            styles?.inputContainer,
             props?.inputContainerStyle
           ) as RNStyleProp<RNViewStyle>
         }
         suggestionsListContainerStyle={
           mergeObjects(
-            {
-              backgroundColor: colors?.white?.normal?.main,
-            },
+            styles?.suggestionsListContainer,
             props?.suggestionsListContainerStyle
           ) as RNStyleProp<RNViewStyle>
         }
-        suggestionsListTextStyle={props?.suggestionsListTextStyle}
+        suggestionsListTextStyle={
+          mergeObjects(
+            styles?.suggestionsListText,
+            props?.suggestionsListTextStyle
+          ) as RNStyleProp<RNTextStyle>
+        }
         containerStyle={
           mergeObjects(
-            { flexGrow: 1, flexShrink: 1 },
+            styles?.autocompleteContainer,
             props?.autocompleteContainerStyle
           ) as RNStyleProp<RNViewStyle>
         }
         ChevronIconComponent={
           props?.chevronIconComponent ?? (
-            <Feather name="chevron-down" size={20} color="#000000" />
+            <Feather name="chevron-down" size={20} />
           )
         }
         ClearIconComponent={
-          props?.clearIconComponent ?? (
-            <Feather name="x-circle" size={25} color="#000000" />
-          )
+          props?.clearIconComponent ?? <Feather name="x-circle" size={25} />
         }
         showChevron={props?.showChevron ?? true}
         closeOnBlur={props?.closeOnBlur ?? false}
@@ -167,6 +170,35 @@ function AutocompleteDropdown(props: AutocompleteDropdownProps) {
       />
     </FormField>
   );
+}
+
+function makeStyles({ colors, isDisabled }: MakeStyles) {
+  const styles = StyleSheet.create({
+    label: {},
+    textInput: {
+      color: colors?.onSurface,
+      fontSize: responsive.size(14),
+    },
+    container: {},
+    content: {
+      paddingHorizontal: 0,
+    },
+    error: {},
+    rightButtonsContainer: {},
+    inputContainer: {
+      backgroundColor: isDisabled ? colors?.onSurfaceDisabled : colors?.surface,
+      borderRadius: responsive.size(4),
+      opacity: isDisabled ? 0.4 : 1,
+      padding: responsive.size(8),
+    },
+    suggestionsListContainer: { backgroundColor: colors?.inverseOnSurface },
+    autocompleteContainer: { flexGrow: 1, flexShrink: 1 },
+    suggestionsListText: {
+      color: colors?.onSurface,
+    },
+  });
+
+  return styles;
 }
 
 export type { AutocompleteDropdownProps };

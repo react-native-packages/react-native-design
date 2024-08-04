@@ -19,6 +19,7 @@ interface FormFieldProps extends BaseProps {
   touched?: boolean;
   error?: string;
   containerStyle?: RNStyleProp<RNViewStyle>;
+  contentStyle?: RNStyleProp<RNViewStyle>;
   labelStyle?: RNStyleProp<RNTextStyle>;
   errorStyle?: RNStyleProp<RNTextStyle>;
   isDisabled?: boolean;
@@ -67,7 +68,9 @@ function FormField(props: PropsWithChildren<FormFieldProps>) {
           {props?.label}
         </Text>
       )}
-      <RNView style={getInputBorderVariant(props?.variant)}>
+      <RNView
+        style={[getInputBorderVariant(props?.variant), props?.contentStyle]}
+      >
         {props?.children}
       </RNView>
       {!props?.isDisabled && props?.touched && props?.error && (

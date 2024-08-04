@@ -5,10 +5,13 @@ import { isEmpty } from '@rnpack/utils';
 
 import {
   AutocompleteDropdown,
-  DesignProvider,
   responsive,
+  useAppTheme,
 } from 'react-native-design';
-import type { AutocompleteDropdownProps } from 'react-native-design';
+import type {
+  AutocompleteDropdownProps,
+  MakeStyles,
+} from 'react-native-design';
 
 const dataSet: Pick<AutocompleteDropdownProps, 'dataSet'>['dataSet'] = [
   { id: '1', title: 'Cupcake' },
@@ -18,6 +21,13 @@ const dataSet: Pick<AutocompleteDropdownProps, 'dataSet'>['dataSet'] = [
   { id: '5', title: 'Gingerbread' },
   { id: '6', title: 'Honeycomb' },
   { id: '7', title: 'Ice Cream Sandwich' },
+  { id: '8', title: 'Jelly Bean' },
+  { id: '9', title: 'KitKat' },
+  { id: '10', title: 'Lollipop' },
+  { id: '11', title: 'Marshmallow' },
+  { id: '12', title: 'Nougat' },
+  { id: '13', title: 'Oreo' },
+  { id: '14', title: 'Pie' },
 ];
 
 const onOpenSuggestionsList = (_: any) => {};
@@ -25,18 +35,28 @@ const onOpenSuggestionsList = (_: any) => {};
 const meta = {
   component: AutocompleteDropdown,
   decorators: [
-    (Story) => (
-      <View style={styles?.container}>
-        <Story />
-      </View>
-    ),
+    (Story) => {
+      const { colors } = useAppTheme();
+
+      const styles = makeStyles({ colors });
+
+      return (
+        <View style={styles?.container}>
+          <Story />
+        </View>
+      );
+    },
   ],
   args: {
     containerStyle: {
       width: '100%',
     },
   },
-  argTypes: {},
+  argTypes: {
+    isDisabled: {
+      control: 'boolean',
+    },
+  },
 } satisfies Meta<typeof AutocompleteDropdown>;
 
 export default meta;
@@ -62,22 +82,24 @@ export const Default: StoryObj<ComponentProps<typeof AutocompleteDropdown>> = {
     }
 
     return (
-      <DesignProvider>
-        <AutocompleteDropdown
-          {...args}
-          dataSet={isEmpty(searchText) ? dataSet : filter}
-          onChangeText={onChangeText}
-        />
-      </DesignProvider>
+      <AutocompleteDropdown
+        {...args}
+        dataSet={isEmpty(searchText) ? dataSet : filter}
+        onChangeText={onChangeText}
+      />
     );
   },
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: responsive.size(10),
-  },
-});
+function makeStyles({ colors }: MakeStyles) {
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingHorizontal: responsive.size(10),
+      backgroundColor: colors?.surface,
+    },
+  });
+  return styles;
+}
