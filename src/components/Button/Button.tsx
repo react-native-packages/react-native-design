@@ -15,6 +15,8 @@ import type {
 import type {
   BaseProps,
   ButtonLoadingPosition,
+  ButtonShapeVariant,
+  ButtonThemeVariant,
   ButtonVariant,
   MakeStyles,
 } from '../../types';
@@ -47,10 +49,14 @@ interface ButtonProps extends BaseProps {
   isLoading?: boolean;
   loadingPosition?: ButtonLoadingPosition;
   loaderColor?: RNColorValue;
+  theme?: ButtonThemeVariant;
+  shape?: ButtonShapeVariant;
 }
 
 function Button(props: PropsWithChildren<ButtonProps>) {
   const variantProp: ButtonVariant = props?.variant ?? 'contained';
+  const themeProp: ButtonThemeVariant = props?.theme ?? 'primary';
+  const shapeProp: ButtonShapeVariant = props?.shape ?? 'rect';
 
   const { colors } = useAppTheme();
 
@@ -67,6 +73,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
         {
           backgroundColor: getButtonBackgroundColor({
             variant: variantProp,
+            theme: themeProp,
             disabled: props?.disabled,
             colors,
           }),
@@ -75,6 +82,8 @@ function Button(props: PropsWithChildren<ButtonProps>) {
         styles?.container,
         getButtonBorderStyle({
           variant: variantProp,
+          theme: themeProp,
+          shape: shapeProp,
           disabled: props?.disabled,
           colors,
         }),
@@ -98,6 +107,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
           loaderColor={getButtonContentColor({
             variant: variantProp,
             disabled: props?.disabled,
+            theme: themeProp,
             color: props?.loaderColor,
             colors,
           })}
@@ -106,6 +116,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
           iconSize={props?.leftIconSize}
           iconColor={getButtonContentColor({
             variant: variantProp,
+            theme: themeProp,
             disabled: props?.disabled,
             color: props?.leftIconColor,
             colors,
@@ -121,6 +132,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
             {
               color: getButtonContentColor({
                 variant: variantProp,
+                theme: themeProp,
                 disabled: props?.disabled,
                 color: props?.leftIconColor,
                 colors,
@@ -138,6 +150,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
           isLoading={props?.isLoading && props?.loadingPosition === 'right'}
           loaderColor={getButtonContentColor({
             variant: variantProp,
+            theme: themeProp,
             disabled: props?.disabled,
             color: props?.loaderColor,
             colors,
@@ -147,6 +160,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
           iconSize={props?.rightIconSize}
           iconColor={getButtonContentColor({
             variant: variantProp,
+            theme: themeProp,
             disabled: props?.disabled,
             color: props?.rightIconColor,
             colors,

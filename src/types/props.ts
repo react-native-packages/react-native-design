@@ -13,6 +13,10 @@ type SpinnerSize = 'small' | 'large';
 
 type ButtonVariant = 'contained' | 'outlined' | 'text';
 
+type ButtonThemeVariant = 'primary' | 'secondary' | 'tertiary';
+
+type ButtonShapeVariant = 'rect-sharp' | 'rect' | 'round';
+
 type ButtonLoadingPosition = 'left' | 'right';
 
 type ModalAnimationType = 'fade' | 'none' | 'slide';
@@ -25,6 +29,8 @@ export type {
   TestProps,
   SpinnerSize,
   ButtonVariant,
+  ButtonThemeVariant,
+  ButtonShapeVariant,
   ButtonLoadingPosition,
   ModalAnimationType,
   DividerOrientation,

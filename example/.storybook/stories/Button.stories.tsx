@@ -23,11 +23,21 @@ const meta = {
     rightIconSize: 26,
     isLoading: false,
     loadingPosition: 'left',
+    theme: 'primary',
+    shape: 'rect',
   },
   argTypes: {
     variant: {
       control: { type: 'select' },
       options: ['contained', 'outlined', 'text'],
+    },
+    theme: {
+      control: { type: 'select' },
+      options: ['primary', 'secondary', 'tertiary'],
+    },
+    shape: {
+      control: { type: 'select' },
+      options: ['rect', 'rect-sharp', 'round'],
     },
     disabled: { control: { type: 'boolean' } },
     leftIconName: { control: { type: 'text' } },

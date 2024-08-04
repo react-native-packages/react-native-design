@@ -4,19 +4,41 @@ import type { StyleProp, ViewStyle, ColorValue } from 'react-native';
 
 import { responsive } from '../../helpers';
 
-import type { ButtonVariant } from '../../types/props';
+import type {
+  ButtonShapeVariant,
+  ButtonThemeVariant,
+  ButtonVariant,
+} from '../../types/props';
 import type { MakeStyles } from '../../types';
 import type { ThemeColors } from '../../themes';
 
-function makeButtonStyle({ colors }: MakeStyles) {
+interface CustomMakeStyles extends MakeStyles {
+  theme: ButtonThemeVariant;
+  shape: ButtonShapeVariant;
+}
+
+function getButtonBorderRadius(shape: ButtonShapeVariant) {
+  switch (shape) {
+    case 'rect':
+      return responsive.size(5);
+
+    case 'rect-sharp':
+      return 0;
+
+    case 'round':
+      return responsive.size(30);
+  }
+}
+
+function makeButtonStyles({ colors, theme, shape }: CustomMakeStyles) {
   const buttonStyles = StyleSheet.create({
     buttonBorder: {
-      borderRadius: responsive.size(5),
+      borderRadius: getButtonBorderRadius(shape),
       borderStyle: 'solid',
       borderWidth: 2,
     },
     borderButton: {
-      borderColor: colors?.primary,
+      borderColor: colors?.[theme],
     },
     noBorderButton: {},
     disabledBorderButton: {
@@ -30,9 +52,15 @@ function makeButtonStyle({ colors }: MakeStyles) {
 function getButtonBorderStyle(args: {
   colors: ThemeColors;
   variant: ButtonVariant;
+  theme: ButtonThemeVariant;
+  shape: ButtonShapeVariant;
   disabled?: boolean;
 }): Array<StyleProp<ViewStyle>> {
-  const buttonStyles = makeButtonStyle({ colors: args?.colors });
+  const buttonStyles = makeButtonStyles({
+    colors: args?.colors,
+    theme: args?.theme,
+    shape: args?.shape,
+  });
 
   switch (args?.variant) {
     case 'contained':
@@ -57,6 +85,7 @@ function getButtonBorderStyle(args: {
 function getButtonContentColor(args: {
   colors: ThemeColors;
   variant: ButtonVariant;
+  theme: ButtonThemeVariant;
   disabled?: boolean;
   color?: ColorValue;
 }): ColorValue {
@@ -72,15 +101,16 @@ function getButtonContentColor(args: {
     case 'contained':
       return args?.colors?.surface;
     case 'outlined':
-      return args?.colors?.primary;
+      return args?.colors?.[args?.theme];
     case 'text':
-      return args?.colors?.primary;
+      return args?.colors?.[args?.theme];
   }
 }
 
 function getButtonBackgroundColor(args: {
   colors: ThemeColors;
   variant: ButtonVariant;
+  theme: ButtonThemeVariant;
   disabled?: boolean;
   color?: ColorValue;
 }): ColorValue {
@@ -92,7 +122,7 @@ function getButtonBackgroundColor(args: {
     case 'contained':
       return args?.disabled
         ? args?.colors?.onSurfaceDisabled
-        : args?.colors?.primary;
+        : args?.colors?.[args?.theme];
     case 'outlined':
       return args?.disabled ? args?.colors?.onSurfaceDisabled : 'transparent';
     case 'text':
@@ -101,7 +131,7 @@ function getButtonBackgroundColor(args: {
 }
 
 export {
-  makeButtonStyle,
+  makeButtonStyles,
   getButtonBorderStyle,
   getButtonContentColor,
   getButtonBackgroundColor,
