@@ -8,6 +8,7 @@ export * from './Dialog';
 export * from './FormField';
 export * from './EmptySearchResult';
 export * from './AutocompleteDropdown';
+export * from './ThemeSwitch';
 
 export * from './loaders';
 export * from './icons';
