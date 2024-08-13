@@ -6,6 +6,7 @@ import type { PropsWithChildren } from 'react';
 import type { Preview } from '@storybook/react';
 
 import {
+  Avatar,
   DesignProvider,
   ShadowEffect,
   Text,
@@ -49,6 +50,10 @@ function PreviewChild(props: PropsWithChildren<PreviewChildProps>) {
       />
       <ShadowEffect>
         <View style={styles?.headerContainer}>
+          <Avatar
+            size="medium"
+            picture="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg"
+          />
           <Text variant="title" style={styles?.title}>
             React Native Design
           </Text>
@@ -73,9 +78,10 @@ function makeStyles({ colors }: MakeStyles) {
       alignItems: 'center',
       backgroundColor: colors?.primary,
       flexDirection: 'row',
-      height: responsive?.height(45),
+      minHeight: responsive?.height(45),
       justifyContent: 'space-between',
       paddingHorizontal: responsive?.size(15),
+      paddingVertical: responsive?.height(10),
     },
     title: {
       color: colors?.onPrimary,

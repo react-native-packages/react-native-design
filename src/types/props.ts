@@ -31,6 +31,14 @@ type Orientation = 'horizontal' | 'vertical';
 
 type WaveCircleMotion = 'outside' | 'inside';
 
+type AvatarSize =
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'x-large'
+  | 'xx-large'
+  | 'xxx-large';
+
 export type {
   TestProps,
   SpinnerSize,
@@ -45,4 +53,5 @@ export type {
   BadgePosition,
   Orientation,
   WaveCircleMotion,
+  AvatarSize,
 };

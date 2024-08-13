@@ -11,6 +11,7 @@ export * from './AutocompleteDropdown';
 export * from './ThemeSwitch';
 export * from './Badge';
 export * from './Chip';
+export * from './Avatar';
 
 export * from './loaders';
 export * from './icons';
