@@ -5,12 +5,12 @@ import type { PropsWithChildren } from 'react';
 import { AppThemeContext } from './context';
 import { useAppThemeConfig } from '../../hooks/appTheme/useAppThemeConfig';
 
-import type { AppTheme } from '../../themes';
+import type { AppThemePartial } from '../../themes';
 
 const { Provider } = AppThemeContext;
 
 interface AppThemeProviderProps {
-  theme?: AppTheme;
+  theme?: AppThemePartial;
 }
 
 function AppThemeProvider(props: PropsWithChildren<AppThemeProviderProps>) {

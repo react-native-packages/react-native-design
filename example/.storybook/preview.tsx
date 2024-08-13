@@ -1,4 +1,7 @@
+import React from 'react';
+
 import type { Preview } from '@storybook/react';
+
 import { DesignProvider } from 'react-native-design';
 
 const preview: Preview = {

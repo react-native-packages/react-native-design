@@ -4,7 +4,7 @@ import { storage } from '@rnpack/utils';
 import { appTheme } from '../../themes';
 import { storageKeys } from '../../constants';
 
-import type { AppTheme, ThemeColors } from '../../themes';
+import type { AppThemePartial, ThemeColors } from '../../themes';
 import type { ThemeMode } from '../../types';
 
 interface UseAppThemeConfigReturns {
@@ -14,15 +14,16 @@ interface UseAppThemeConfigReturns {
 }
 
 interface UseAppThemeConfigProps {
-  theme?: AppTheme;
+  theme?: AppThemePartial;
 }
 
 function useAppThemeConfig(
   props?: UseAppThemeConfigProps
 ): UseAppThemeConfigReturns {
-  const [colors, setColors] = useState<ThemeColors>(
-    props?.theme?.light ?? appTheme?.light
-  );
+  const [colors, setColors] = useState<ThemeColors>({
+    ...appTheme?.light,
+    ...props?.theme?.light,
+  });
   const [mode, setMode] = useState<ThemeMode>('light');
 
   useEffect(() => {
@@ -57,15 +58,24 @@ function useAppThemeConfig(
     setMode(_mode);
 
     if (_mode === 'dark') {
-      setColors(props?.theme?.dark ?? appTheme?.dark);
+      setColors({
+        ...appTheme?.dark,
+        ...props?.theme?.dark,
+      });
     }
 
     if (_mode === 'light') {
-      setColors(props?.theme?.light ?? appTheme?.light);
+      setColors({
+        ...appTheme?.light,
+        ...props?.theme?.light,
+      });
     }
 
     if (_mode === 'system') {
-      setColors(props?.theme?.light ?? appTheme?.light);
+      setColors({
+        ...appTheme?.light,
+        ...props?.theme?.light,
+      });
     }
   }
 

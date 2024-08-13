@@ -15,6 +15,18 @@ const light = {
   onError: 'rgb(255, 255, 255)',
   errorContainer: 'rgb(255, 218, 214)',
   onErrorContainer: 'rgb(65, 0, 2)',
+  success: 'rgb(34,187,51)',
+  onSuccess: 'rgb(76, 88, 72)',
+  successContainer: 'rgb(201, 240, 204)',
+  onSuccessContainer: 'rgb(54, 60, 56)',
+  warn: 'rgb(240, 232, 78)',
+  onWarn: 'rgb(81, 82, 69)',
+  warnContainer: 'rgb(239, 238, 217)',
+  onWarnContainer: 'rgb(33, 32, 11)',
+  info: 'rgb(91,192,222)',
+  onInfo: 'rgb(221, 246, 250)',
+  infoContainer: 'rgb(91,192,222)',
+  onInfoContainer: 'rgb(41, 61, 67)',
   background: 'rgb(255, 251, 255)',
   onBackground: 'rgb(29, 27, 30)',
   surface: 'rgb(255, 251, 255)',
@@ -39,6 +51,7 @@ const light = {
   surfaceDisabled: 'rgba(29, 27, 30, 0.12)',
   onSurfaceDisabled: 'rgba(29, 27, 30, 0.38)',
   backdrop: 'rgba(51, 47, 55, 0.4)',
+  transparent: 'transparent',
 };
 
 const dark = {
@@ -58,6 +71,18 @@ const dark = {
   onError: 'rgb(105, 0, 5)',
   errorContainer: 'rgb(147, 0, 10)',
   onErrorContainer: 'rgb(255, 180, 171)',
+  success: 'rgb(43, 100, 51)',
+  onSuccess: 'rgb(190, 218, 181)',
+  successContainer: 'rgb(38, 47, 39)',
+  onSuccessContainer: 'rgb(200, 220, 207)',
+  warn: 'rgb(138, 134, 47)',
+  onWarn: 'rgb(208, 211, 174)',
+  warnContainer: 'rgb(130, 129, 113)',
+  onWarnContainer: 'rgb(246, 244, 208)',
+  info: 'rgb(30, 63, 74)',
+  onInfo: 'rgb(198, 227, 230)',
+  infoContainer: 'rgb(40, 82, 95)',
+  onInfoContainer: 'rgb(143, 214, 235)',
   background: 'rgb(29, 27, 30)',
   onBackground: 'rgb(231, 225, 229)',
   surface: 'rgb(29, 27, 30)',
@@ -82,11 +107,13 @@ const dark = {
   surfaceDisabled: 'rgba(231, 225, 229, 0.12)',
   onSurfaceDisabled: 'rgba(231, 225, 229, 0.38)',
   backdrop: 'rgba(51, 47, 55, 0.4)',
+  transparent: 'transparent',
 };
 
 const themes = { light, dark };
 
 type ThemeColors = typeof light | typeof dark;
+type ThemeColorsPartial = Partial<typeof light> | Partial<typeof dark>;
 
-export type { ThemeColors };
+export type { ThemeColors, ThemeColorsPartial };
 export { themes };
