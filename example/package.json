@@ -14,9 +14,12 @@
     "@rnpack/utils": "^0.1.5",
     "expo": "51",
     "expo-status-bar": "~1.12.1",
+    "moti": "^0.29.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.1",
+    "react-native-gesture-handler": "~2.16.1",
+    "react-native-reanimated": "~3.10.1",
     "react-native-vector-icons": "^10.1.0",
     "react-native-web": "~0.19.6"
   },

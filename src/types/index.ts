@@ -1,3 +1,4 @@
+export * from './animation';
 export * from './context';
 export * from './props';
 export * from './theme';

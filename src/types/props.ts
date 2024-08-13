@@ -25,6 +25,12 @@ type DividerOrientation = 'horizontal' | 'vertical';
 
 type InputVariant = 'base' | 'border' | 'noborder';
 
+type BadgePosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+
+type Orientation = 'horizontal' | 'vertical';
+
+type WaveCircleMotion = 'outside' | 'inside';
+
 export type {
   TestProps,
   SpinnerSize,
@@ -36,4 +42,7 @@ export type {
   DividerOrientation,
   BaseProps,
   InputVariant,
+  BadgePosition,
+  Orientation,
+  WaveCircleMotion,
 };

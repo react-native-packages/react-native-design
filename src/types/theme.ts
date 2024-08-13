@@ -7,4 +7,7 @@ interface MakeStyles {
   isDisabled?: boolean;
 }
 
-export type { ThemeMode, MakeStyles };
+type ChipVariant = 'error' | 'success' | 'warn' | 'info' | 'default';
+type ChipShape = 'rect' | 'rect-sharp' | 'round';
+
+export type { ThemeMode, MakeStyles, ChipVariant, ChipShape };
