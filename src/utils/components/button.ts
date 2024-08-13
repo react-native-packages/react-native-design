@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native';
+import { responsive } from '@rnpack/utils';
 
 import type { StyleProp, ViewStyle, ColorValue } from 'react-native';
-
-import { responsive } from '../../helpers';
 
 import type {
   ButtonShapeVariant,

@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet as RNStyleSheet, View as RNView } from 'react-native';
+import { responsive } from '@rnpack/utils';
+
 import type {
   StyleProp as RNStyleProp,
   TextStyle as RNTextStyle,
@@ -7,7 +9,7 @@ import type {
 } from 'react-native';
 
 import { Text } from './Text';
-import { responsive } from '../helpers';
+
 import type { BaseProps } from '../types';
 
 interface EmptySearchResultProps extends BaseProps {

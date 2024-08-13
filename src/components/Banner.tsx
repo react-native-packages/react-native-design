@@ -1,19 +1,19 @@
-/* eslint-disable react-native/no-unused-styles */
 import React from 'react';
-import type { PropsWithChildren } from 'react';
 import { StyleSheet as RNStyleSheet, View as RNView } from 'react-native';
+import { responsive } from '@rnpack/utils';
+
+import type { PropsWithChildren } from 'react';
 import type {
   StyleProp as RNStyleProp,
   TextStyle as RNTextStyle,
   ViewStyle as RNViewStyle,
   ColorValue as RNColorValue,
 } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+import { MaterialIcons } from './icons';
 import { Text } from './Text';
 import type { TextVariant } from './Text';
 import { colors } from '../themes/appColors';
-import { responsive } from '../helpers';
 import type { BaseProps } from '../types';
 
 type BannerVariant = 'default' | 'warn' | 'info' | 'error';

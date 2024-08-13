@@ -3,6 +3,7 @@ import {
   StyleSheet as RNStyleSheet,
   TouchableOpacity as RNTouchableOpacity,
 } from 'react-native';
+import { responsive } from '@rnpack/utils';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import type { PropsWithChildren } from 'react';
@@ -12,7 +13,6 @@ import type {
   StyleProp as RNStyleProp,
 } from 'react-native';
 
-import { responsive } from '../helpers';
 import { useAppTheme } from '../hooks';
 
 import type { BaseProps, MakeStyles } from '../types';

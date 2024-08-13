@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet as RNStyleSheet, View as RNView } from 'react-native';
+import { responsive } from '@rnpack/utils';
+
 import type {
   ColorValue as RNColorValue,
   StyleProp as RNStyleProp,
@@ -7,7 +9,6 @@ import type {
 } from 'react-native';
 
 import { colors } from '../../themes/appColors';
-import { responsive } from '../../helpers';
 import type { BaseProps, DividerOrientation } from '../../types';
 
 interface DividerProps extends BaseProps {
@@ -36,7 +37,6 @@ function Divider(props: DividerProps) {
 }
 
 const styles = RNStyleSheet.create({
-  /* eslint-disable react-native/no-unused-styles */
   horizontal: {
     borderBottomColor: colors?.black?.normal?.main,
     borderBottomWidth: responsive.size(1),

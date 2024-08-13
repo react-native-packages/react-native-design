@@ -1,15 +1,11 @@
 import React from 'react';
 import { responsive } from '@rnpack/utils';
+import { StyleSheet, View } from 'react-native';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-import {
-  Feather,
-  useAppTheme,
-  WaveCircleAnimation,
-  type MakeStyles,
-} from 'react-native-design';
-import { StyleSheet, View } from 'react-native';
+import { Feather, useAppTheme, WaveCircleAnimation } from 'react-native-design';
+import type { MakeStyles } from 'react-native-design';
 
 const meta = {
   component: WaveCircleAnimation,

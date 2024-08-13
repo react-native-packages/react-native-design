@@ -4,6 +4,7 @@ import {
   TextInput as RNTextInput,
   StyleSheet as RNStyleSheet,
 } from 'react-native';
+import { responsive } from '@rnpack/utils';
 
 import type { ReactNode, Ref } from 'react';
 import type {
@@ -19,7 +20,6 @@ import type {
 
 import { FontAwesome } from './icons/FontAwesome';
 import { IconButton } from './IconButton';
-import { responsive } from '../helpers';
 import { FormField } from './FormField';
 import { useAppTheme } from '../hooks';
 

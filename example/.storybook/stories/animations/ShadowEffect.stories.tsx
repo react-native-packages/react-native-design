@@ -1,15 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { responsive } from '@rnpack/utils';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-import {
-  ShadowEffect,
-  Text,
-  useAppTheme,
-  type MakeStyles,
-} from 'react-native-design';
-import { responsive } from '@rnpack/utils';
+import { ShadowEffect, Text, useAppTheme } from 'react-native-design';
+import type { MakeStyles } from 'react-native-design';
 
 const meta = {
   component: ShadowEffect,

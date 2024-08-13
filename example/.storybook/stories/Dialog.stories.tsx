@@ -1,9 +1,11 @@
 import React, { type ComponentProps } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from '@storybook/preview-api';
 import { Alert, StyleSheet, View } from 'react-native';
+import { responsive } from '@rnpack/utils';
 
-import { Button, Dialog, Text, responsive } from 'react-native-design';
+import type { Meta, StoryObj } from '@storybook/react';
+
+import { Button, Dialog, Text } from 'react-native-design';
 
 const meta = {
   component: Dialog,

@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
 import { StyleSheet as RNStyleSheet } from 'react-native';
 import { responsive } from '@rnpack/utils';
-import { MotiView, type MotiProps } from 'moti';
+import { MotiView } from 'moti';
 import { Easing } from 'react-native-reanimated';
 
 import type { PropsWithChildren } from 'react';
 import type { ColorValue as RNColorValue } from 'react-native';
+import type { MotiProps } from 'moti';
 
 import { useAppTheme } from './../hooks';
 import type { BaseProps, MakeStyles, WaveCircleMotion } from './../types';

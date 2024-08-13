@@ -1,13 +1,10 @@
 import React, { useState, type ComponentProps } from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
 import { StyleSheet, View } from 'react-native';
-import { isEmpty } from '@rnpack/utils';
+import { isEmpty, responsive } from '@rnpack/utils';
 
-import {
-  AutocompleteDropdown,
-  responsive,
-  useAppTheme,
-} from 'react-native-design';
+import type { Meta, StoryObj } from '@storybook/react';
+
+import { AutocompleteDropdown, useAppTheme } from 'react-native-design';
 import type {
   AutocompleteDropdownProps,
   MakeStyles,

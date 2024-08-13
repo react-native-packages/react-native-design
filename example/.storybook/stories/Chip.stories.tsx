@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { responsive } from '@rnpack/utils';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Chip } from 'react-native-design';
-import { responsive } from '@rnpack/utils';
 
 const meta = {
   component: Chip,

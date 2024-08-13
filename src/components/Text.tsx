@@ -1,9 +1,9 @@
-/* eslint-disable react-native/no-unused-styles */
 import React from 'react';
 import { Text as RNText, StyleSheet as RNStyleSheet } from 'react-native';
+import { responsive } from '@rnpack/utils';
+
 import type { TextProps as RNTextProps } from 'react-native';
 
-import { responsive } from './../helpers';
 import { colors } from '../themes/appColors';
 
 type TextVariant = 'title' | 'text' | 'label' | 'error' | 'button';

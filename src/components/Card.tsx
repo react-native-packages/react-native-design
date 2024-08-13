@@ -1,17 +1,19 @@
 import React from 'react';
-import type { PropsWithChildren } from 'react';
 import {
   View as RNView,
   StyleSheet as RNStyleSheet,
   Pressable as RNPressable,
 } from 'react-native';
+import { responsive } from '@rnpack/utils';
+
+import type { PropsWithChildren } from 'react';
 import type {
   StyleProp as RNStyleProp,
   ViewStyle as RNViewStyle,
 } from 'react-native';
 
-import { responsive } from '../helpers';
 import { colors } from '../themes/appColors';
+
 import type { BaseProps } from '../types';
 
 interface CardProps extends BaseProps {

@@ -1,12 +1,11 @@
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
 import { StyleSheet, View } from 'react-native';
-import {
-  TextInput,
-  responsive,
-  useAppTheme,
-  type MakeStyles,
-} from 'react-native-design';
+import { responsive } from '@rnpack/utils';
+
+import type { Meta, StoryObj } from '@storybook/react';
+
+import { TextInput, useAppTheme } from 'react-native-design';
+import type { MakeStyles } from 'react-native-design';
 
 const meta = {
   component: TextInput,

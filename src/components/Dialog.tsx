@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
-import type { PropsWithChildren, ReactNode } from 'react';
 import {
   Modal as RNModal,
   Pressable as RNPressable,
   StyleSheet as RNStyleSheet,
   View as RNView,
 } from 'react-native';
+import { responsive } from '@rnpack/utils';
+
+import type { PropsWithChildren, ReactNode } from 'react';
 import type {
   NativeSyntheticEvent as RNNativeSyntheticEvent,
   StyleProp as RNStyleProp,
@@ -14,14 +16,15 @@ import type {
   ColorValue as RNColorValue,
 } from 'react-native';
 
-import type { ModalAnimationType, BaseProps } from '../types/props';
-import { Text, type TextVariant } from './Text';
-import { responsive } from '../helpers';
+import { Text } from './Text';
 import { colors } from '../themes/appColors';
 import { IconButton } from './IconButton';
 import { Ionicons } from './icons';
 import { Divider } from './dividers';
 import { Button } from './Button';
+
+import type { ModalAnimationType, BaseProps } from '../types';
+import type { TextVariant } from './Text';
 
 interface DialogProps extends BaseProps {
   isVisible?: boolean;

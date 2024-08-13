@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button, responsive } from 'react-native-design';
+import { responsive } from '@rnpack/utils';
 
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { useAppTheme } from '../../../src/hooks';
+import { Button, useAppTheme } from 'react-native-design';
 
 const meta = {
   component: Button,

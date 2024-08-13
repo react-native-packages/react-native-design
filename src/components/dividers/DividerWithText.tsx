@@ -1,15 +1,17 @@
 import React from 'react';
 import { StyleSheet as RNStyleSheet, View as RNView } from 'react-native';
+import { responsive } from '@rnpack/utils';
+
 import type {
   StyleProp as RNStyleProp,
   TextStyle as RNTextStyle,
   ViewStyle as RNViewStyle,
 } from 'react-native';
 
-import type { BaseProps } from '../../types';
 import { Divider } from './Divider';
 import { Text } from '../Text';
-import { responsive } from '../../helpers';
+
+import type { BaseProps } from '../../types';
 
 interface DividerWithTextProps extends BaseProps {
   text: React.ReactNode;
