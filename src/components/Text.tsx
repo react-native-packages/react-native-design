@@ -4,7 +4,8 @@ import { responsive } from '@rnpack/utils';
 
 import type { TextProps as RNTextProps } from 'react-native';
 
-import { colors } from '../themes/appColors';
+import { useAppTheme } from '../hooks';
+import type { MakeStyles } from '../types';
 
 type TextVariant = 'title' | 'text' | 'label' | 'error' | 'button';
 
@@ -13,6 +14,10 @@ interface TextProps extends RNTextProps {
 }
 
 function Text(props: TextProps) {
+  const { colors } = useAppTheme();
+
+  const styles = makeStyles({ colors });
+
   return (
     <RNText
       {...props}
@@ -20,9 +25,9 @@ function Text(props: TextProps) {
       accessible={props?.accessible}
       accessibilityLabel={props?.accessibilityLabel}
       style={[
-        textStyles?.common,
-        textStyles[props?.variant ?? 'text'],
-        props?.disabled ? textStyles?.disabled : undefined,
+        styles?.common,
+        styles[props?.variant ?? 'text'],
+        props?.disabled ? styles?.disabled : undefined,
         props?.style,
       ]}
       numberOfLines={props?.numberOfLines}
@@ -33,34 +38,38 @@ function Text(props: TextProps) {
   );
 }
 
-const textStyles = RNStyleSheet.create({
-  common: {
-    color: colors?.black?.normal?.main,
-  },
-  text: {},
-  title: {
-    fontSize: responsive.size(20),
-    fontWeight: 'bold',
-  },
-  label: {
-    color: colors?.black?.normal?.main,
-    fontSize: responsive.size(15),
-    fontWeight: '500',
-  },
-  error: {
-    color: colors?.monaLisa?.normal?.main,
-    fontSize: responsive.size(14),
-  },
-  button: {
-    fontSize: responsive.size(18),
-    fontWeight: 'bold',
-    includeFontPadding: false,
-    lineHeight: responsive.height(25),
-  },
-  disabled: {
-    color: colors?.grey?.light?.main,
-  },
-});
+function makeStyles({ colors }: MakeStyles) {
+  const styles = RNStyleSheet.create({
+    common: {
+      color: colors?.onBackground,
+    },
+    text: {},
+    title: {
+      fontSize: responsive.size(20),
+      fontWeight: 'bold',
+    },
+    label: {
+      color: colors?.onBackground,
+      fontSize: responsive.size(15),
+      fontWeight: '500',
+    },
+    error: {
+      color: colors?.error,
+      fontSize: responsive.size(14),
+    },
+    button: {
+      fontSize: responsive.size(18),
+      fontWeight: 'bold',
+      includeFontPadding: false,
+      lineHeight: responsive.height(25),
+    },
+    disabled: {
+      color: colors?.onSurfaceDisabled,
+    },
+  });
+
+  return styles;
+}
 
 export type { TextVariant, TextProps };
-export { Text, textStyles };
+export { Text };
