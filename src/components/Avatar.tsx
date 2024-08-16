@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {
+  Pressable as RNPressable,
   Image as RNImage,
   StyleSheet as RNStyleSheet,
-  View as RNView,
 } from 'react-native';
 import { responsive, splitString } from '@rnpack/utils';
 
@@ -33,6 +33,7 @@ interface AvatarProps {
   height?: number;
   width?: number;
   size?: AvatarSize;
+  onPress?: () => void;
 }
 
 function Avatar(props: AvatarProps) {
@@ -68,11 +69,14 @@ function Avatar(props: AvatarProps) {
     setIsValidPicture(false);
   }
 
-  const { height } = getAvatarSize(sizeProp);
+  const avatarSize = getAvatarSize(sizeProp);
 
   return (
     <ShadowEffect containerStyle={styles?.shadowContainer}>
-      <RNView style={[styles?.container, props?.containerStyle]}>
+      <RNPressable
+        style={[styles?.container, props?.containerStyle]}
+        onPress={props?.onPress}
+      >
         {props?.picture && isValidPicture ? (
           <RNImage
             source={{ uri: props?.picture }}
@@ -89,62 +93,39 @@ function Avatar(props: AvatarProps) {
         ) : (
           <MaterialIcons
             name={props?.iconName ?? 'account-circle'}
-            size={height}
+            size={props?.iconSize ?? avatarSize}
             color={colors?.background}
           />
         )}
-      </RNView>
+      </RNPressable>
     </ShadowEffect>
   );
 }
 
-interface GetAvatarSizeReturns {
-  height: number;
-  width: number;
-}
+function getAvatarSize(size: AvatarSize): number {
+  const defaultSize = responsive?.size(45);
 
-function getAvatarSize(size: AvatarSize): GetAvatarSizeReturns {
   switch (size) {
     case 'small':
-      return {
-        height: responsive?.height(20),
-        width: responsive?.size(20),
-      };
+      return responsive?.size(20);
 
     case 'medium':
-      return {
-        height: responsive?.height(45),
-        width: responsive?.size(45),
-      };
+      return defaultSize;
 
     case 'large':
-      return {
-        height: responsive?.height(75),
-        width: responsive?.size(75),
-      };
+      return responsive?.size(75);
 
     case 'x-large':
-      return {
-        height: responsive?.height(90),
-        width: responsive?.size(90),
-      };
+      return responsive?.size(90);
 
     case 'xx-large':
-      return {
-        height: responsive?.height(120),
-        width: responsive?.size(120),
-      };
+      return responsive?.size(120);
 
     case 'xxx-large':
-      return {
-        height: responsive?.height(180),
-        width: responsive?.size(180),
-      };
+      return responsive?.size(180);
+
     default:
-      return {
-        height: responsive?.height(45),
-        width: responsive?.size(45),
-      };
+      return defaultSize;
   }
 }
 
@@ -160,7 +141,7 @@ function makeStyles({
   width: defaultWidth,
   size,
 }: CustomMakeStyles) {
-  const { height, width } = getAvatarSize(size);
+  const avatarSize = getAvatarSize(size);
 
   const styles = RNStyleSheet.create({
     shadowContainer: {
@@ -169,20 +150,20 @@ function makeStyles({
     container: {
       alignItems: 'center',
       backgroundColor: colors?.onSurfaceDisabled,
-      borderRadius: responsive?.size(90),
+      borderRadius: responsive?.size(1000),
       justifyContent: 'center',
-      height: defaultHeight ?? height,
-      width: defaultWidth ?? width,
+      height: defaultHeight ?? avatarSize,
+      width: defaultWidth ?? avatarSize,
     },
     picture: {
-      height: defaultHeight ?? height,
-      width: defaultWidth ?? width,
-      borderRadius: responsive?.size(height / 2),
+      height: defaultHeight ?? avatarSize,
+      width: defaultWidth ?? avatarSize,
+      borderRadius: responsive?.size(avatarSize / 2),
     },
     nameSign: {
       fontSize: defaultHeight
         ? responsive?.size(defaultHeight / 2)
-        : responsive?.size(height / 2),
+        : responsive?.size(avatarSize / 2),
       color: colors?.background,
     },
   });

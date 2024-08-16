@@ -3,7 +3,7 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Avatar } from 'react-native-design';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 
 const meta = {
   component: Avatar,
@@ -33,36 +33,42 @@ type Story = StoryObj<typeof meta>;
 export const Small: Story = {
   args: {
     size: 'small',
+    onPress: () => Alert.alert('Pressed small Avatar'),
   },
 };
 
 export const Medium: Story = {
   args: {
     size: 'medium',
+    onPress: () => Alert.alert('Pressed medium Avatar'),
   },
 };
 
 export const Large: Story = {
   args: {
     size: 'large',
+    onPress: () => Alert.alert('Pressed large Avatar'),
   },
 };
 
 export const XLarge: Story = {
   args: {
     size: 'x-large',
+    onPress: () => Alert.alert('Pressed x-large Avatar'),
   },
 };
 
 export const XXLarge: Story = {
   args: {
     size: 'xx-large',
+    onPress: () => Alert.alert('Pressed xx-large Avatar'),
   },
 };
 
 export const XXXLarge: Story = {
   args: {
     size: 'xxx-large',
+    onPress: () => Alert.alert('Pressed xxx-large Avatar'),
   },
 };
 
