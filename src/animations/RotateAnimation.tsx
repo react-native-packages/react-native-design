@@ -9,13 +9,11 @@ import type { PropsWithChildren } from 'react';
 
 import { useAppTheme } from '../hooks';
 
-import type { BaseProps, Orientation, Rotation, MakeStyles } from '../types';
+import type { BaseProps, MakeStyles } from '../types';
 
 interface RotateAnimationProps extends BaseProps {
-  orientation?: Orientation;
-  rotation?: Rotation;
+  outputRange: Array<string>;
   duration?: number;
-  outputRange?: Array<string>;
   loop?: boolean;
 }
 
@@ -29,15 +27,7 @@ function RotateAnimation(props: PropsWithChildren<RotateAnimationProps>) {
   const boxRotation: RNAnimated.AnimatedInterpolation<string | number> =
     boxRotationValue.interpolate({
       inputRange: [0, 1],
-      outputRange:
-        props?.outputRange ??
-        (props?.orientation === 'vertical'
-          ? props?.rotation === 'clockwise'
-            ? ['0deg', '90deg']
-            : ['180deg', '90deg']
-          : props?.rotation === 'clockwise'
-          ? ['90deg', '180deg']
-          : ['90deg', '0deg']),
+      outputRange: props?.outputRange,
     });
 
   const styles = makeStyles({ colors, boxRotation });
@@ -64,10 +54,14 @@ function RotateAnimation(props: PropsWithChildren<RotateAnimationProps>) {
     rotateAnimationConfig().reset();
   }
 
-  function onAnimationFinish() {
+  function restartAnimation() {
     resetAnimation();
+    startBoxRotationAnimation();
+  }
+
+  function onAnimationFinish() {
     if (props?.loop) {
-      startBoxRotationAnimation();
+      restartAnimation();
     }
   }
 

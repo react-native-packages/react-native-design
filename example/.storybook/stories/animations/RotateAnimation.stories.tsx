@@ -16,19 +16,9 @@ const meta = {
   component: RotateAnimation,
   decorators: [(Story) => <Story />],
   args: {
-    orientation: 'horizontal',
-    rotation: 'clockwise',
     loop: false,
   },
   argTypes: {
-    orientation: {
-      control: { type: 'select' },
-      options: ['horizontal', 'vertical'],
-    },
-    rotation: {
-      control: { type: 'select' },
-      options: ['clockwise', 'anti-clockwise'],
-    },
     duration: { control: { type: 'number' } },
     loop: { control: { type: 'boolean' } },
   },
@@ -40,8 +30,7 @@ type Story = StoryObj<typeof meta>;
 
 export const ClockwiseRotation: Story = {
   args: {
-    rotation: 'clockwise',
-    outputRange: ['0deg', '360deg'],
+    outputRange: ['0deg', '90deg'],
     duration: 3000,
     loop: false,
   },
@@ -52,8 +41,7 @@ export const ClockwiseRotation: Story = {
 
 export const AntiClockwiseRotation: Story = {
   args: {
-    rotation: 'anti-clockwise',
-    outputRange: ['360deg', '0deg'],
+    outputRange: ['90deg', '0deg'],
     duration: 3000,
     loop: false,
   },
@@ -64,7 +52,6 @@ export const AntiClockwiseRotation: Story = {
 
 export const ContinuesRotation: Story = {
   args: {
-    rotation: 'clockwise',
     outputRange: ['0deg', '360deg'],
     duration: 3000,
     loop: true,
@@ -86,7 +73,7 @@ function StoryChild(props: StoryChildProps) {
 
   return (
     <View style={styles?.container}>
-      <RotateAnimation {...props?.args}>
+      <RotateAnimation outputRange={props?.args?.outputRange} {...props?.args}>
         <ShadowEffect>
           <View style={styles?.content}>
             <Text style={styles?.title}>{props?.title}</Text>
