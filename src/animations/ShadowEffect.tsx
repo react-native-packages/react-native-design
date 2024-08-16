@@ -1,5 +1,6 @@
 import React from 'react';
 import { View as RNView, StyleSheet as RNStyleSheet } from 'react-native';
+import { responsive } from '@rnpack/utils';
 
 import type { PropsWithChildren } from 'react';
 import type {
@@ -14,12 +15,13 @@ import type { BaseProps, MakeStyles } from './../types';
 interface ShadowEffectProps extends BaseProps {
   containerStyle?: RNStyleProp<RNViewStyle>;
   isNoBoxShadow?: boolean;
+  radius?: number;
 }
 
 function ShadowEffect(props: PropsWithChildren<ShadowEffectProps>) {
   const { colors } = useAppTheme();
 
-  const styles = makeStyles({ colors });
+  const styles = makeStyles({ colors, radius: props?.radius });
 
   return (
     <RNView
@@ -36,9 +38,10 @@ function ShadowEffect(props: PropsWithChildren<ShadowEffectProps>) {
 
 interface CustomMakeStyles extends MakeStyles {
   shadowColor?: RNColorValue;
+  radius?: number;
 }
 
-function makeStyles({ colors, shadowColor }: CustomMakeStyles) {
+function makeStyles({ colors, shadowColor, radius }: CustomMakeStyles) {
   const styles = RNStyleSheet.create({
     container: {},
     boxShadow: {
@@ -51,7 +54,7 @@ function makeStyles({ colors, shadowColor }: CustomMakeStyles) {
       shadowOpacity: 0.25,
       shadowRadius: 3.84,
       backgroundColor: colors?.transparent,
-      borderRadius: 2,
+      borderRadius: radius ?? responsive?.size(2),
     },
   });
 
