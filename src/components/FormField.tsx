@@ -12,18 +12,37 @@ import type {
 import { Text } from './Text';
 import { useAppTheme } from '../hooks';
 
-import type { BaseProps, InputVariant, MakeStyles } from '../types';
+import type { BaseProps, InputShape, InputVariant, MakeStyles } from '../types';
+
+function getInputBorderRadius(shape?: InputShape) {
+  const shapeRect = responsive?.size(5);
+
+  switch (shape) {
+    case 'rect':
+      return shapeRect;
+
+    case 'rect-sharp':
+      return 0;
+
+    case 'round':
+      return responsive?.size(1000);
+
+    default:
+      return shapeRect;
+  }
+}
 
 interface FormFieldProps extends BaseProps {
   label?: string;
   touched?: boolean;
   error?: string;
+  variant?: InputVariant;
+  shape?: InputShape;
   containerStyle?: RNStyleProp<RNViewStyle>;
   contentStyle?: RNStyleProp<RNViewStyle>;
   labelStyle?: RNStyleProp<RNTextStyle>;
   errorStyle?: RNStyleProp<RNTextStyle>;
   isDisabled?: boolean;
-  variant?: InputVariant;
 }
 
 function FormField(props: PropsWithChildren<FormFieldProps>) {
@@ -33,6 +52,7 @@ function FormField(props: PropsWithChildren<FormFieldProps>) {
     colors,
     isError: Boolean(props?.error) && props?.touched,
     isDisabled: props?.isDisabled,
+    shape: props?.shape,
   });
 
   function getInputBorderVariant(variant?: InputVariant) {
@@ -89,9 +109,10 @@ function FormField(props: PropsWithChildren<FormFieldProps>) {
 
 interface CustomMakeStyles extends MakeStyles {
   variant?: InputVariant;
+  shape?: InputShape;
 }
 
-function makeStyles({ colors, isError, isDisabled }: CustomMakeStyles) {
+function makeStyles({ colors, isError, isDisabled, shape }: CustomMakeStyles) {
   const styles = RNStyleSheet.create({
     container: {
       rowGap: responsive.height(10),
@@ -113,7 +134,7 @@ function makeStyles({ colors, isError, isDisabled }: CustomMakeStyles) {
         : isError
         ? colors?.error
         : colors?.onSurface,
-      borderRadius: responsive?.size(5),
+      borderRadius: getInputBorderRadius(shape),
     },
     label: {
       color: isDisabled

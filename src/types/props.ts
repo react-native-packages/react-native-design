@@ -24,6 +24,7 @@ type ModalAnimationType = 'fade' | 'none' | 'slide';
 type DividerOrientation = 'horizontal' | 'vertical';
 
 type InputVariant = 'base' | 'border' | 'noborder';
+type InputShape = 'rect' | 'rect-sharp' | 'round';
 
 type BadgePosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
@@ -50,6 +51,7 @@ export type {
   DividerOrientation,
   BaseProps,
   InputVariant,
+  InputShape,
   BadgePosition,
   Orientation,
   WaveCircleMotion,

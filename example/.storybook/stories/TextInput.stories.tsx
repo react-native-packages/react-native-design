@@ -80,6 +80,10 @@ const meta = {
       control: { type: 'select' },
       options: ['base', 'border', 'noborder'],
     },
+    shape: {
+      control: { type: 'select' },
+      options: ['rect', 'rect-sharp', 'round'],
+    },
     leftIconName: {
       control: { type: 'select' },
       options: Object.keys(FontAwesomeIconsName),
@@ -101,6 +105,7 @@ export const Normal: Story = {
     placeholder: 'Enter your name',
     label: 'Name',
     leftIconName: 'user',
+    shape: 'round',
   },
 };
 

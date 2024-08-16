@@ -53,6 +53,14 @@ const meta = {
     isDisabled: {
       control: 'boolean',
     },
+    variant: {
+      control: { type: 'select' },
+      options: ['base', 'border', 'noborder'],
+    },
+    shape: {
+      control: { type: 'select' },
+      options: ['rect', 'rect-sharp', 'round'],
+    },
   },
 } satisfies Meta<typeof AutocompleteDropdown>;
 
@@ -66,6 +74,8 @@ export const Default: StoryObj<ComponentProps<typeof AutocompleteDropdown>> = {
     placeholder: 'Enter android version',
     emptyResultText: 'Android version not found',
     onOpenSuggestionsList,
+    variant: 'border',
+    shape: 'round',
   },
   render: (args) => {
     const [searchText, setSearchText] = useState<string>('');

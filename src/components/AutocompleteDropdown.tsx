@@ -25,12 +25,13 @@ import { EmptySearchResult } from './EmptySearchResult';
 import { Feather } from './icons';
 import { useAppTheme } from '../hooks';
 
-import type { BaseProps, MakeStyles } from '../types';
+import type { BaseProps, InputShape, InputVariant, MakeStyles } from '../types';
 import type { TextInputProps } from './TextInput';
 
 interface AutocompleteDropdownProps extends BaseProps {
   dataSet?: Pick<RNAutocompleteDropdownProps, 'dataSet'>['dataSet'];
   containerStyle?: RNStyleProp<RNViewStyle>;
+  contentStyle?: RNStyleProp<RNViewStyle>;
   label?: string;
   labelStyle?: RNStyleProp<RNTextStyle>;
   touched?: boolean;
@@ -71,6 +72,8 @@ interface AutocompleteDropdownProps extends BaseProps {
   >;
   textInputProps?: RNTextInputProps;
   isDisabled?: boolean;
+  variant?: InputVariant;
+  shape?: InputShape;
 }
 
 function AutocompleteDropdown(props: AutocompleteDropdownProps) {
@@ -86,9 +89,10 @@ function AutocompleteDropdown(props: AutocompleteDropdownProps) {
       error={props?.error}
       errorStyle={[styles?.error, props?.errorStyle]}
       containerStyle={[styles?.container, props?.containerStyle]}
-      contentStyle={[styles?.content]}
+      contentStyle={[styles?.content, props?.contentStyle]}
       isDisabled={props?.isDisabled}
-      variant="border"
+      variant={props?.variant}
+      shape={props?.shape}
     >
       <RNAutocompleteDropdown
         controller={(controller) => {
@@ -186,7 +190,8 @@ function makeStyles({ colors, isDisabled }: MakeStyles) {
     error: {},
     rightButtonsContainer: {},
     inputContainer: {
-      backgroundColor: isDisabled ? colors?.onSurfaceDisabled : colors?.surface,
+      // backgroundColor: isDisabled ? colors?.onSurfaceDisabled : colors?.surface,
+      backgroundColor: colors?.transparent,
       borderRadius: responsive.size(4),
       opacity: isDisabled ? 0.4 : 1,
       padding: responsive.size(8),

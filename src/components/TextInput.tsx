@@ -23,7 +23,7 @@ import { IconButton } from './IconButton';
 import { FormField } from './FormField';
 import { useAppTheme } from '../hooks';
 
-import type { BaseProps, InputVariant, MakeStyles } from '../types';
+import type { BaseProps, InputShape, InputVariant, MakeStyles } from '../types';
 import type { FontAwesomeIconName } from './icons';
 
 interface TextInputProps extends BaseProps {
@@ -56,6 +56,7 @@ interface TextInputProps extends BaseProps {
   secureTextEntry?: boolean;
   textInputProps?: RNTextInputProps;
   variant?: InputVariant;
+  shape?: InputShape;
   containerStyle?: RNStyleProp<RNViewStyle>;
   contentStyle?: RNStyleProp<RNViewStyle>;
   inputContainerStyle?: RNStyleProp<RNViewStyle>;
@@ -102,6 +103,7 @@ const TextInput = forwardRef(function TextInput(
       errorStyle={props?.errorStyle}
       isDisabled={!props?.editable}
       variant={props?.variant}
+      shape={props?.shape}
     >
       <RNView
         testID={`${props?.testID}.content`}
