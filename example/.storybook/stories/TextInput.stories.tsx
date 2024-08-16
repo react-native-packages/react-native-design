@@ -4,7 +4,11 @@ import { responsive } from '@rnpack/utils';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { TextInput, useAppTheme } from 'react-native-design';
+import {
+  FontAwesomeIconsName,
+  TextInput,
+  useAppTheme,
+} from 'react-native-design';
 import type { MakeStyles } from 'react-native-design';
 
 const meta = {
@@ -74,7 +78,15 @@ const meta = {
     },
     variant: {
       control: { type: 'select' },
-      options: ['base', 'boreder', 'noborder'],
+      options: ['base', 'border', 'noborder'],
+    },
+    leftIconName: {
+      control: { type: 'select' },
+      options: Object.keys(FontAwesomeIconsName),
+    },
+    rightIconName: {
+      control: { type: 'select' },
+      options: Object.keys(FontAwesomeIconsName),
     },
   },
 } satisfies Meta<typeof TextInput>;

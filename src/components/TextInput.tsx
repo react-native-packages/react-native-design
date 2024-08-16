@@ -51,16 +51,18 @@ interface TextInputProps extends BaseProps {
   keyboardType?: RNKeyboardTypeOptions;
   touched?: boolean;
   error?: string;
-  labelStyle?: RNStyleProp<RNTextStyle>;
-  inputStyle?: RNStyleProp<RNTextStyle>;
   editable?: boolean;
-  inputContainerStyle?: RNStyleProp<RNViewStyle>;
   showPasswordVisibility?: boolean;
   secureTextEntry?: boolean;
   textInputProps?: RNTextInputProps;
-  errorStyle?: RNStyleProp<RNTextStyle>;
-  inputContentStyle?: RNStyleProp<RNViewStyle>;
   variant?: InputVariant;
+  containerStyle?: RNStyleProp<RNViewStyle>;
+  contentStyle?: RNStyleProp<RNViewStyle>;
+  inputContainerStyle?: RNStyleProp<RNViewStyle>;
+  inputContentContainerStyle?: RNStyleProp<RNViewStyle>;
+  errorStyle?: RNStyleProp<RNTextStyle>;
+  labelStyle?: RNStyleProp<RNTextStyle>;
+  inputStyle?: RNStyleProp<RNTextStyle>;
 }
 
 const TextInput = forwardRef(function TextInput(
@@ -94,7 +96,8 @@ const TextInput = forwardRef(function TextInput(
       label={props?.label}
       touched={props?.touched}
       error={props?.error}
-      containerStyle={props?.inputContainerStyle}
+      containerStyle={props?.containerStyle}
+      contentStyle={props?.contentStyle}
       labelStyle={props?.labelStyle}
       errorStyle={props?.errorStyle}
       isDisabled={!props?.editable}
@@ -104,7 +107,7 @@ const TextInput = forwardRef(function TextInput(
         testID={`${props?.testID}.content`}
         accessible={props?.accessible}
         accessibilityLabel={`${props?.accessibilityLabel}.content`}
-        style={styles?.inputIconSection}
+        style={[styles?.inputContainer, props?.inputContainerStyle]}
       >
         {props?.leftIcon ||
           (props?.leftIconName && (
@@ -136,7 +139,12 @@ const TextInput = forwardRef(function TextInput(
               </IconButton>
             </RNView>
           ))}
-        <RNView style={[styles?.inputContent, props?.inputContentStyle]}>
+        <RNView
+          style={[
+            styles?.inputContentContainer,
+            props?.inputContentContainerStyle,
+          ]}
+        >
           <RNTextInput
             ref={ref}
             testID={`${props?.testID}.input`}
@@ -235,15 +243,18 @@ function makeStyles({ colors }: MakeStyles) {
       color: colors?.error,
       fontSize: responsive.size(14),
     },
-    inputContainer: {
-      rowGap: 15,
-    },
     labelStyle: {
       color: colors?.onSurface,
       fontSize: 16,
       fontWeight: '500',
     },
-    inputContent: {
+    inputContainer: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      position: 'relative',
+    },
+    inputContentContainer: {
       flex: 1,
       height: responsive.height(40),
     },
@@ -262,12 +273,6 @@ function makeStyles({ colors }: MakeStyles) {
     },
     rightIconContainer: {
       paddingLeft: responsive.size(10),
-    },
-    inputIconSection: {
-      alignItems: 'center',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      position: 'relative',
     },
     passwordVisibilityContainer: {
       bottom: responsive.size(3),
