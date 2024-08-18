@@ -57,6 +57,9 @@ interface TextInputProps extends BaseProps {
   textInputProps?: RNTextInputProps;
   variant?: InputVariant;
   shape?: InputShape;
+  editableColor?: RNColorValue;
+  disabledColor?: RNColorValue;
+  fontSize?: number;
   containerStyle?: RNStyleProp<RNViewStyle>;
   contentStyle?: RNStyleProp<RNViewStyle>;
   inputContainerStyle?: RNStyleProp<RNViewStyle>;
@@ -72,7 +75,12 @@ const TextInput = forwardRef(function TextInput(
 ) {
   const { colors } = useAppTheme();
 
-  const styles = makeStyles({ colors });
+  const styles = makeStyles({
+    colors,
+    editableColor: props?.editableColor,
+    disabledColor: props?.disabledColor,
+    fontSize: props?.fontSize,
+  });
 
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
@@ -239,7 +247,18 @@ const TextInput = forwardRef(function TextInput(
   );
 });
 
-function makeStyles({ colors }: MakeStyles) {
+interface CustomMakeStyles extends MakeStyles {
+  editableColor?: RNColorValue;
+  disabledColor?: RNColorValue;
+  fontSize?: number;
+}
+
+function makeStyles({
+  colors,
+  editableColor,
+  disabledColor,
+  fontSize,
+}: CustomMakeStyles) {
   const styles = RNStyleSheet.create({
     errorText: {
       color: colors?.error,
@@ -258,7 +277,7 @@ function makeStyles({ colors }: MakeStyles) {
     },
     inputContentContainer: {
       flex: 1,
-      height: responsive.height(40),
+      height: Math.round((fontSize ?? responsive.height(40)) * 1.5),
     },
     inputStyle: {
       color: colors?.onSurface,
@@ -266,6 +285,7 @@ function makeStyles({ colors }: MakeStyles) {
       fontWeight: '400',
       paddingLeft: responsive.size(5),
       width: '100%',
+      fontSize: fontSize ?? responsive?.size(18),
     },
     passwordInputStyle: {
       paddingRight: responsive.size(25),
@@ -282,10 +302,10 @@ function makeStyles({ colors }: MakeStyles) {
       right: 0,
     },
     editableInput: {
-      color: colors?.onSurface,
+      color: editableColor ?? colors?.onSurface,
     },
     uneditableInput: {
-      color: colors?.onSurfaceDisabled,
+      color: disabledColor ?? colors?.onSurfaceDisabled,
     },
     errorInput: {
       borderColor: colors?.error,

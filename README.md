@@ -73,6 +73,6 @@ The MIT License.
 
 Thank you to all our sponsors! [Become a sponsor](https://opencollective.com/react-native-design#sponsor) and get your image on our README on GitHub.
 
-<a href="https://opencollective.com/react-native-design#sponsors" target="_blank"><img src="https://opencollective.com/react-native-design/sponsors.svg?width=890" alt="@react-native-ui-design/dialog"></a>
+<a href="https://opencollective.com/react-native-design#sponsors" target="_blank"><img src="https://opencollective.com/react-native-design/sponsors.svg?width=890" alt="react-native-design"></a>
 
 ---
