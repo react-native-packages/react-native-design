@@ -193,23 +193,24 @@ const TextInput = forwardRef(function TextInput(
             {...props?.textInputProps}
           />
           {props?.showPasswordVisibility && (
-            <IconButton
-              testID={`${props?.testID}.rightIconButton`}
-              accessible={props?.accessible}
-              accessibilityLabel={`${props?.accessibilityLabel}.righIconButton`}
-              name={isPasswordVisible ? 'eye-off' : 'eye'}
-              size={props?.leftIconSize ?? 24}
-              onPress={togglePasswordVisibility}
-              containerStyle={styles?.passwordVisibilityContainer}
-              disabled={!props?.editable}
-              color={
-                !props?.editable
-                  ? colors?.onSurfaceDisabled
-                  : props?.touched && props?.error
-                  ? colors?.error
-                  : colors?.onSurface
-              }
-            />
+            <RNView style={styles?.passwordVisibilityContainer}>
+              <IconButton
+                testID={`${props?.testID}.rightIconButton`}
+                accessible={props?.accessible}
+                accessibilityLabel={`${props?.accessibilityLabel}.righIconButton`}
+                name={isPasswordVisible ? 'eye-off' : 'eye'}
+                size={props?.leftIconSize ?? 24}
+                onPress={togglePasswordVisibility}
+                disabled={!props?.editable}
+                color={
+                  !props?.editable
+                    ? colors?.onSurfaceDisabled
+                    : props?.touched && props?.error
+                    ? colors?.error
+                    : colors?.onSurface
+                }
+              />
+            </RNView>
           )}
         </RNView>
         {props?.rightIcon ||
@@ -277,7 +278,7 @@ function makeStyles({
     },
     inputContentContainer: {
       flex: 1,
-      height: Math.round((fontSize ?? responsive.height(40)) * 1.5),
+      height: Math.round(responsive.height((fontSize ?? 24) * 2)),
     },
     inputStyle: {
       color: colors?.onSurface,
@@ -285,7 +286,7 @@ function makeStyles({
       fontWeight: '400',
       paddingLeft: responsive.size(5),
       width: '100%',
-      fontSize: fontSize ?? responsive?.size(18),
+      fontSize: fontSize ?? responsive?.size(16),
     },
     passwordInputStyle: {
       paddingRight: responsive.size(25),
@@ -297,9 +298,12 @@ function makeStyles({
       paddingLeft: responsive.size(10),
     },
     passwordVisibilityContainer: {
-      bottom: responsive.size(3),
       position: 'absolute',
       right: 0,
+      top: 0,
+      bottom: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     editableInput: {
       color: editableColor ?? colors?.onSurface,
