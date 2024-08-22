@@ -74,12 +74,18 @@ interface AutocompleteDropdownProps extends BaseProps {
   isDisabled?: boolean;
   variant?: InputVariant;
   shape?: InputShape;
+  numberOfLines?: number;
+  fontSize?: number;
 }
 
 function AutocompleteDropdown(props: AutocompleteDropdownProps) {
   const { colors } = useAppTheme();
 
-  const styles = makeStyles({ colors, isDisabled: props?.isDisabled });
+  const styles = makeStyles({
+    colors,
+    isDisabled: props?.isDisabled,
+    fontSize: props?.fontSize,
+  });
 
   return (
     <FormField
@@ -115,6 +121,7 @@ function AutocompleteDropdown(props: AutocompleteDropdownProps) {
           placeholder: props?.placeholder,
           autoCorrect: props?.autoCorrect ?? false,
           autoCapitalize: props?.autoCapitalize ?? 'none',
+          numberOfLines: props?.numberOfLines ?? 1,
           placeholderTextColor:
             props?.placeholderTextColor ?? colors?.onSurfaceDisabled,
           style: mergeObjects(
@@ -176,12 +183,16 @@ function AutocompleteDropdown(props: AutocompleteDropdownProps) {
   );
 }
 
-function makeStyles({ colors, isDisabled }: MakeStyles) {
+interface CustomMakeStyles extends MakeStyles {
+  fontSize?: number;
+}
+
+function makeStyles({ colors, isDisabled, fontSize }: CustomMakeStyles) {
   const styles = StyleSheet.create({
     label: {},
     textInput: {
       color: colors?.onSurface,
-      fontSize: responsive.size(14),
+      fontSize: fontSize ?? responsive.size(18),
     },
     container: {},
     content: {
@@ -190,11 +201,11 @@ function makeStyles({ colors, isDisabled }: MakeStyles) {
     error: {},
     rightButtonsContainer: {},
     inputContainer: {
-      // backgroundColor: isDisabled ? colors?.onSurfaceDisabled : colors?.surface,
       backgroundColor: colors?.transparent,
       borderRadius: responsive.size(4),
       opacity: isDisabled ? 0.4 : 1,
       padding: responsive.size(8),
+      paddingVertical: responsive?.height((fontSize ?? 18) * 0.2),
     },
     suggestionsListContainer: { backgroundColor: colors?.inverseOnSurface },
     autocompleteContainer: { flexGrow: 1, flexShrink: 1 },
