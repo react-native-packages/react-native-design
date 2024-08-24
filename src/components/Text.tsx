@@ -61,7 +61,6 @@ function makeStyles({ colors }: MakeStyles) {
       fontSize: responsive.size(18),
       fontWeight: 'bold',
       includeFontPadding: false,
-      lineHeight: responsive.height(25),
     },
     disabled: {
       color: colors?.onSurfaceDisabled,
