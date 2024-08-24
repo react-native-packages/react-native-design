@@ -1,16 +1,19 @@
 import React from 'react';
+
+import type { ReactNode } from 'react';
 import type { ColorValue as RNColorValue } from 'react-native';
 
 import { Spinner } from '../loaders';
 import { FontAwesome } from '../icons';
 
 import type { FontAwesomeIconName } from '../icons';
-import type { BaseProps } from '../../types';
+import type { BaseProps, SpinnerSize } from '../../types';
 
 interface ButtonAddonProps extends BaseProps {
   isLoading?: boolean;
+  loaderSize?: SpinnerSize;
   loaderColor?: RNColorValue;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   iconName?: FontAwesomeIconName;
   iconSize?: number;
   iconColor?: RNColorValue;
@@ -25,6 +28,7 @@ function ButtonAddon(props: ButtonAddonProps) {
         accessibilityLabel={`${props?.accessibilityLabel}.spinner`}
         isVisible={props?.isLoading}
         color={props?.loaderColor}
+        size={props?.loaderSize}
       />
       {!props?.isLoading &&
         (props?.icon ||

@@ -30,6 +30,7 @@ import type {
   ButtonThemeVariant,
   ButtonVariant,
   MakeStyles,
+  SpinnerSize,
 } from '../../types';
 import type { FontAwesomeIconName } from '../icons';
 
@@ -38,22 +39,25 @@ interface ButtonProps extends BaseProps {
   containerStyle?: RNStyleProp<RNViewStyle>;
   contentStyle?: RNStyleProp<RNViewStyle>;
   title?: string;
+  titleColor?: RNColorValue;
   leftIcon?: ReactNode;
   leftIconName?: FontAwesomeIconName;
-  leftIconColor?: string;
+  leftIconColor?: RNColorValue;
   leftIconSize?: number;
   rightIcon?: ReactNode;
   rightIconName?: FontAwesomeIconName;
-  rightIconColor?: string;
+  rightIconColor?: RNColorValue;
   rightIconSize?: number;
   disabled?: boolean;
   variant?: ButtonVariant;
   titleStyle?: RNStyleProp<RNTextStyle>;
   isLoading?: boolean;
+  loaderSize?: SpinnerSize;
   loadingPosition?: ButtonLoadingPosition;
   loaderColor?: RNColorValue;
   theme?: ButtonThemeVariant;
   shape?: ButtonShapeVariant;
+  fontSize?: number;
 }
 
 function Button(props: PropsWithChildren<ButtonProps>) {
@@ -63,7 +67,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
 
   const { colors } = useAppTheme();
 
-  const styles = makeStyles({ colors });
+  const styles = makeStyles({ colors, fontSize: props?.fontSize });
 
   return (
     <RNPressable
@@ -107,6 +111,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
             props?.isLoading &&
             (props?.loadingPosition === 'left' || !props?.loadingPosition)
           }
+          loaderSize={props?.loaderSize}
           loaderColor={getButtonContentColor({
             variant: variantProp,
             disabled: props?.disabled,
@@ -116,7 +121,10 @@ function Button(props: PropsWithChildren<ButtonProps>) {
           })}
           icon={props?.leftIcon}
           iconName={props?.leftIconName}
-          iconSize={props?.leftIconSize}
+          iconSize={
+            props?.leftIconSize ??
+            responsive?.size((props?.fontSize ?? 18) * 1.2)
+          }
           iconColor={getButtonContentColor({
             variant: variantProp,
             theme: themeProp,
@@ -137,9 +145,10 @@ function Button(props: PropsWithChildren<ButtonProps>) {
                 variant: variantProp,
                 theme: themeProp,
                 disabled: props?.disabled,
-                color: props?.leftIconColor,
+                color: props?.titleColor,
                 colors,
               }),
+              fontSize: props?.fontSize,
             },
             props?.titleStyle,
           ]}
@@ -151,6 +160,7 @@ function Button(props: PropsWithChildren<ButtonProps>) {
           accessible={props?.accessible}
           accessibilityLabel={`${props?.accessibilityLabel}.addon.right`}
           isLoading={props?.isLoading && props?.loadingPosition === 'right'}
+          loaderSize={props?.loaderSize}
           loaderColor={getButtonContentColor({
             variant: variantProp,
             theme: themeProp,
@@ -160,7 +170,10 @@ function Button(props: PropsWithChildren<ButtonProps>) {
           })}
           icon={props?.rightIcon}
           iconName={props?.rightIconName}
-          iconSize={props?.rightIconSize}
+          iconSize={
+            props?.rightIconSize ??
+            responsive?.size((props?.fontSize ?? 18) * 1.2)
+          }
           iconColor={getButtonContentColor({
             variant: variantProp,
             theme: themeProp,
@@ -174,15 +187,19 @@ function Button(props: PropsWithChildren<ButtonProps>) {
   );
 }
 
-function makeStyles({ colors: _colors }: MakeStyles) {
+interface CustomMakeStyles extends MakeStyles {
+  fontSize?: number;
+}
+
+function makeStyles({ colors: _colors, fontSize }: CustomMakeStyles) {
   const styles = RNStyleSheet.create({
     container: {
-      paddingHorizontal: responsive.size(15),
-      paddingVertical: responsive.height(10),
+      paddingHorizontal: responsive.size((fontSize ?? 18) * 0.6),
+      paddingVertical: responsive.height((fontSize ?? 18) * 0.4),
     },
     content: {
       alignItems: 'center',
-      columnGap: responsive.size(10),
+      columnGap: responsive.size((fontSize ?? 20) * 0.5),
       flexDirection: 'row',
       justifyContent: 'center',
     },

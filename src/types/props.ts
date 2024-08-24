@@ -13,7 +13,25 @@ type SpinnerSize = 'small' | 'large';
 
 type ButtonVariant = 'contained' | 'outlined' | 'text';
 
-type ButtonThemeVariant = 'primary' | 'secondary' | 'tertiary';
+type ButtonThemeVariant =
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'success'
+  | 'error'
+  | 'info'
+  | 'warn'
+  | 'primaryContainer'
+  | 'secondaryContainer'
+  | 'tertiaryContainer'
+  | 'errorContainer'
+  | 'successContainer'
+  | 'warnContainer'
+  | 'infoContainer'
+  | 'background'
+  | 'surface'
+  | 'surfaceVariant'
+  | 'surfaceDisabled';
 
 type ButtonShapeVariant = 'rect-sharp' | 'rect' | 'round';
 

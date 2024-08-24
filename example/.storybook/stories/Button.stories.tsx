@@ -1,7 +1,128 @@
 import React from 'react';
+import { Alert, FlatList, StyleSheet, View } from 'react-native';
+import { responsive } from '@rnpack/utils';
+
 import type { Meta, StoryObj } from '@storybook/react';
-import { Alert, StyleSheet, View } from 'react-native';
+
 import { Button } from 'react-native-design';
+import type { ButtonProps, ButtonVariant } from 'react-native-design';
+
+const buttonVariants: Array<ButtonVariant> = ['contained', 'outlined', 'text'];
+
+const buttons: Array<ButtonProps> = [
+  {
+    key: 1,
+    variant: 'contained',
+    theme: 'primary',
+    shape: 'rect',
+    loadingPosition: undefined,
+    isLoading: false,
+    disabled: false,
+    leftIconName: undefined,
+    rightIconName: undefined,
+  },
+  {
+    key: 2,
+    variant: 'contained',
+    theme: 'primary',
+    shape: 'rect-sharp',
+    loadingPosition: undefined,
+    isLoading: false,
+    disabled: true,
+    leftIconName: undefined,
+    rightIconName: undefined,
+  },
+  {
+    key: 3,
+    variant: 'contained',
+    theme: 'primary',
+    shape: 'round',
+    loadingPosition: undefined,
+    isLoading: false,
+    disabled: false,
+    leftIconName: undefined,
+    rightIconName: undefined,
+  },
+  {
+    key: 4,
+    variant: 'contained',
+    theme: 'primary',
+    shape: 'rect',
+    loadingPosition: undefined,
+    isLoading: false,
+    disabled: false,
+    leftIconName: 'bullseye',
+    rightIconName: undefined,
+  },
+  {
+    key: 5,
+    variant: 'contained',
+    theme: 'primary',
+    shape: 'rect-sharp',
+    loadingPosition: undefined,
+    isLoading: false,
+    disabled: false,
+    leftIconName: undefined,
+    rightIconName: 'bullseye',
+  },
+  {
+    key: 6,
+    variant: 'contained',
+    theme: 'primary',
+    shape: 'round',
+    loadingPosition: undefined,
+    isLoading: false,
+    disabled: false,
+    leftIconName: 'bullseye',
+    rightIconName: 'bullseye',
+  },
+  {
+    key: 7,
+    variant: 'contained',
+    theme: 'primary',
+    shape: 'rect',
+    loadingPosition: 'left',
+    isLoading: true,
+    loaderSize: 'large',
+    disabled: true,
+    leftIconName: undefined,
+    rightIconName: undefined,
+  },
+  {
+    key: 8,
+    variant: 'contained',
+    theme: 'primary',
+    shape: 'rect-sharp',
+    loadingPosition: 'right',
+    isLoading: true,
+    disabled: false,
+    leftIconName: undefined,
+    rightIconName: undefined,
+  },
+  {
+    key: 9,
+    variant: 'contained',
+    theme: 'primary',
+    shape: 'round',
+    loadingPosition: 'left',
+    isLoading: true,
+    disabled: true,
+    leftIconName: undefined,
+    rightIconName: 'bullseye',
+  },
+  {
+    key: 10,
+    variant: 'contained',
+    theme: 'primary',
+    shape: 'rect',
+    loadingPosition: 'right',
+    isLoading: true,
+    loaderSize: 'large',
+    disabled: false,
+    leftIconName: 'bullseye',
+    rightIconName: undefined,
+  },
+];
 
 const meta = {
   component: Button,
@@ -19,8 +140,6 @@ const meta = {
   },
   args: {
     variant: 'contained',
-    leftIconSize: 26,
-    rightIconSize: 26,
     isLoading: false,
     loadingPosition: 'left',
     theme: 'primary',
@@ -33,7 +152,26 @@ const meta = {
     },
     theme: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'tertiary'],
+      options: [
+        'primary',
+        'secondary',
+        'tertiary',
+        'success',
+        'error',
+        'info',
+        'warn',
+        'primaryContainer',
+        'secondaryContainer',
+        'tertiaryContainer',
+        'errorContainer',
+        'successContainer',
+        'warnContainer',
+        'infoContainer',
+        'background',
+        'surface',
+        'surfaceVariant',
+        'surfaceDisabled',
+      ],
     },
     shape: {
       control: { type: 'select' },
@@ -119,10 +257,65 @@ export const Loading: Story = {
   },
 };
 
+export const All: Story = {
+  parameters: {
+    controls: { include: ['theme'] },
+  },
+  render: (props: ButtonProps) => {
+    return ButtonList(props);
+  },
+};
+
+function ButtonList(props: ButtonProps) {
+  const data: Array<ButtonProps> = [];
+
+  buttonVariants?.forEach((variant) => {
+    const tempButtons: Array<ButtonProps> = [];
+
+    buttons?.forEach((button) => {
+      tempButtons?.push({
+        ...button,
+        variant,
+        theme: props?.theme,
+        key: `${button?.theme}${variant}${button?.key}`,
+      });
+    });
+
+    data.push(...tempButtons);
+  });
+
+  return (
+    <View style={styles?.content}>
+      <FlatList
+        data={data}
+        renderItem={({ item: button }) => (
+          <Button
+            title="Button"
+            fontSize={responsive?.size(21)}
+            {...props}
+            {...button}
+          />
+        )}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles?.buttonListContentContainer}
+      />
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: responsive?.size(15),
+  },
+  buttonListContentContainer: {
+    rowGap: responsive?.height(20),
+    paddingBottom: responsive?.height(50),
+    paddingTop: responsive?.height(20),
   },
 });

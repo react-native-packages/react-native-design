@@ -3,6 +3,8 @@ import { responsive } from '@rnpack/utils';
 
 import type { StyleProp, ViewStyle, ColorValue } from 'react-native';
 
+import { capitalizeFirstLetter } from '../string';
+
 import type {
   ButtonShapeVariant,
   ButtonThemeVariant,
@@ -25,7 +27,7 @@ function getButtonBorderRadius(shape: ButtonShapeVariant) {
       return 0;
 
     case 'round':
-      return responsive.size(30);
+      return responsive.size(1000);
   }
 }
 
@@ -98,7 +100,11 @@ function getButtonContentColor(args: {
 
   switch (args?.variant) {
     case 'contained':
-      return args?.colors?.surface;
+      return (
+        // @ts-expect-error The color may not present in ThemeColors
+        args?.colors?.[`on${capitalizeFirstLetter(args?.theme)}`] ??
+        args?.colors?.surface
+      );
     case 'outlined':
       return args?.colors?.[args?.theme];
     case 'text':
