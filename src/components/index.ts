@@ -3,7 +3,6 @@ export * from './IconButton';
 export * from './TextInput';
 export * from './Banner';
 export * from './Card';
-export * from './Button';
 export * from './Dialog';
 export * from './FormField';
 export * from './EmptySearchResult';
@@ -12,7 +11,9 @@ export * from './ThemeSwitch';
 export * from './Badge';
 export * from './Chip';
 export * from './Avatar';
+export * from './Pressable';
 
 export * from './loaders';
 export * from './icons';
 export * from './dividers';
+export * from './Button';
