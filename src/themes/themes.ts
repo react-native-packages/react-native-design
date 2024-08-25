@@ -51,6 +51,7 @@ const light = {
   surfaceDisabled: 'rgba(29, 27, 30, 0.12)',
   onSurfaceDisabled: 'rgba(29, 27, 30, 0.38)',
   backdrop: 'rgba(51, 47, 55, 0.4)',
+  link: 'rgba(0, 0, 238, 1)',
   transparent: 'transparent',
 };
 
@@ -107,6 +108,7 @@ const dark = {
   surfaceDisabled: 'rgba(231, 225, 229, 0.12)',
   onSurfaceDisabled: 'rgba(231, 225, 229, 0.38)',
   backdrop: 'rgba(51, 47, 55, 0.4)',
+  link: 'rgba(0, 0, 117, 1)',
   transparent: 'transparent',
 };
 

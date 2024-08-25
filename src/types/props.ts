@@ -13,14 +13,17 @@ type SpinnerSize = 'small' | 'large';
 
 type ButtonVariant = 'contained' | 'outlined' | 'text';
 
-type ButtonThemeVariant =
+type BaseThemeVariant =
   | 'primary'
   | 'secondary'
   | 'tertiary'
   | 'success'
   | 'error'
   | 'info'
-  | 'warn'
+  | 'warn';
+
+type ButtonThemeVariant =
+  | BaseThemeVariant
   | 'primaryContainer'
   | 'secondaryContainer'
   | 'tertiaryContainer'
@@ -74,4 +77,5 @@ export type {
   Orientation,
   WaveCircleMotion,
   AvatarSize,
+  BaseThemeVariant,
 };

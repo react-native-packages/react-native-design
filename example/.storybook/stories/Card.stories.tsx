@@ -19,6 +19,18 @@ const meta = {
   },
   argTypes: {
     disabled: { control: { type: 'boolean' } },
+    theme: {
+      control: 'select',
+      options: [
+        'primary',
+        'secondary',
+        'tertiary',
+        'success',
+        'error',
+        'info',
+        'warn',
+      ],
+    },
   },
 } satisfies Meta<typeof Card>;
 
@@ -28,6 +40,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Normal: Story = {
   args: {
+    theme: 'success',
     children: <Text>Press Me!</Text>,
     onPress: () => {
       Alert.alert('Pressed Card');

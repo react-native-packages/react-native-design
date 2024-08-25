@@ -5,14 +5,16 @@ import type { PropsWithChildren } from 'react';
 import type { ViewProps as RNViewProps } from 'react-native';
 
 import { useAppTheme } from '../hooks';
-import type { MakeStyles } from '../types';
+import type { MakeStyles, BaseThemeVariant } from '../types';
 
-type ViewProps = RNViewProps;
+interface ViewProps extends RNViewProps {
+  theme?: BaseThemeVariant;
+}
 
 function View(props: PropsWithChildren<ViewProps>) {
   const { colors } = useAppTheme();
 
-  const styles = makeStyles({ colors });
+  const styles = makeStyles({ colors, theme: props?.theme });
 
   return (
     <RNView {...props} style={[styles?.containerColor, props?.style]}>
@@ -21,10 +23,16 @@ function View(props: PropsWithChildren<ViewProps>) {
   );
 }
 
-function makeStyles({ colors }: MakeStyles) {
+interface CustomMakeStyles extends MakeStyles {
+  theme?: BaseThemeVariant;
+}
+
+function makeStyles({ colors, theme }: CustomMakeStyles) {
   const styles = RNStyleSheet.create({
     containerColor: {
-      backgroundColor: colors?.background,
+      backgroundColor: theme
+        ? colors?.[`${theme}Container`]
+        : colors?.background,
     },
   });
 

@@ -10,24 +10,31 @@ import type {
 } from 'react-native';
 
 import { useAppTheme } from './../hooks';
-import type { BaseProps, MakeStyles } from './../types';
+import type { BaseProps, MakeStyles, BaseThemeVariant } from './../types';
 
 interface ShadowEffectProps extends BaseProps {
   containerStyle?: RNStyleProp<RNViewStyle>;
-  isNoBoxShadow?: boolean;
+  isShadowVisible?: boolean;
   radius?: number;
+  shadowColor?: RNColorValue;
+  backgroundColor?: RNColorValue;
 }
 
 function ShadowEffect(props: PropsWithChildren<ShadowEffectProps>) {
   const { colors } = useAppTheme();
 
-  const styles = makeStyles({ colors, radius: props?.radius });
+  const styles = makeStyles({
+    colors,
+    radius: props?.radius,
+    shadowColor: props?.shadowColor,
+    backgroundColor: props?.backgroundColor,
+  });
 
   return (
     <RNView
       style={[
         styles?.container,
-        props?.isNoBoxShadow ? undefined : styles?.boxShadow,
+        props?.isShadowVisible === false ? undefined : styles?.boxShadow,
         props?.containerStyle,
       ]}
     >
@@ -39,21 +46,28 @@ function ShadowEffect(props: PropsWithChildren<ShadowEffectProps>) {
 interface CustomMakeStyles extends MakeStyles {
   shadowColor?: RNColorValue;
   radius?: number;
+  theme?: BaseThemeVariant;
+  backgroundColor?: RNColorValue;
 }
 
-function makeStyles({ colors, shadowColor, radius }: CustomMakeStyles) {
+function makeStyles({
+  colors,
+  shadowColor,
+  radius,
+  backgroundColor,
+}: CustomMakeStyles) {
   const styles = RNStyleSheet.create({
     container: {},
     boxShadow: {
       elevation: 5,
-      shadowColor: shadowColor ?? colors?.inverseSurface,
+      shadowColor: shadowColor ?? colors?.onBackground,
       shadowOffset: {
         width: 0,
         height: 2,
       },
       shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      backgroundColor: colors?.transparent,
+      shadowRadius: radius ?? 3.84,
+      backgroundColor: backgroundColor ?? colors?.transparent,
       borderRadius: radius ?? responsive?.size(2),
     },
   });

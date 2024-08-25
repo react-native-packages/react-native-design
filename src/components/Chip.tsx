@@ -186,7 +186,7 @@ function Chip(props: ChipProps) {
 
   return (
     <Fragment>
-      <ShadowEffect isNoBoxShadow={!props?.isShadow}>
+      <ShadowEffect isShadowVisible={!props?.isShadow}>
         <RNView
           style={[
             styles?.container,

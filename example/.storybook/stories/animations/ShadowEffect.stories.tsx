@@ -22,6 +22,12 @@ const meta = {
       );
     },
   ],
+  argTypes: {
+    shadowColor: { control: 'color' },
+    backgroundColor: { control: 'color' },
+    radius: { control: 'number' },
+    isShadowVisible: { control: 'boolean' },
+  },
 } satisfies Meta<typeof ShadowEffect>;
 
 export default meta;
@@ -30,7 +36,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Shadow: Story = {
   args: {
-    isNoBoxShadow: false,
+    isShadowVisible: true,
   },
   render: (args) => {
     const { colors } = useAppTheme();
@@ -38,7 +44,7 @@ export const Shadow: Story = {
     const styles = makeStyles({ colors });
 
     return (
-      <ShadowEffect {...args} containerStyle={styles?.shadowContainer}>
+      <ShadowEffect {...args}>
         <View style={styles?.content}>
           <Text style={styles?.title}>Shadow Effect</Text>
         </View>
@@ -49,7 +55,7 @@ export const Shadow: Story = {
 
 export const NoShadow: Story = {
   args: {
-    isNoBoxShadow: true,
+    isShadowVisible: false,
   },
   render: (args) => {
     const { colors } = useAppTheme();
@@ -57,7 +63,7 @@ export const NoShadow: Story = {
     const styles = makeStyles({ colors });
 
     return (
-      <ShadowEffect {...args} containerStyle={styles?.shadowContainer}>
+      <ShadowEffect {...args} shadowColor={colors?.onBackground}>
         <View style={styles?.content}>
           <Text style={styles?.title}>Shadow Effect</Text>
         </View>
@@ -73,9 +79,6 @@ function makeStyles({ colors }: MakeStyles) {
       backgroundColor: colors?.background,
       flex: 1,
       justifyContent: 'center',
-    },
-    shadowContainer: {
-      shadowColor: colors?.onBackground,
     },
     content: {
       backgroundColor: colors?.primary,
