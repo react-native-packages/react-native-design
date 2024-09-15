@@ -6,6 +6,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import {
   FontAwesomeIconsName,
+  MaterialCommunityIcons,
   TextInput,
   useAppTheme,
 } from 'react-native-design';
@@ -124,6 +125,9 @@ export const Error: Story = {
     name: 'email',
     placeholder: 'Enter your email',
     label: 'Email',
+    leftIcon: ({ color, size }) => (
+      <MaterialCommunityIcons name="abacus" color={color} size={size} />
+    ),
     leftIconName: 'envelope',
     error: 'Please enter valid email',
     touched: true,

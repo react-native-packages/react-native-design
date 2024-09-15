@@ -11,11 +11,11 @@ import type {
 import { IconButton } from './IconButton';
 import { FontAwesome } from './icons';
 import { useAppTheme } from '../hooks';
-import type { BaseProps, MakeStyles } from '../types';
+import type { BaseProps, InputStateCallbackType, MakeStyles } from '../types';
 import type { FontAwesomeIconName } from './icons';
 
 interface InputAddonProps extends BaseProps {
-  icon?: ReactNode;
+  icon?: ReactNode | ((args: InputStateCallbackType) => ReactNode);
   iconName?: FontAwesomeIconName;
   iconSize?: number;
   iconColor?: RNColorValue;
@@ -32,41 +32,45 @@ function InputAddon(props: InputAddonProps) {
 
   const styles = makeStyles({ colors });
 
+  const iconColor: RNColorValue = !props?.isEditable
+    ? colors?.onSurfaceDisabled
+    : props?.isTouched && props?.error
+    ? colors?.error
+    : props?.iconColor ?? colors?.onSurface;
+
+  const iconSize: number = props?.iconSize ?? 24;
+
   return (
     <Fragment>
-      {props?.icon ||
-        (props?.iconName && (
-          <RNView
-            testID={`${props?.testID}.IconContainer`}
-            accessible={props?.accessible}
-            accessibilityLabel={`${props?.accessibilityLabel}.IconContainer`}
-            style={[styles?.iconContainer, props?.iconContainerStyle]}
-          >
-            <IconButton
-              containerStyle={[
-                styles?.iconButtonContainer,
-                props?.iconButtonContainer,
-              ]}
-              onPress={props?.onPressIcon}
-              disabled={!props?.isEditable}
+      {typeof props?.icon === 'function'
+        ? props?.icon?.({ color: iconColor, size: iconSize })
+        : props?.icon ||
+          (props?.iconName && (
+            <RNView
+              testID={`${props?.testID}.IconContainer`}
+              accessible={props?.accessible}
+              accessibilityLabel={`${props?.accessibilityLabel}.IconContainer`}
+              style={[styles?.iconContainer, props?.iconContainerStyle]}
             >
-              <FontAwesome
-                testID={`${props?.testID}.Icon`}
-                accessible={props?.accessible}
-                accessibilityLabel={`${props?.accessibilityLabel}.Icon`}
-                name={props?.iconName}
-                size={props?.iconSize ?? 24}
-                color={
-                  !props?.isEditable
-                    ? colors?.onSurfaceDisabled
-                    : props?.isTouched && props?.error
-                    ? colors?.error
-                    : props?.iconColor ?? colors?.onSurface
-                }
-              />
-            </IconButton>
-          </RNView>
-        ))}
+              <IconButton
+                containerStyle={[
+                  styles?.iconButtonContainer,
+                  props?.iconButtonContainer,
+                ]}
+                onPress={props?.onPressIcon}
+                disabled={!props?.isEditable}
+              >
+                <FontAwesome
+                  testID={`${props?.testID}.Icon`}
+                  accessible={props?.accessible}
+                  accessibilityLabel={`${props?.accessibilityLabel}.Icon`}
+                  name={props?.iconName}
+                  size={iconSize}
+                  color={iconColor}
+                />
+              </IconButton>
+            </RNView>
+          ))}
     </Fragment>
   );
 }

@@ -23,19 +23,25 @@ import { FormField } from './FormField';
 import { useAppTheme } from '../hooks';
 import { InputAddon } from './InputAddon';
 
-import type { BaseProps, InputShape, InputVariant, MakeStyles } from '../types';
+import type {
+  BaseProps,
+  InputShape,
+  InputStateCallbackType,
+  InputVariant,
+  MakeStyles,
+} from '../types';
 import type { FontAwesomeIconName } from './icons';
 
 interface TextInputProps extends BaseProps {
   name: string;
   value?: string;
   label?: string;
-  leftIcon?: ReactNode;
+  leftIcon?: ReactNode | ((args: InputStateCallbackType) => ReactNode);
   leftIconName?: FontAwesomeIconName;
   leftIconSize?: number;
   leftIconColor?: RNColorValue;
   onPressLeftIcon?: () => void;
-  rightIcon?: ReactNode;
+  rightIcon?: ReactNode | ((args: InputStateCallbackType) => ReactNode);
   rightIconName?: FontAwesomeIconName;
   rightIconSize?: number;
   rightIconColor?: RNColorValue;

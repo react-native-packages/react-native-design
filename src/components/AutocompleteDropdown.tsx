@@ -29,7 +29,13 @@ import { InputAddon } from './InputAddon';
 import { Feather } from './icons';
 import { useAppTheme } from '../hooks';
 
-import type { BaseProps, InputShape, InputVariant, MakeStyles } from '../types';
+import type {
+  BaseProps,
+  InputShape,
+  InputStateCallbackType,
+  InputVariant,
+  MakeStyles,
+} from '../types';
 import type { TextInputProps } from './TextInput';
 import type { FontAwesomeIconName } from './icons';
 
@@ -81,12 +87,12 @@ interface AutocompleteDropdownProps extends BaseProps {
   shape?: InputShape;
   numberOfLines?: number;
   fontSize?: number;
-  leftIcon?: ReactNode;
+  leftIcon?: ReactNode | ((args: InputStateCallbackType) => ReactNode);
   leftIconName?: FontAwesomeIconName;
   leftIconSize?: number;
   leftIconColor?: RNColorValue;
   onPressLeftIcon?: () => void;
-  rightIcon?: ReactNode;
+  rightIcon?: ReactNode | ((args: InputStateCallbackType) => ReactNode);
   rightIconName?: FontAwesomeIconName;
   rightIconSize?: number;
   rightIconColor?: RNColorValue;

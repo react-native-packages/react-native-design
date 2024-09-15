@@ -1,5 +1,8 @@
 import type { Attributes } from 'react';
-import type { AccessibilityProps } from 'react-native';
+import type {
+  AccessibilityProps,
+  ColorValue as RNColorValue,
+} from 'react-native';
 
 interface TestProps {
   testID?: string;
@@ -61,6 +64,11 @@ type AvatarSize =
   | 'xx-large'
   | 'xxx-large';
 
+interface InputStateCallbackType {
+  color: RNColorValue;
+  size: number;
+}
+
 export type {
   TestProps,
   SpinnerSize,
@@ -78,4 +86,5 @@ export type {
   WaveCircleMotion,
   AvatarSize,
   BaseThemeVariant,
+  InputStateCallbackType,
 };
