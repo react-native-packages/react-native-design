@@ -1,9 +1,12 @@
 import React from 'react';
-import { Dimensions as RNDimensions, StyleSheet } from 'react-native';
+import {
+  Dimensions as RNDimensions,
+  StyleSheet as RNStyleSheet,
+} from 'react-native';
 import { mergeObjects, responsive } from '@rnpack/utils';
 import { AutocompleteDropdown as RNAutocompleteDropdown } from 'react-native-autocomplete-dropdown';
 
-import type { ReactElement, MutableRefObject } from 'react';
+import type { ReactElement, MutableRefObject, ReactNode } from 'react';
 import type {
   StyleProp as RNStyleProp,
   ViewStyle as RNViewStyle,
@@ -22,11 +25,13 @@ import type {
 
 import { FormField } from './FormField';
 import { EmptySearchResult } from './EmptySearchResult';
+import { InputAddon } from './InputAddon';
 import { Feather } from './icons';
 import { useAppTheme } from '../hooks';
 
 import type { BaseProps, InputShape, InputVariant, MakeStyles } from '../types';
 import type { TextInputProps } from './TextInput';
+import type { FontAwesomeIconName } from './icons';
 
 interface AutocompleteDropdownProps extends BaseProps {
   dataSet?: Pick<RNAutocompleteDropdownProps, 'dataSet'>['dataSet'];
@@ -76,6 +81,16 @@ interface AutocompleteDropdownProps extends BaseProps {
   shape?: InputShape;
   numberOfLines?: number;
   fontSize?: number;
+  leftIcon?: ReactNode;
+  leftIconName?: FontAwesomeIconName;
+  leftIconSize?: number;
+  leftIconColor?: RNColorValue;
+  onPressLeftIcon?: () => void;
+  rightIcon?: ReactNode;
+  rightIconName?: FontAwesomeIconName;
+  rightIconSize?: number;
+  rightIconColor?: RNColorValue;
+  onPressRightIcon?: () => void;
 }
 
 function AutocompleteDropdown(props: AutocompleteDropdownProps) {
@@ -100,6 +115,20 @@ function AutocompleteDropdown(props: AutocompleteDropdownProps) {
       variant={props?.variant}
       shape={props?.shape}
     >
+      <InputAddon
+        testID={`${props?.testID}.left`}
+        accessible={props?.accessible}
+        accessibilityLabel={`${props?.accessibilityLabel}.left`}
+        icon={props?.leftIcon}
+        iconName={props?.leftIconName}
+        iconSize={props?.leftIconSize}
+        iconColor={props?.leftIconColor}
+        onPressIcon={props?.onPressLeftIcon}
+        isEditable={!props?.isDisabled}
+        isTouched={props?.touched}
+        error={props?.error}
+        iconContainerStyle={[styles?.leftIconContainer]}
+      />
       <RNAutocompleteDropdown
         controller={(controller) => {
           if (props?.dropdownControllerRef) {
@@ -179,6 +208,20 @@ function AutocompleteDropdown(props: AutocompleteDropdownProps) {
         }
         emptyResultText={props?.emptyResultText}
       />
+      <InputAddon
+        testID={`${props?.testID}.right`}
+        accessible={props?.accessible}
+        accessibilityLabel={`${props?.accessibilityLabel}.right`}
+        icon={props?.rightIcon}
+        iconName={props?.rightIconName}
+        iconSize={props?.rightIconSize}
+        iconColor={props?.rightIconColor}
+        onPressIcon={props?.onPressRightIcon}
+        isEditable={!props?.isDisabled}
+        isTouched={props?.touched}
+        error={props?.error}
+        iconContainerStyle={styles?.rightIconContainer}
+      />
     </FormField>
   );
 }
@@ -188,15 +231,16 @@ interface CustomMakeStyles extends MakeStyles {
 }
 
 function makeStyles({ colors, isDisabled, fontSize }: CustomMakeStyles) {
-  const styles = StyleSheet.create({
+  const styles = RNStyleSheet.create({
     label: {},
     textInput: {
       color: colors?.onSurface,
       fontSize: fontSize ?? responsive.size(18),
+      paddingHorizontal: responsive?.size(5),
     },
     container: {},
     content: {
-      paddingHorizontal: 0,
+      paddingHorizontal: responsive?.size(5),
     },
     error: {},
     rightButtonsContainer: {},
@@ -204,13 +248,25 @@ function makeStyles({ colors, isDisabled, fontSize }: CustomMakeStyles) {
       backgroundColor: colors?.transparent,
       borderRadius: responsive.size(4),
       opacity: isDisabled ? 0.4 : 1,
-      padding: responsive.size(8),
       paddingVertical: responsive?.height((fontSize ?? 18) * 0.2),
     },
-    suggestionsListContainer: { backgroundColor: colors?.inverseOnSurface },
-    autocompleteContainer: { flexGrow: 1, flexShrink: 1 },
+    suggestionsListContainer: {
+      backgroundColor: colors?.inverseOnSurface,
+    },
+    autocompleteContainer: {
+      flexGrow: 1,
+      flexShrink: 1,
+    },
     suggestionsListText: {
       color: colors?.onSurface,
+    },
+    leftIconContainer: {
+      paddingLeft: responsive.size(10),
+      paddingRight: responsive.size(5),
+    },
+    rightIconContainer: {
+      paddingLeft: responsive.size(5),
+      paddingRight: responsive.size(10),
     },
   });
 
