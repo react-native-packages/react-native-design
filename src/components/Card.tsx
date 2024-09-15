@@ -10,7 +10,7 @@ import type {
 
 import { useAppTheme } from '../hooks';
 import { Pressable } from './Pressable';
-import { View } from './View';
+import { Container } from './Container';
 import { ShadowEffect } from '../animations';
 
 import type { BaseProps, MakeStyles, BaseThemeVariant } from '../types';
@@ -46,7 +46,7 @@ function Card(props: PropsWithChildren<CardProps>) {
         style={props?.containerStyle}
       >
         <ShadowEffect isShadowVisible={props?.isShadowVisible === false}>
-          <View
+          <Container
             testID={`${props?.testID}.content`}
             accessible={props?.accessible}
             accessibilityLabel={`${props?.accessibilityLabel}.content`}
@@ -54,7 +54,7 @@ function Card(props: PropsWithChildren<CardProps>) {
             theme={props?.theme}
           >
             {props?.children}
-          </View>
+          </Container>
         </ShadowEffect>
       </Pressable>
     </React.Fragment>
@@ -68,7 +68,6 @@ function makeStyles({ colors: _colors }: MakeStyles) {
       paddingHorizontal: responsive.size(10),
       paddingVertical: responsive.height(15),
       rowGap: responsive.height(15),
-      width: '100%',
     },
   });
 

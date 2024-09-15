@@ -7,17 +7,20 @@ import type { ViewProps as RNViewProps } from 'react-native';
 import { useAppTheme } from '../hooks';
 import type { MakeStyles, BaseThemeVariant } from '../types';
 
-interface ViewProps extends RNViewProps {
+interface ContainerProps extends RNViewProps {
   theme?: BaseThemeVariant;
 }
 
-function View(props: PropsWithChildren<ViewProps>) {
+function Container(props: PropsWithChildren<ContainerProps>) {
   const { colors } = useAppTheme();
 
   const styles = makeStyles({ colors, theme: props?.theme });
 
   return (
-    <RNView {...props} style={[styles?.containerColor, props?.style]}>
+    <RNView
+      {...props}
+      style={[styles?.container, styles?.containerColor, props?.style]}
+    >
       {props?.children}
     </RNView>
   );
@@ -29,6 +32,9 @@ interface CustomMakeStyles extends MakeStyles {
 
 function makeStyles({ colors, theme }: CustomMakeStyles) {
   const styles = RNStyleSheet.create({
+    container: {
+      flex: 1,
+    },
     containerColor: {
       backgroundColor: theme
         ? colors?.[`${theme}Container`]
@@ -39,5 +45,5 @@ function makeStyles({ colors, theme }: CustomMakeStyles) {
   return styles;
 }
 
-export type { ViewProps };
-export { View };
+export type { ContainerProps };
+export { Container };

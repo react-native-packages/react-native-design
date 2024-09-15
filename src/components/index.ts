@@ -12,7 +12,8 @@ export * from './Badge';
 export * from './Chip';
 export * from './Avatar';
 export * from './Pressable';
-export * from './View';
+export * from './Container';
+export * from './Content';
 
 export * from './loaders';
 export * from './icons';

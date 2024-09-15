@@ -1,15 +1,17 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Alert, StyleSheet, View } from 'react-native';
-import { Card, Text } from 'react-native-design';
+import { Alert, StyleSheet } from 'react-native';
+import { Card, Container, Content, Text } from 'react-native-design';
 
 const meta = {
   component: Card,
   decorators: [
     (Story) => (
-      <View style={styles?.container}>
-        <Story />
-      </View>
+      <Container theme="primary">
+        <Content theme="info" style={styles?.content}>
+          <Story />
+        </Content>
+      </Container>
     ),
   ],
   parameters: {
@@ -63,5 +65,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  content: {
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    padding: 50,
   },
 });
