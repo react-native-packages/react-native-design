@@ -36,7 +36,7 @@ function makeButtonStyles({ colors, theme, shape }: CustomMakeStyles) {
     buttonBorder: {
       borderRadius: getButtonBorderRadius(shape),
       borderStyle: 'solid',
-      borderWidth: 2,
+      borderWidth: 1,
     },
     borderButton: {
       borderColor: colors?.[theme],
