@@ -80,7 +80,7 @@ function makeStlyes({
     indicator: {
       borderRadius: responsive?.size(10),
       backgroundColor: indicatorColor ?? colors?.error,
-      height: responsive?.height(10),
+      height: responsive?.size(10),
       width: responsive?.size(10),
     },
     countContainer: {
@@ -88,7 +88,7 @@ function makeStlyes({
       backgroundColor: countBackgroundColor ?? colors?.error,
       borderRadius: responsive?.size(10),
       justifyContent: 'center',
-      height: responsive?.height(15),
+      height: responsive?.size(15),
       width: responsive?.size(15),
     },
     alignment: {
