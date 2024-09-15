@@ -14,6 +14,7 @@ export * from './Avatar';
 export * from './Pressable';
 export * from './Container';
 export * from './Content';
+export * from './InputAddon';
 
 export * from './loaders';
 export * from './icons';

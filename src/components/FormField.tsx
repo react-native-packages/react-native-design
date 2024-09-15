@@ -89,7 +89,14 @@ function FormField(props: PropsWithChildren<FormFieldProps>) {
         </Text>
       )}
       <RNView
-        style={[getInputBorderVariant(props?.variant), props?.contentStyle]}
+        testID={`${props?.testID}.content`}
+        accessible={props?.accessible}
+        accessibilityLabel={`${props?.accessibilityLabel}.content`}
+        style={[
+          getInputBorderVariant(props?.variant),
+          styles?.content,
+          props?.contentStyle,
+        ]}
       >
         {props?.children}
       </RNView>
@@ -116,6 +123,12 @@ function makeStyles({ colors, isError, isDisabled, shape }: CustomMakeStyles) {
   const styles = RNStyleSheet.create({
     container: {
       rowGap: responsive.height(10),
+    },
+    content: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      position: 'relative',
     },
     inputBorder: {
       borderWidth: 0.8,

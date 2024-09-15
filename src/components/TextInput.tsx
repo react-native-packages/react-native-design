@@ -18,10 +18,10 @@ import type {
   ViewStyle as RNViewStyle,
 } from 'react-native';
 
-import { FontAwesome } from './icons/FontAwesome';
 import { IconButton } from './IconButton';
 import { FormField } from './FormField';
 import { useAppTheme } from '../hooks';
+import { InputAddon } from './InputAddon';
 
 import type { BaseProps, InputShape, InputVariant, MakeStyles } from '../types';
 import type { FontAwesomeIconName } from './icons';
@@ -102,6 +102,9 @@ const TextInput = forwardRef(function TextInput(
 
   return (
     <FormField
+      testID={`${props?.testID}.formField`}
+      accessible={props?.accessible}
+      accessibilityLabel={`${props?.accessibilityLabel}.formField`}
       label={props?.label}
       touched={props?.touched}
       error={props?.error}
@@ -113,137 +116,98 @@ const TextInput = forwardRef(function TextInput(
       variant={props?.variant}
       shape={props?.shape}
     >
-      <RNView
-        testID={`${props?.testID}.content`}
+      <InputAddon
+        testID={`${props?.testID}.left`}
         accessible={props?.accessible}
-        accessibilityLabel={`${props?.accessibilityLabel}.content`}
-        style={[styles?.inputContainer, props?.inputContainerStyle]}
+        accessibilityLabel={`${props?.accessibilityLabel}.left`}
+        icon={props?.leftIcon}
+        iconName={props?.leftIconName}
+        iconSize={props?.leftIconSize}
+        iconColor={props?.leftIconColor}
+        onPressIcon={props?.onPressLeftIcon}
+        isEditable={props?.editable}
+        isTouched={props?.touched}
+        error={props?.error}
+        iconContainerStyle={styles?.leftIconContainer}
+      />
+      <RNView
+        style={[
+          styles?.inputContentContainer,
+          props?.inputContentContainerStyle,
+        ]}
       >
-        {props?.leftIcon ||
-          (props?.leftIconName && (
-            <RNView
-              testID={`${props?.testID}.leftIconContainer`}
-              accessible={props?.accessible}
-              accessibilityLabel={`${props?.accessibilityLabel}.leftIconContainer`}
-              style={styles?.leftIconContainer}
-            >
-              <IconButton
-                containerStyle={styles?.iconButtonContainer}
-                onPress={props?.onPressLeftIcon}
-                disabled={!props?.editable}
-              >
-                <FontAwesome
-                  testID={`${props?.testID}.leftIcon`}
-                  accessible={props?.accessible}
-                  accessibilityLabel={`${props?.accessibilityLabel}.leftIcon`}
-                  name={props?.leftIconName}
-                  size={props?.leftIconSize ?? 24}
-                  color={
-                    !props?.editable
-                      ? colors?.onSurfaceDisabled
-                      : props?.touched && props?.error
-                      ? colors?.error
-                      : props?.leftIconColor ?? colors?.onSurface
-                  }
-                />
-              </IconButton>
-            </RNView>
-          ))}
-        <RNView
+        <RNTextInput
+          ref={ref}
+          testID={`${props?.testID}.input`}
+          accessible={props?.accessible}
+          accessibilityLabel={`${props?.accessibilityLabel}.input`}
+          secureTextEntry={
+            props?.showPasswordVisibility
+              ? !isPasswordVisible
+              : props?.secureTextEntry
+          }
+          editable={props?.editable ?? true}
+          autoCapitalize={props?.autoCapitalize}
           style={[
-            styles?.inputContentContainer,
-            props?.inputContentContainerStyle,
+            styles?.inputStyle,
+            props?.showPasswordVisibility
+              ? styles?.passwordInputStyle
+              : undefined,
+            props?.inputStyle,
+            !props?.editable
+              ? styles?.uneditableInput
+              : props?.touched && props?.error
+              ? styles?.errorInput
+              : styles?.editableInput,
           ]}
-        >
-          <RNTextInput
-            ref={ref}
-            testID={`${props?.testID}.input`}
-            accessible={props?.accessible}
-            accessibilityLabel={`${props?.accessibilityLabel}.input`}
-            secureTextEntry={
-              props?.showPasswordVisibility
-                ? !isPasswordVisible
-                : props?.secureTextEntry
-            }
-            editable={props?.editable ?? true}
-            autoCapitalize={props?.autoCapitalize}
-            style={[
-              styles?.inputStyle,
-              props?.showPasswordVisibility
-                ? styles?.passwordInputStyle
-                : undefined,
-              props?.inputStyle,
-              !props?.editable
-                ? styles?.uneditableInput
-                : props?.touched && props?.error
-                ? styles?.errorInput
-                : styles?.editableInput,
-            ]}
-            value={props?.value}
-            placeholder={props?.placeholder}
-            placeholderTextColor={
-              props?.placeholderTextColor ?? colors?.onSurfaceDisabled
-            }
-            onChangeText={onChangeText}
-            onBlur={onBlur}
-            keyboardType={props?.keyboardType ?? 'default'}
-            multiline={props?.multiline}
-            numberOfLines={props?.numberOfLines}
-            maxLength={props?.maxLength}
-            {...props?.textInputProps}
-          />
-          {props?.showPasswordVisibility && (
-            <RNView style={styles?.passwordVisibilityContainer}>
-              <IconButton
-                testID={`${props?.testID}.rightIconButton`}
-                accessible={props?.accessible}
-                accessibilityLabel={`${props?.accessibilityLabel}.righIconButton`}
-                name={isPasswordVisible ? 'eye-off' : 'eye'}
-                size={props?.leftIconSize ?? 24}
-                onPress={togglePasswordVisibility}
-                disabled={!props?.editable}
-                color={
-                  !props?.editable
-                    ? colors?.onSurfaceDisabled
-                    : props?.touched && props?.error
-                    ? colors?.error
-                    : colors?.onSurface
-                }
-              />
-            </RNView>
-          )}
-        </RNView>
-        {props?.rightIcon ||
-          (props?.rightIconName && (
-            <RNView
-              testID={`${props?.testID}.rightIconContainer`}
+          value={props?.value}
+          placeholder={props?.placeholder}
+          placeholderTextColor={
+            props?.placeholderTextColor ?? colors?.onSurfaceDisabled
+          }
+          onChangeText={onChangeText}
+          onBlur={onBlur}
+          keyboardType={props?.keyboardType ?? 'default'}
+          multiline={props?.multiline}
+          numberOfLines={props?.numberOfLines}
+          maxLength={props?.maxLength}
+          {...props?.textInputProps}
+        />
+        {props?.showPasswordVisibility && (
+          <RNView style={styles?.passwordVisibilityContainer}>
+            <IconButton
+              testID={`${props?.testID}.rightIconButton`}
               accessible={props?.accessible}
-              accessibilityLabel={`${props?.accessibilityLabel}.rightIconContainer`}
-              style={styles?.rightIconContainer}
-            >
-              <IconButton
-                containerStyle={styles?.iconButtonContainer}
-                onPress={props?.onPressRightIcon}
-                disabled={!props?.editable}
-              >
-                <FontAwesome
-                  testID={`${props?.testID}.rightIcon`}
-                  accessible={props?.accessible}
-                  accessibilityLabel={`${props?.accessibilityLabel}.rightIcon`}
-                  name={props?.rightIconName}
-                  size={props?.rightIconSize ?? 24}
-                  color={
-                    !props?.editable
-                      ? colors?.onSurfaceDisabled
-                      : props?.touched && props?.error
-                      ? colors?.error
-                      : props?.rightIconColor ?? colors?.primary
-                  }
-                />
-              </IconButton>
-            </RNView>
-          ))}
+              accessibilityLabel={`${props?.accessibilityLabel}.righIconButton`}
+              name={isPasswordVisible ? 'eye-off' : 'eye'}
+              size={props?.leftIconSize ?? 24}
+              onPress={togglePasswordVisibility}
+              disabled={!props?.editable}
+              color={
+                !props?.editable
+                  ? colors?.onSurfaceDisabled
+                  : props?.touched && props?.error
+                  ? colors?.error
+                  : colors?.onSurface
+              }
+            />
+          </RNView>
+        )}
       </RNView>
+      <InputAddon
+        testID={`${props?.testID}.right`}
+        accessible={props?.accessible}
+        accessibilityLabel={`${props?.accessibilityLabel}.right`}
+        icon={props?.rightIcon}
+        iconName={props?.rightIconName}
+        iconSize={props?.rightIconSize}
+        iconColor={props?.rightIconColor}
+        onPressIcon={props?.onPressRightIcon}
+        isEditable={props?.editable}
+        isTouched={props?.touched}
+        error={props?.error}
+        iconContainerStyle={styles?.rightIconContainer}
+      />
     </FormField>
   );
 });
