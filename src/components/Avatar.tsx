@@ -18,9 +18,9 @@ import type {
 import { useAppTheme } from './../hooks';
 import { Text } from './Text';
 import { MaterialIcons } from './icons';
-import type { MaterialIconName } from './icons';
 import { ShadowEffect } from './../animations';
-import type { AvatarSize, MakeStyles } from './../types';
+import type { MaterialIconName } from './icons';
+import type { AvatarShape, AvatarSize, MakeStyles } from './../types';
 
 interface AvatarProps {
   picture?: string;
@@ -33,11 +33,13 @@ interface AvatarProps {
   height?: number;
   width?: number;
   size?: AvatarSize;
+  shape?: AvatarShape;
   onPress?: () => void;
 }
 
 function Avatar(props: AvatarProps) {
   const sizeProp: AvatarSize = props?.size ?? 'medium';
+  const shapeProp: AvatarShape = props?.shape ?? 'circle';
 
   const { colors } = useAppTheme();
 
@@ -46,6 +48,7 @@ function Avatar(props: AvatarProps) {
     height: props?.height,
     width: props?.width,
     size: sizeProp,
+    shape: shapeProp,
   });
 
   const [isValidPicture, setIsValidPicture] = useState<boolean>(true);
@@ -133,6 +136,23 @@ interface CustomMakeStyles extends MakeStyles {
   height?: number;
   width?: number;
   size: AvatarSize;
+  shape: AvatarShape;
+}
+
+function getAvatarBorderRadius(shape: AvatarShape, size: AvatarSize) {
+  switch (shape) {
+    case 'rect':
+      return responsive?.size(10);
+
+    case 'rect-sharp':
+      return 0;
+
+    case 'round':
+      return responsive?.size(getAvatarSize(size) / 4);
+
+    case 'circle':
+      return responsive?.size(1000);
+  }
 }
 
 function makeStyles({
@@ -140,17 +160,18 @@ function makeStyles({
   height: defaultHeight,
   width: defaultWidth,
   size,
+  shape,
 }: CustomMakeStyles) {
   const avatarSize = getAvatarSize(size);
 
   const styles = RNStyleSheet.create({
     shadowContainer: {
-      borderRadius: responsive?.size(90),
+      borderRadius: getAvatarBorderRadius(shape, size),
     },
     container: {
       alignItems: 'center',
       backgroundColor: colors?.onSurfaceDisabled,
-      borderRadius: responsive?.size(1000),
+      borderRadius: getAvatarBorderRadius(shape, size),
       justifyContent: 'center',
       height: defaultHeight ?? avatarSize,
       width: defaultWidth ?? avatarSize,
@@ -158,7 +179,7 @@ function makeStyles({
     picture: {
       height: defaultHeight ?? avatarSize,
       width: defaultWidth ?? avatarSize,
-      borderRadius: responsive?.size(avatarSize / 2),
+      borderRadius: getAvatarBorderRadius(shape, size),
     },
     nameSign: {
       fontSize: defaultHeight
