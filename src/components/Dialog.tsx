@@ -17,13 +17,13 @@ import type {
 } from 'react-native';
 
 import { Text } from './Text';
-import { colors } from '../themes/appColors';
 import { IconButton } from './IconButton';
 import { Ionicons } from './icons';
 import { Divider } from './dividers';
 import { Button } from './Button';
+import { useAppTheme } from '../hooks';
 
-import type { ModalAnimationType, BaseProps } from '../types';
+import type { ModalAnimationType, BaseProps, MakeStyles } from '../types';
 import type { TextVariant } from './Text';
 
 interface DialogProps extends BaseProps {
@@ -61,6 +61,10 @@ interface DialogProps extends BaseProps {
 }
 
 function Dialog(props: PropsWithChildren<DialogProps>) {
+  const { colors } = useAppTheme();
+
+  const styles = makeStyle({ colors });
+
   return (
     <Fragment>
       <RNModal
@@ -94,7 +98,7 @@ function Dialog(props: PropsWithChildren<DialogProps>) {
                 {!props?.hideDialogTitleDivider && (
                   <Divider
                     color={
-                      props?.titleDividerColor ?? colors?.grey?.light?.main
+                      props?.titleDividerColor ?? colors?.onSurfaceDisabled
                     }
                   />
                 )}
@@ -117,7 +121,7 @@ function Dialog(props: PropsWithChildren<DialogProps>) {
                 {!props?.hideActionContainerDivider && (
                   <Divider
                     color={
-                      props?.actionDividerColor ?? colors?.grey?.light?.main
+                      props?.actionDividerColor ?? colors?.onSurfaceDisabled
                     }
                   />
                 )}
@@ -165,7 +169,7 @@ function Dialog(props: PropsWithChildren<DialogProps>) {
                 <Ionicons
                   name="close-circle-sharp"
                   size={responsive.size(32)}
-                  color={colors?.red?.normal?.main}
+                  color={colors?.error}
                 />
               </IconButton>
             )}
@@ -176,53 +180,56 @@ function Dialog(props: PropsWithChildren<DialogProps>) {
   );
 }
 
-const styles = RNStyleSheet.create({
-  container: {
-    alignItems: 'center',
-    backgroundColor: colors?.black?.normal?.shadow40,
-    borderRadius: responsive.size(10),
-    flex: 1,
-    justifyContent: 'center',
-    paddingVertical: responsive.size(15),
-  },
-  content: {
-    backgroundColor: colors?.white?.normal?.main,
-    borderRadius: responsive.size(10),
-    paddingHorizontal: responsive.size(20),
-    paddingVertical: responsive.height(25),
-    width: '90%',
-  },
-  closeIconContainer: {
-    position: 'absolute',
-    right: 0,
-    top: 0,
-  },
-  dialogTitleContainer: {
-    paddingTop: responsive.height(10),
-    rowGap: responsive.height(10),
-  },
-  dialogContentContainer: {
-    paddingVertical: responsive.height(15),
-  },
-  actionContainer: {
-    paddingTop: responsive.height(10),
-    rowGap: responsive.height(15),
-  },
-  actionContent: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: responsive.size(10),
-    justifyContent: 'flex-end',
-  },
-  actionButtonContainer: {
-    minWidth: responsive.size(80),
-    paddingVertical: responsive.height(5),
-  },
-  actionButtonTitle: {
-    fontSize: responsive.size(16),
-  },
-});
+function makeStyle({ colors }: MakeStyles) {
+  const styles = RNStyleSheet.create({
+    container: {
+      alignItems: 'center',
+      backgroundColor: colors?.backdrop,
+      flex: 1,
+      justifyContent: 'center',
+      paddingVertical: responsive.size(15),
+    },
+    content: {
+      backgroundColor: colors?.background,
+      borderRadius: responsive.size(10),
+      paddingHorizontal: responsive.size(20),
+      paddingVertical: responsive.height(25),
+      width: '90%',
+    },
+    closeIconContainer: {
+      position: 'absolute',
+      right: 0,
+      top: 0,
+    },
+    dialogTitleContainer: {
+      paddingTop: responsive.height(10),
+      rowGap: responsive.height(10),
+    },
+    dialogContentContainer: {
+      paddingVertical: responsive.height(15),
+    },
+    actionContainer: {
+      paddingTop: responsive.height(10),
+      rowGap: responsive.height(15),
+    },
+    actionContent: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: responsive.size(10),
+      justifyContent: 'flex-end',
+    },
+    actionButtonContainer: {
+      minWidth: responsive.size(80),
+      paddingVertical: responsive.height(5),
+    },
+    actionButtonTitle: {
+      fontSize: responsive.size(16),
+    },
+  });
+
+  return styles;
+}
 
 export type { DialogProps };
 export { Dialog };

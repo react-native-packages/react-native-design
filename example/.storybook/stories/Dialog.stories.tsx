@@ -81,8 +81,8 @@ export const ConfirmationWithDescription: StoryObj<
     onPressReject() {
       Alert.alert('Rejected!');
     },
-    hideDialogTitleDivider: true,
-    hideActionContainerDivider: true,
+    hideDialogTitleDivider: false,
+    hideActionContainerDivider: false,
     children: (
       <Text variant="text" style={{ fontSize: responsive.size(18) }}>
         Are you sure, do you wants to logout?
