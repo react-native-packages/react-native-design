@@ -66,6 +66,7 @@ interface TextInputProps extends BaseProps {
   editableColor?: RNColorValue;
   disabledColor?: RNColorValue;
   fontSize?: number;
+  isRequired?: boolean;
   containerStyle?: RNStyleProp<RNViewStyle>;
   contentStyle?: RNStyleProp<RNViewStyle>;
   inputContainerStyle?: RNStyleProp<RNViewStyle>;
@@ -121,6 +122,7 @@ const TextInput = forwardRef(function TextInput(
       isDisabled={!props?.editable}
       variant={props?.variant}
       shape={props?.shape}
+      isRequired={props?.isRequired}
     >
       <InputAddon
         testID={`${props?.testID}.left`}

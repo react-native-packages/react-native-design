@@ -97,6 +97,7 @@ interface AutocompleteDropdownProps extends BaseProps {
   rightIconSize?: number;
   rightIconColor?: RNColorValue;
   onPressRightIcon?: () => void;
+  isRequired?: boolean;
 }
 
 function AutocompleteDropdown(props: AutocompleteDropdownProps) {
@@ -120,6 +121,7 @@ function AutocompleteDropdown(props: AutocompleteDropdownProps) {
       isDisabled={props?.isDisabled}
       variant={props?.variant}
       shape={props?.shape}
+      isRequired={props?.isRequired}
     >
       <InputAddon
         testID={`${props?.testID}.left`}

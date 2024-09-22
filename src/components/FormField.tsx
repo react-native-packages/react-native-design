@@ -43,6 +43,7 @@ interface FormFieldProps extends BaseProps {
   labelStyle?: RNStyleProp<RNTextStyle>;
   errorStyle?: RNStyleProp<RNTextStyle>;
   isDisabled?: boolean;
+  isRequired?: boolean;
 }
 
 function FormField(props: PropsWithChildren<FormFieldProps>) {
@@ -86,6 +87,12 @@ function FormField(props: PropsWithChildren<FormFieldProps>) {
           style={[props?.labelStyle, styles?.label]}
         >
           {props?.label}
+          {props?.isRequired && (
+            <Text variant={'label'} style={styles?.requiredIndicator}>
+              {' '}
+              *
+            </Text>
+          )}
         </Text>
       )}
       <RNView
@@ -158,6 +165,9 @@ function makeStyles({ colors, isError, isDisabled, shape }: CustomMakeStyles) {
     },
     errorText: {
       color: colors?.error,
+    },
+    requiredIndicator: {
+      color: isDisabled ? colors?.onSurfaceDisabled : colors?.error,
     },
   });
 

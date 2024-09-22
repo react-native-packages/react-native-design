@@ -61,6 +61,7 @@ const meta = {
       control: { type: 'select' },
       options: ['rect', 'rect-sharp', 'round'],
     },
+    isRequired: { control: 'boolean' },
   },
 } satisfies Meta<typeof AutocompleteDropdown>;
 

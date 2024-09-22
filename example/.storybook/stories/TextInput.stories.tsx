@@ -93,6 +93,7 @@ const meta = {
       control: { type: 'select' },
       options: Object.keys(FontAwesomeIconsName),
     },
+    isRequired: { control: 'boolean' },
   },
 } satisfies Meta<typeof TextInput>;
 
