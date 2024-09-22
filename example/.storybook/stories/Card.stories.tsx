@@ -8,7 +8,7 @@ const meta = {
   decorators: [
     (Story) => (
       <Container theme="primary">
-        <Content theme="info" style={styles?.content}>
+        <Content theme="info" contentStyle={styles?.content}>
           <Story />
         </Content>
       </Container>

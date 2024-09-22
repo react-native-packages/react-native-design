@@ -13,6 +13,8 @@ import type {
   StyleProp as RNStyleProp,
   ViewStyle as RNViewStyle,
   ScrollViewProps as RNScrollViewProps,
+  KeyboardAvoidingViewProps as RNKeyboardAvoidingViewProps,
+  TouchableWithoutFeedbackProps as RNTouchableWithoutFeedbackProps,
 } from 'react-native';
 
 import { useAppTheme } from '../hooks';
@@ -20,10 +22,15 @@ import { useAppTheme } from '../hooks';
 import type { BaseProps, BaseThemeVariant, MakeStyles } from '../types';
 
 interface ContentProps extends BaseProps {
+  behavior?: 'height' | 'position' | 'padding' | undefined;
   theme?: BaseThemeVariant;
-  containerStyle?: RNStyleProp<RNViewStyle>;
-  style?: RNStyleProp<RNViewStyle>;
+  isKeyboardAvoidingViewEnabled?: boolean;
+  isScrollEnabled?: boolean;
+  keyboardAvoidingViewProps?: RNKeyboardAvoidingViewProps;
   scrollViewProps?: RNScrollViewProps;
+  touchableWithoutFeedbackProps?: RNTouchableWithoutFeedbackProps;
+  containerStyle?: RNStyleProp<RNViewStyle>;
+  contentStyle?: RNStyleProp<RNViewStyle>;
 }
 
 function Content(props: PropsWithChildren<ContentProps>) {
@@ -33,14 +40,25 @@ function Content(props: PropsWithChildren<ContentProps>) {
 
   return (
     <RNKeyboardAvoidingView
-      behavior={RNPlatform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={
+        props?.behavior ?? RNPlatform.OS === 'ios' ? 'padding' : undefined
+      }
+      enabled={props?.isKeyboardAvoidingViewEnabled}
       style={[styles.container, props?.containerStyle]}
+      {...props?.keyboardAvoidingViewProps}
     >
-      <RNTouchableWithoutFeedback onPress={RNKeyboard.dismiss}>
+      <RNTouchableWithoutFeedback
+        onPress={RNKeyboard.dismiss}
+        {...props?.touchableWithoutFeedbackProps}
+      >
         <RNScrollView
-          contentContainerStyle={[styles?.contentContainer, props?.style]}
+          contentContainerStyle={[
+            styles?.contentContainer,
+            props?.contentStyle,
+          ]}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
+          scrollEnabled={props?.isScrollEnabled}
           {...props?.scrollViewProps}
         >
           {props?.children}
