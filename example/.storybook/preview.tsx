@@ -46,7 +46,7 @@ function PreviewChild(props: PropsWithChildren<PreviewChildProps>) {
     <View style={styles?.container}>
       <StatusBar
         backgroundColor={colors?.background}
-        barStyle={mode === 'dark' ? 'light-content' : 'dark-content'}
+        barStyle={mode === 'dark' ? 'dark-content' : 'dark-content'}
       />
       <ShadowEffect>
         <View style={styles?.headerContainer}>
