@@ -45,7 +45,7 @@ function Card(props: PropsWithChildren<CardProps>) {
         onPress={onPress}
         style={props?.containerStyle}
       >
-        <ShadowEffect isShadowVisible={props?.isShadowVisible === false}>
+        <ShadowEffect isShadowVisible={props?.isShadowVisible !== false}>
           <Container
             testID={`${props?.testID}.content`}
             accessible={props?.accessible}
