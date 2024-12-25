@@ -11,7 +11,6 @@ import type {
 import { useAppTheme } from '../hooks';
 import { Pressable } from './Pressable';
 import { Container } from './Container';
-import { ShadowEffect } from '../animations';
 
 import type { BaseProps, MakeStyles, BaseThemeVariant } from '../types';
 
@@ -20,7 +19,6 @@ interface CardProps extends BaseProps {
   contentStyle?: RNStyleProp<RNViewStyle>;
   onPress?: () => void;
   disabled?: boolean;
-  isShadowVisible?: boolean;
   theme?: BaseThemeVariant;
 }
 
@@ -45,17 +43,15 @@ function Card(props: PropsWithChildren<CardProps>) {
         onPress={onPress}
         style={props?.containerStyle}
       >
-        <ShadowEffect isShadowVisible={props?.isShadowVisible !== false}>
-          <Container
-            testID={`${props?.testID}.content`}
-            accessible={props?.accessible}
-            accessibilityLabel={`${props?.accessibilityLabel}.content`}
-            style={[styles?.content, props?.contentStyle]}
-            theme={props?.theme}
-          >
-            {props?.children}
-          </Container>
-        </ShadowEffect>
+        <Container
+          testID={`${props?.testID}.content`}
+          accessible={props?.accessible}
+          accessibilityLabel={`${props?.accessibilityLabel}.content`}
+          style={[styles?.content, props?.contentStyle]}
+          theme={props?.theme}
+        >
+          {props?.children}
+        </Container>
       </Pressable>
     </React.Fragment>
   );

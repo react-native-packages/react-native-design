@@ -8,7 +8,6 @@ import type { Preview } from '@storybook/react';
 import {
   Avatar,
   DesignProvider,
-  ShadowEffect,
   Text,
   ThemeSwitch,
   useAppTheme,
@@ -48,21 +47,19 @@ function PreviewChild(props: PropsWithChildren<PreviewChildProps>) {
         backgroundColor={colors?.background}
         barStyle={mode === 'dark' ? 'dark-content' : 'dark-content'}
       />
-      <ShadowEffect>
-        <View style={styles?.headerContainer}>
-          <Avatar
-            size="medium"
-            picture="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg"
-          />
-          <Text variant="title" style={styles?.title}>
-            React Native Design
-          </Text>
-          <ThemeSwitch
-            darkIconColor={colors?.onPrimary}
-            lightIconColor={colors?.onPrimary}
-          />
-        </View>
-      </ShadowEffect>
+      <View style={styles?.headerContainer}>
+        <Avatar
+          size="medium"
+          picture="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg"
+        />
+        <Text variant="title" style={styles?.title}>
+          React Native Design
+        </Text>
+        <ThemeSwitch
+          darkIconColor={colors?.onPrimary}
+          lightIconColor={colors?.onPrimary}
+        />
+      </View>
       {props?.children}
     </View>
   );

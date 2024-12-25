@@ -32,7 +32,7 @@ import { useAppTheme } from '../hooks';
 import type {
   BaseProps,
   InputShape,
-  InputStateCallbackType,
+  IconStateCallbackType,
   InputVariant,
   MakeStyles,
 } from '../types';
@@ -87,12 +87,12 @@ interface AutocompleteDropdownProps extends BaseProps {
   shape?: InputShape;
   numberOfLines?: number;
   fontSize?: number;
-  leftIcon?: ReactNode | ((args: InputStateCallbackType) => ReactNode);
+  leftIcon?: ReactNode | ((args: IconStateCallbackType) => ReactNode);
   leftIconName?: FontAwesomeIconName;
   leftIconSize?: number;
   leftIconColor?: RNColorValue;
   onPressLeftIcon?: () => void;
-  rightIcon?: ReactNode | ((args: InputStateCallbackType) => ReactNode);
+  rightIcon?: ReactNode | ((args: IconStateCallbackType) => ReactNode);
   rightIconName?: FontAwesomeIconName;
   rightIconSize?: number;
   rightIconColor?: RNColorValue;

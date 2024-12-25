@@ -11,11 +11,11 @@ import type {
 import { IconButton } from './IconButton';
 import { FontAwesome } from './icons';
 import { useAppTheme } from '../hooks';
-import type { BaseProps, InputStateCallbackType, MakeStyles } from '../types';
+import type { BaseProps, IconStateCallbackType, MakeStyles } from '../types';
 import type { FontAwesomeIconName } from './icons';
 
 interface InputAddonProps extends BaseProps {
-  icon?: ReactNode | ((args: InputStateCallbackType) => ReactNode);
+  icon?: ReactNode | ((args: IconStateCallbackType) => ReactNode);
   iconName?: FontAwesomeIconName;
   iconSize?: number;
   iconColor?: RNColorValue;

@@ -21,7 +21,6 @@ const meta = {
   },
   argTypes: {
     disabled: { control: { type: 'boolean' } },
-    isShadowVisible: { control: { type: 'boolean' } },
     theme: {
       control: 'select',
       options: [

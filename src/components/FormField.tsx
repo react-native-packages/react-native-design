@@ -12,6 +12,7 @@ import type {
 import { Text } from './Text';
 import { useAppTheme } from '../hooks';
 
+import type { TextProps } from './Text';
 import type { BaseProps, InputShape, InputVariant, MakeStyles } from '../types';
 
 function getInputBorderRadius(shape?: InputShape) {
@@ -44,6 +45,8 @@ interface FormFieldProps extends BaseProps {
   errorStyle?: RNStyleProp<RNTextStyle>;
   isDisabled?: boolean;
   isRequired?: boolean;
+  labelProps?: TextProps;
+  errorProps?: TextProps;
 }
 
 function FormField(props: PropsWithChildren<FormFieldProps>) {
@@ -80,39 +83,43 @@ function FormField(props: PropsWithChildren<FormFieldProps>) {
       style={[styles?.container, props?.containerStyle]}
       pointerEvents={props?.isDisabled ? 'none' : 'auto'}
     >
-      {props?.label && (
-        <Text
-          variant={'label'}
-          disabled={props?.isDisabled}
-          style={[props?.labelStyle, styles?.label]}
+      <>
+        {props?.label && (
+          <Text
+            variant={'label'}
+            disabled={props?.isDisabled}
+            style={[props?.labelStyle, styles?.label]}
+            {...props?.labelProps}
+          >
+            {props?.label}
+            {props?.isRequired && (
+              <Text variant={'label'} style={styles?.requiredIndicator}>
+                {' '}
+                *
+              </Text>
+            )}
+          </Text>
+        )}
+        <RNView
+          testID={`${props?.testID}.content`}
+          accessible={props?.accessible}
+          accessibilityLabel={`${props?.accessibilityLabel}.content`}
+          style={[
+            getInputBorderVariant(props?.variant),
+            styles?.content,
+            props?.contentStyle,
+          ]}
         >
-          {props?.label}
-          {props?.isRequired && (
-            <Text variant={'label'} style={styles?.requiredIndicator}>
-              {' '}
-              *
-            </Text>
-          )}
-        </Text>
-      )}
-      <RNView
-        testID={`${props?.testID}.content`}
-        accessible={props?.accessible}
-        accessibilityLabel={`${props?.accessibilityLabel}.content`}
-        style={[
-          getInputBorderVariant(props?.variant),
-          styles?.content,
-          props?.contentStyle,
-        ]}
-      >
-        {props?.children}
-      </RNView>
+          {props?.children}
+        </RNView>
+      </>
       {!props?.isDisabled && props?.touched && props?.error && (
         <Text
           testID={`${props?.testID}.errorText`}
           accessible={props?.accessible}
           accessibilityLabel={`${props?.accessibilityLabel}.errorText`}
           style={[props?.errorStyle, styles?.errorText]}
+          {...props?.errorProps}
         >
           {props?.error}
         </Text>

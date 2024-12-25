@@ -4,12 +4,7 @@ import { responsive } from '@rnpack/utils';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-import {
-  RotateAnimation,
-  ShadowEffect,
-  Text,
-  useAppTheme,
-} from 'react-native-design';
+import { RotateAnimation, Text, useAppTheme } from 'react-native-design';
 import type { MakeStyles } from 'react-native-design';
 
 const meta = {
@@ -74,11 +69,9 @@ function StoryChild(props: StoryChildProps) {
   return (
     <View style={styles?.container}>
       <RotateAnimation outputRange={props?.args?.outputRange} {...props?.args}>
-        <ShadowEffect>
-          <View style={styles?.content}>
-            <Text style={styles?.title}>{props?.title}</Text>
-          </View>
-        </ShadowEffect>
+        <View style={styles?.content}>
+          <Text style={styles?.title}>{props?.title}</Text>
+        </View>
       </RotateAnimation>
     </View>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import { responsive } from '@rnpack/utils';
 
 import type { Meta, StoryObj } from '@storybook/react';
@@ -36,7 +36,11 @@ export const Default: Story = {
   render: () => {
     return (
       <View style={styles?.container}>
-        <Chip title="Default" theme="default" />
+        <Chip
+          title="Default"
+          theme="default"
+          onPress={() => Alert.alert('Default Chip Pressed...')}
+        />
         <Chip title="Default" theme="default" variant="outlined" />
         <Chip title="Default" theme="default" variant="text" />
         <Chip title="Info" theme="info" leftIconName="information-outline" />
@@ -106,6 +110,13 @@ export const Default: Story = {
           leftIconName="check-decagram-outline"
           rightIconName="cake-variant-outline"
           theme="success"
+          onPress={() => Alert.alert('Left Right Icon Chip Pressed...')}
+          onPressLeftIcon={() =>
+            Alert.alert('Left Right Icon Chip Left Icon Pressed...')
+          }
+          onPressRightIcon={() =>
+            Alert.alert('Left Right Icon Chip Right Icon Pressed...')
+          }
         />
         <Chip
           title="Left Right Icon"
@@ -118,6 +129,14 @@ export const Default: Story = {
           title="Left Right Icon"
           theme="success"
           variant="text"
+          leftIconName="check-decagram-outline"
+          rightIconName="cake-variant-outline"
+        />
+        <Chip
+          title="Left Right Icon With Too Long Title and icons check decagram outline cake variant outline"
+          numberOfLines={1}
+          theme="success"
+          variant="contained"
           leftIconName="check-decagram-outline"
           rightIconName="cake-variant-outline"
         />

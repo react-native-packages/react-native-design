@@ -7,34 +7,38 @@ import {
 import { responsive, splitString } from '@rnpack/utils';
 
 import type {
-  ImageErrorEventData,
-  NativeSyntheticEvent,
+  ImageErrorEventData as RNImageErrorEventData,
+  NativeSyntheticEvent as RNNativeSyntheticEvent,
   ImageStyle as RNImageStyle,
   StyleProp as RNStyleProp,
   TextStyle as RNTextStyle,
   ViewStyle as RNViewStyle,
 } from 'react-native';
 
+import { getAvatarBorderRadius, getAvatarSize } from '../utils';
 import { useAppTheme } from './../hooks';
 import { Text } from './Text';
 import { MaterialIcons } from './icons';
-import { ShadowEffect } from './../animations';
+
+import type { TextProps } from './Text';
 import type { MaterialIconName } from './icons';
 import type { AvatarShape, AvatarSize, MakeStyles } from './../types';
 
 interface AvatarProps {
   picture?: string;
   name?: string;
+  nameSignProps?: TextProps;
   iconSize?: number;
   iconName?: MaterialIconName;
-  pictureStyle?: RNStyleProp<RNImageStyle>;
-  nameSignStyle?: RNStyleProp<RNTextStyle>;
-  containerStyle?: RNStyleProp<RNViewStyle>;
   height?: number;
   width?: number;
   size?: AvatarSize;
   shape?: AvatarShape;
   onPress?: () => void;
+  numberOfLines?: number;
+  pictureStyle?: RNStyleProp<RNImageStyle>;
+  nameSignStyle?: RNStyleProp<RNTextStyle>;
+  containerStyle?: RNStyleProp<RNViewStyle>;
 }
 
 function Avatar(props: AvatarProps) {
@@ -64,7 +68,7 @@ function Avatar(props: AvatarProps) {
   }
 
   function onPictureLoadError(
-    error: NativeSyntheticEvent<ImageErrorEventData>
+    error: RNNativeSyntheticEvent<RNImageErrorEventData>
   ) {
     const date = new Date(error?.timeStamp);
     console.error('Profile picture load error: ', date?.toLocaleString());
@@ -75,61 +79,34 @@ function Avatar(props: AvatarProps) {
   const avatarSize = getAvatarSize(sizeProp);
 
   return (
-    <ShadowEffect containerStyle={styles?.shadowContainer}>
-      <RNPressable
-        style={[styles?.container, props?.containerStyle]}
-        onPress={props?.onPress}
-      >
-        {props?.picture && isValidPicture ? (
-          <RNImage
-            source={{ uri: props?.picture }}
-            style={[styles?.picture, props?.pictureStyle]}
-            onError={onPictureLoadError}
-          />
-        ) : props?.name ? (
-          <Text
-            variant="title"
-            style={[styles?.nameSign, props?.nameSignStyle]}
-          >
-            {getNameSign(props?.name)}
-          </Text>
-        ) : (
-          <MaterialIcons
-            name={props?.iconName ?? 'account-circle'}
-            size={props?.iconSize ?? avatarSize}
-            color={colors?.background}
-          />
-        )}
-      </RNPressable>
-    </ShadowEffect>
+    <RNPressable
+      style={[styles?.container, props?.containerStyle]}
+      onPress={props?.onPress}
+    >
+      {props?.picture && isValidPicture ? (
+        <RNImage
+          source={{ uri: props?.picture }}
+          style={[styles?.picture, props?.pictureStyle]}
+          onError={onPictureLoadError}
+        />
+      ) : props?.name ? (
+        <Text
+          variant="title"
+          style={[styles?.nameSign, props?.nameSignStyle]}
+          numberOfLines={props?.numberOfLines}
+          {...props?.nameSignProps}
+        >
+          {getNameSign(props?.name)}
+        </Text>
+      ) : (
+        <MaterialIcons
+          name={props?.iconName ?? 'account-circle'}
+          size={props?.iconSize ?? avatarSize}
+          color={colors?.background}
+        />
+      )}
+    </RNPressable>
   );
-}
-
-function getAvatarSize(size: AvatarSize): number {
-  const defaultSize = responsive?.size(45);
-
-  switch (size) {
-    case 'small':
-      return responsive?.size(20);
-
-    case 'medium':
-      return defaultSize;
-
-    case 'large':
-      return responsive?.size(75);
-
-    case 'x-large':
-      return responsive?.size(90);
-
-    case 'xx-large':
-      return responsive?.size(120);
-
-    case 'xxx-large':
-      return responsive?.size(180);
-
-    default:
-      return defaultSize;
-  }
 }
 
 interface CustomMakeStyles extends MakeStyles {
@@ -137,22 +114,6 @@ interface CustomMakeStyles extends MakeStyles {
   width?: number;
   size: AvatarSize;
   shape: AvatarShape;
-}
-
-function getAvatarBorderRadius(shape: AvatarShape, size: AvatarSize) {
-  switch (shape) {
-    case 'rect':
-      return responsive?.size(10);
-
-    case 'rect-sharp':
-      return 0;
-
-    case 'round':
-      return responsive?.size(getAvatarSize(size) / 4);
-
-    case 'circle':
-      return responsive?.size(1000);
-  }
 }
 
 function makeStyles({

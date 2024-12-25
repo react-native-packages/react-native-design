@@ -22,11 +22,12 @@ import { IconButton } from './IconButton';
 import { FormField } from './FormField';
 import { useAppTheme } from '../hooks';
 import { InputAddon } from './InputAddon';
+import { Pressable } from './Pressable';
 
 import type {
   BaseProps,
   InputShape,
-  InputStateCallbackType,
+  IconStateCallbackType,
   InputVariant,
   MakeStyles,
 } from '../types';
@@ -36,12 +37,12 @@ interface TextInputProps extends BaseProps {
   name: string;
   value?: string;
   label?: string;
-  leftIcon?: ReactNode | ((args: InputStateCallbackType) => ReactNode);
+  leftIcon?: ReactNode | ((args: IconStateCallbackType) => ReactNode);
   leftIconName?: FontAwesomeIconName;
   leftIconSize?: number;
   leftIconColor?: RNColorValue;
   onPressLeftIcon?: () => void;
-  rightIcon?: ReactNode | ((args: InputStateCallbackType) => ReactNode);
+  rightIcon?: ReactNode | ((args: IconStateCallbackType) => ReactNode);
   rightIconName?: FontAwesomeIconName;
   rightIconSize?: number;
   rightIconColor?: RNColorValue;
@@ -67,6 +68,7 @@ interface TextInputProps extends BaseProps {
   disabledColor?: RNColorValue;
   fontSize?: number;
   isRequired?: boolean;
+  onPressInput?: () => void;
   containerStyle?: RNStyleProp<RNViewStyle>;
   contentStyle?: RNStyleProp<RNViewStyle>;
   inputContainerStyle?: RNStyleProp<RNViewStyle>;
@@ -138,7 +140,8 @@ const TextInput = forwardRef(function TextInput(
         error={props?.error}
         iconContainerStyle={styles?.leftIconContainer}
       />
-      <RNView
+      <Pressable
+        onPress={props?.onPressInput}
         style={[
           styles?.inputContentContainer,
           props?.inputContentContainerStyle,
@@ -201,7 +204,7 @@ const TextInput = forwardRef(function TextInput(
             />
           </RNView>
         )}
-      </RNView>
+      </Pressable>
       <InputAddon
         testID={`${props?.testID}.right`}
         accessible={props?.accessible}
