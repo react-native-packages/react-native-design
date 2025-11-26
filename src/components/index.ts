@@ -16,6 +16,8 @@ export * from './Container';
 export * from './Content';
 export * from './InputAddon';
 export * from './Switch';
+export * from './Checkbox';
+export * from './CheckboxGroup';
 
 export * from './loaders';
 export * from './icons';
