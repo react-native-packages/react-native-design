@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Switch as RNSwitch, StyleSheet as RNStyleSheet } from 'react-native';
 import { responsive } from '@rnpack/utils';
 

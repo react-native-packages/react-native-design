@@ -1,4 +1,3 @@
-import React from 'react';
 import { responsive } from '@rnpack/utils';
 import RNVIEvilIcons from 'react-native-vector-icons/EvilIcons';
 

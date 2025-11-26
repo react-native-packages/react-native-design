@@ -1,4 +1,3 @@
-import React from 'react';
 import { Alert, FlatList, StyleSheet, View } from 'react-native';
 import { responsive } from '@rnpack/utils';
 

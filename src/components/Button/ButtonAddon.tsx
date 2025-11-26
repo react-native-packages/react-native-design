@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 
 import type { ReactNode } from 'react';
 import type { ColorValue as RNColorValue } from 'react-native';
@@ -21,7 +21,7 @@ interface ButtonAddonProps extends BaseProps {
 
 function ButtonAddon(props: ButtonAddonProps) {
   return (
-    <React.Fragment>
+    <Fragment>
       <Spinner
         testID={`${props?.testID}.spinner`}
         accessible={props?.accessible}
@@ -42,7 +42,7 @@ function ButtonAddon(props: ButtonAddonProps) {
               color={props?.iconColor}
             />
           )))}
-    </React.Fragment>
+    </Fragment>
   );
 }
 

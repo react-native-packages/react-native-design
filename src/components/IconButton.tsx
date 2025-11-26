@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   StyleSheet as RNStyleSheet,
   TouchableOpacity as RNTouchableOpacity,

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import { responsive } from '@rnpack/utils';
 import { StyleSheet as RNStyleSheet } from 'react-native';
 
@@ -34,7 +34,7 @@ function Card(props: PropsWithChildren<CardProps>) {
   }
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Pressable
         testID={`${props?.testID}.container`}
         accessible={props?.accessible}
@@ -53,7 +53,7 @@ function Card(props: PropsWithChildren<CardProps>) {
           {props?.children}
         </Container>
       </Pressable>
-    </React.Fragment>
+    </Fragment>
   );
 }
 

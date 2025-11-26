@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { responsive } from '@rnpack/utils';
 
 import type { ReactNode } from 'react';

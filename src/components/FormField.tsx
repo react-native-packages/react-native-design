@@ -1,4 +1,3 @@
-import React from 'react';
 import { View as RNView, StyleSheet as RNStyleSheet } from 'react-native';
 import { responsive } from '@rnpack/utils';
 

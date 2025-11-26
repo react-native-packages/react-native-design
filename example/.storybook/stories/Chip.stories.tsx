@@ -1,4 +1,3 @@
-import React from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { responsive } from '@rnpack/utils';
 

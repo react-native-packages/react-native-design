@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { IconButton } from 'react-native-design';

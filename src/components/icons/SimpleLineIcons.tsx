@@ -1,4 +1,3 @@
-import React from 'react';
 import { responsive } from '@rnpack/utils';
 import RNVISimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 

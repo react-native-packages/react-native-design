@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Platform as RNPlatform,
   KeyboardAvoidingView as RNKeyboardAvoidingView,

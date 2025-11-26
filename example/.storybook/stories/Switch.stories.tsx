@@ -1,4 +1,3 @@
-import React from 'react';
 import { responsive } from '@rnpack/utils';
 
 import type { Meta, StoryObj } from '@storybook/react';

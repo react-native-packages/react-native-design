@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { ActivityIndicator as RNActivityIndicator } from 'react-native';
 import type { ColorValue as RNColorValue } from 'react-native';
 

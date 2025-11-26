@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Pressable as RNPressable,
   StyleSheet as RNStyleSheet,

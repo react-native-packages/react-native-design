@@ -1,4 +1,3 @@
-import React from 'react';
 import { responsive } from '@rnpack/utils';
 import { StyleSheet, View, StatusBar } from 'react-native';
 

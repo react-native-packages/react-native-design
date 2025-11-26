@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Alert, StyleSheet } from 'react-native';
 import { Card, Container, Content, Text } from 'react-native-design';

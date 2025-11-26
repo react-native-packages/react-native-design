@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Dimensions as RNDimensions,
   StyleSheet as RNStyleSheet,

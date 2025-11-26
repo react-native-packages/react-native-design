@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { StyleSheet as RNStyleSheet } from 'react-native';
 import { responsive } from '@rnpack/utils';
 import { MotiView } from 'moti';

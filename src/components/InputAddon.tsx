@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { View as RNView, StyleSheet as RNStyleSheet } from 'react-native';
 
 import type { ReactNode } from 'react';

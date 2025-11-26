@@ -1,4 +1,3 @@
-import React from 'react';
 import { AutocompleteDropdownContextProvider as RNAutocompleteDropdownContextProvider } from 'react-native-autocomplete-dropdown';
 
 import type { PropsWithChildren } from 'react';
