@@ -233,7 +233,7 @@ function makeStyles({
   colors,
   editableColor,
   disabledColor,
-  fontSize,
+  fontSize: _fontSize,
 }: CustomMakeStyles) {
   const styles = RNStyleSheet.create({
     errorText: {
@@ -253,7 +253,7 @@ function makeStyles({
     },
     inputContentContainer: {
       flex: 1,
-      height: Math.round(responsive.height((fontSize ?? 24) * 2)),
+      height: responsive.height(40),
     },
     inputStyle: {
       color: colors?.onSurface,
@@ -261,7 +261,6 @@ function makeStyles({
       fontWeight: '400',
       paddingLeft: responsive.size(5),
       width: '100%',
-      fontSize: fontSize ?? responsive?.size(16),
     },
     passwordInputStyle: {
       paddingRight: responsive.size(25),
