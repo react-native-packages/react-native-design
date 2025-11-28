@@ -23,7 +23,7 @@ const meta = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+// type Story = StoryObj<typeof meta>;
 
 export const Confirmation: StoryObj<ComponentProps<typeof Dialog>> = {
   args: {
@@ -42,6 +42,7 @@ export const Confirmation: StoryObj<ComponentProps<typeof Dialog>> = {
     hideActionContainerDivider: true,
   },
   render: (args) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
     function onDismiss() {
@@ -90,6 +91,7 @@ export const ConfirmationWithDescription: StoryObj<
     ),
   },
   render: (args) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
     function onDismiss() {
@@ -128,6 +130,7 @@ export const Information: StoryObj<ComponentProps<typeof Dialog>> = {
     ),
   },
   render: (args) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
     function onDismiss() {

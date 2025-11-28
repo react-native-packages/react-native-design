@@ -6,13 +6,12 @@ import {
 } from 'react-native';
 import { responsive } from '@rnpack/utils';
 
-import type { ReactNode, Ref } from 'react';
+import type { ReactNode } from 'react';
 import type {
   TextInputProps as RNTextInputProps,
   ColorValue as RNColorValue,
   KeyboardTypeOptions as RNKeyboardTypeOptions,
-  NativeSyntheticEvent as RNNativeSyntheticEvent,
-  TextInputFocusEventData as RNTextInputFocusEventData,
+  TextInputFocusEvent as RNTextInputFocusEvent,
   StyleProp as RNStyleProp,
   TextStyle as RNTextStyle,
   ViewStyle as RNViewStyle,
@@ -54,7 +53,7 @@ interface TextInputProps extends BaseProps {
   placeholder?: string;
   placeholderTextColor?: RNColorValue;
   onChangeText?: (text: string) => void;
-  onBlur?: (event: RNNativeSyntheticEvent<RNTextInputFocusEventData>) => void;
+  onBlur?: (event: RNTextInputFocusEvent) => void;
   keyboardType?: RNKeyboardTypeOptions;
   touched?: boolean;
   error?: string;
@@ -80,7 +79,7 @@ interface TextInputProps extends BaseProps {
 
 const TextInput = forwardRef(function TextInput(
   props: TextInputProps,
-  ref: Ref<RNTextInput>
+  ref: RNTextInputProps['forwardedRef']
 ) {
   const { colors } = useAppTheme();
 
@@ -99,7 +98,7 @@ const TextInput = forwardRef(function TextInput(
     }
   }
 
-  function onBlur(event: RNNativeSyntheticEvent<RNTextInputFocusEventData>) {
+  function onBlur(event: RNTextInputFocusEvent) {
     if (props?.onBlur) {
       props?.onBlur(event);
     }

@@ -2,7 +2,7 @@ import { Alert, StyleSheet, View } from 'react-native';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Card, Pressable, Text, useAppTheme } from 'react-native-design';
+import { Pressable, Text, useAppTheme } from 'react-native-design';
 import type { PressableProps } from 'react-native-design';
 
 const meta = {
@@ -34,6 +34,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: (props: PressableProps) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const { colors } = useAppTheme();
 
     function onPress() {

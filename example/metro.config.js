@@ -1,11 +1,32 @@
+// START: Default Metro Config
+
+// const path = require('path');
+// const { getDefaultConfig } = require('@react-native/metro-config');
+// const { withMetroConfig } = require('react-native-monorepo-config');
+
+// const root = path.resolve(__dirname, '..');
+
+// /**
+//  * Metro configuration
+//  * https://facebook.github.io/metro/docs/configuration
+//  *
+//  * @type {import('metro-config').MetroConfig}
+//  */
+// module.exports = withMetroConfig(getDefaultConfig(__dirname), {
+//   root,
+//   dirname: __dirname,
+// });
+
+// END: Default Metro Config
+
 const path = require('path');
-const escape = require('escape-string-regexp');
-const { getDefaultConfig } = require('@expo/metro-config');
-const exclusionList = require('metro-config/src/defaults/exclusionList');
-const pak = require('../package.json');
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+const { withMetroConfig } = require('react-native-monorepo-config');
+const {
+  withStorybook,
+} = require('@storybook/react-native/metro/withStorybook');
 
 const root = path.resolve(__dirname, '..');
-const modules = Object.keys({ ...pak.peerDependencies });
 
 const defaultConfig = getDefaultConfig(__dirname);
 
@@ -15,29 +36,21 @@ const defaultConfig = getDefaultConfig(__dirname);
  *
  * @type {import('metro-config').MetroConfig}
  */
-const config = {
-  ...defaultConfig,
 
-  projectRoot: __dirname,
-  watchFolders: [root],
+const metroConfig = withMetroConfig(getDefaultConfig(__dirname), {
+  root,
+  dirname: __dirname,
+});
 
-  // We need to make sure that only one version is loaded for peerDependencies
-  // So we block them at the root, and alias them to the versions in example's node_modules
-  resolver: {
-    ...defaultConfig.resolver,
+const finalConfig = mergeConfig(defaultConfig, metroConfig);
 
-    blacklistRE: exclusionList(
-      modules.map(
-        (m) =>
-          new RegExp(`^${escape(path.join(root, 'node_modules', m))}\\/.*$`)
-      )
-    ),
-
-    extraNodeModules: modules.reduce((acc, name) => {
-      acc[name] = path.join(__dirname, 'node_modules', name);
-      return acc;
-    }, {}),
+module.exports = withStorybook(
+  finalConfig,
+  {
+    configPath: './.storybook',
   },
-};
-
-module.exports = config;
+  {
+    root,
+    dirname: __dirname,
+  }
+);

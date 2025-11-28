@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   View as RNView,
   StyleSheet as RNStyleSheet,
@@ -14,13 +14,24 @@ import type {
   ViewStyle as RNViewStyle,
   TextStyle as RNTextStyle,
 } from 'react-native';
+import ReAnimated, {
+  setNativeProps,
+  useAnimatedRef,
+} from 'react-native-reanimated';
 
 import type { BaseProps, MakeStyles } from '../types';
 import { useAppTheme } from '../hooks';
-import { TextInput } from '../components/TextInput';
+import { TextInput, type TextInputProps } from '../components';
 
-const AnimatedCircle = RNAnimated.createAnimatedComponent(Circle);
-const AnimatedTextInput = RNAnimated.createAnimatedComponent(TextInput);
+const MyTextInput = React.forwardRef(
+  (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
+    // @ts-expect-error ref mismatch
+    return <TextInput ref={ref} {...props} />;
+  }
+);
+
+const AnimatedCircle = ReAnimated.createAnimatedComponent(Circle);
+const AnimatedTextInput = ReAnimated.createAnimatedComponent(MyTextInput);
 
 enum DonutChartVariant {
   CIRCLE = 'circle',
@@ -57,7 +68,7 @@ function DonutChart(props: DonutChartProps) {
   ).current;
 
   const circleRef = useRef<Circle>(null);
-  const textInputRef = useRef<RNTextInput>(null);
+  const textInputRef = useAnimatedRef();
 
   const strokeWidthProp = props?.strokeWidth ?? Math.round(responsive.size(20));
   const maxProp = props?.max ?? 100;
@@ -82,7 +93,7 @@ function DonutChart(props: DonutChartProps) {
       }
 
       if (textInputRef?.current) {
-        textInputRef?.current?.setNativeProps({
+        setNativeProps(textInputRef, {
           text: `${props?.textPrefix ?? ''}${Math.round(callback.value)}${
             props?.textPostfix ?? ''
           }`,
@@ -143,7 +154,6 @@ function DonutChart(props: DonutChartProps) {
         </G>
       </Svg>
       <AnimatedTextInput
-        ref={textInputRef}
         name={'percentage'}
         containerStyle={[
           styles?.percentageTextInputContainer,

@@ -1,0 +1,24 @@
+{
+  "cxxNamespace": [
+    "ReactNativeDesign"
+  ],
+  "ios": {
+    "iosModuleName": "ReactNativeDesign"
+  },
+  "android": {
+    "androidNamespace": [
+      "ReactNativeDesign"
+    ],
+    "androidCxxLibName": "ReactNativeDesign"
+  },
+  "autolinking": {
+    "ReactNativeDesign": {
+      "swift": "HybridReactNativeDesign",
+      "kotlin": "HybridReactNativeDesign"
+    }
+  },
+  "ignorePaths": [
+    "node_modules",
+    "example/node_modules"
+  ]
+}

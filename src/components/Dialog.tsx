@@ -78,7 +78,11 @@ function Dialog(props: PropsWithChildren<DialogProps>) {
       >
         <RNPressable
           style={[styles?.container, props?.containerStyle]}
-          onPress={props?.isCollapsable ? props?.onDismiss : null}
+          onPress={() => {
+            if (props?.isCollapsable) {
+              props?.onDismiss?.();
+            }
+          }}
         >
           <RNView style={[styles?.content, props?.contentStyle]}>
             {props?.title && (

@@ -25,11 +25,12 @@ const meta = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+// type Story = StoryObj<typeof meta>;
 
 export const Default: StoryObj<ComponentProps<typeof Button>> = {
   args: {},
   render: (args) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const { mode, colors, changeAppTheme } = useAppTheme();
 
     function toggleTheme() {
@@ -38,6 +39,7 @@ export const Default: StoryObj<ComponentProps<typeof Button>> = {
 
     return (
       <View
+        // eslint-disable-next-line react-native/no-inline-styles
         style={{
           backgroundColor: colors?.primaryContainer,
           flex: 1,

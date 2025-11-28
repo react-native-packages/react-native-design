@@ -37,7 +37,7 @@ function RotateAnimation(props: PropsWithChildren<RotateAnimationProps>) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function rotateAnimationConfig(): RNAnimated.CompositeAnimation {
+  function rotateAnimationConfig() {
     return RNAnimated.timing(boxRotationValue, {
       toValue: 1,
       duration: props?.duration ?? 800,

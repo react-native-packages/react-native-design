@@ -7,8 +7,6 @@ import {
 import { responsive, splitString } from '@rnpack/utils';
 
 import type {
-  ImageErrorEventData as RNImageErrorEventData,
-  NativeSyntheticEvent as RNNativeSyntheticEvent,
   ImageStyle as RNImageStyle,
   StyleProp as RNStyleProp,
   TextStyle as RNTextStyle,
@@ -23,6 +21,7 @@ import { MaterialIcons } from './icons';
 import type { TextProps } from './Text';
 import type { MaterialIconName } from './icons';
 import type { AvatarShape, AvatarSize, MakeStyles } from './../types';
+import type { ImageErrorEvent as RNImageErrorEvent } from 'react-native';
 
 interface AvatarProps {
   picture?: string;
@@ -67,9 +66,7 @@ function Avatar(props: AvatarProps) {
     return signs?.join('')?.toUpperCase();
   }
 
-  function onPictureLoadError(
-    error: RNNativeSyntheticEvent<RNImageErrorEventData>
-  ) {
+  function onPictureLoadError(error: RNImageErrorEvent) {
     const date = new Date(error?.timeStamp);
     console.error('Profile picture load error: ', date?.toLocaleString());
 

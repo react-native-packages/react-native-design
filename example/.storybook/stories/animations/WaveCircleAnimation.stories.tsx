@@ -66,7 +66,7 @@ function StoryChild(props: StoryChildProps) {
   );
 }
 
-function makeStyles({ colors }: MakeStyles) {
+function makeStyles({ colors: _colors }: MakeStyles) {
   const styles = StyleSheet.create({
     container: {
       alignItems: 'center',

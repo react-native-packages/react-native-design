@@ -1,16 +1,15 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { DonutChart } from 'react-native-design';
-import { responsive } from '@rnpack/utils';
 
 const meta = {
   component: DonutChart,
   decorators: [
     (Story) => (
-      <View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
+      <View style={styles.container}>
         <Story />
       </View>
     ),
@@ -28,3 +27,11 @@ export const Default: Story = {
     percentage: 100,
   },
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+});

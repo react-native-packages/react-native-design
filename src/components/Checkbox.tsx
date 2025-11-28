@@ -3,7 +3,11 @@ import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import type { ReactNode } from 'react';
-import type { ColorValue, FlexStyle, StyleProp, ViewStyle } from 'react-native';
+import type {
+  ColorValue,
+  StyleProp,
+  ViewStyle as RNViewStyle,
+} from 'react-native';
 
 import { useAppTheme } from './../hooks';
 import { FormField } from './FormField';
@@ -36,8 +40,8 @@ interface CheckboxProps extends BaseProps {
   checkmarkSize?: number;
   checkmarkColor?: ColorValue;
   onToggleCheckbox?: (args: OnToggleCheckboxArgs) => void;
-  containerStyle?: StyleProp<ViewStyle>;
-  boxContainerStyle?: StyleProp<ViewStyle>;
+  containerStyle?: StyleProp<RNViewStyle>;
+  boxContainerStyle?: StyleProp<RNViewStyle>;
 }
 
 function Checkbox(props: CheckboxProps) {
@@ -124,7 +128,7 @@ function getShapeStyle(args: { shape: CheckboxShape; size: number }): number {
 
 function getLabelPositionStyle(
   position: CheckboxLabelPosition
-): Pick<FlexStyle, 'flexDirection'>['flexDirection'] {
+): RNViewStyle['flexDirection'] {
   switch (position) {
     case 'left':
       return 'row-reverse';

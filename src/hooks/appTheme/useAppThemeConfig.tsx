@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { storage } from '@rnpack/utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { appTheme } from '../../themes';
 import { storageKeys } from '../../constants';
@@ -38,16 +38,13 @@ function useAppThemeConfig(
   }
 
   async function setThemeMode(_mode: ThemeMode): Promise<void> {
-    await storage?.set({
-      key: storageKeys?.themes?.APP_THEME_MODE_KEY,
-      value: _mode,
-    });
+    await AsyncStorage.setItem(storageKeys.themes.APP_THEME_MODE_KEY, _mode);
   }
 
   async function getThemeMode(): Promise<ThemeMode> {
-    const theme: ThemeMode = await storage?.get({
-      key: storageKeys?.themes?.APP_THEME_MODE_KEY,
-    });
+    const theme: ThemeMode = (await AsyncStorage.getItem(
+      storageKeys.themes.APP_THEME_MODE_KEY
+    )) as ThemeMode;
 
     return theme ?? 'light';
   }

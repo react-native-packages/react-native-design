@@ -5,13 +5,13 @@ react-native-design have lot of ui components with lot of predefined function an
 ## Installation
 
 ```sh
-npm install react-native-design
+yarn add react-native-design
 ```
 
 ## Required dependencies
 
 ```sh
-npm i react-native-vector-icons @rnpack/utils
+yarn add react-native-nitro-modules "@react-native-async-storage/async-storage @rnpack/utils moti react react-native react-native-autocomplete-dropdown react-native-gesture-handler react-native-nitro-modules react-native-reanimated react-native-svg react-native-vector-icons react-native-worklets
 ```
 
 ## Usage

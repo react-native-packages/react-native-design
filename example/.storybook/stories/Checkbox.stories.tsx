@@ -1,19 +1,14 @@
 import { responsive } from '@rnpack/utils';
 
 import type { Meta, StoryObj } from '@storybook/react';
+import { StyleSheet } from 'react-native';
 
 import { Container, Checkbox } from 'react-native-design';
 
 const meta = {
   component: Checkbox,
   decorators: (Story) => (
-    <Container
-      style={{
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: responsive?.size(20),
-      }}
-    >
+    <Container style={styles.container}>
       <Story />
     </Container>
   ),
@@ -52,3 +47,11 @@ export const LongLabel: Story = {
     label: 'Opt-In for the feature',
   },
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: responsive?.size(20),
+  },
+});

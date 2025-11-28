@@ -1,7 +1,8 @@
-import React, { useState, type ComponentProps } from 'react';
+import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { isEmpty, responsive } from '@rnpack/utils';
 
+import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { AutocompleteDropdown, useAppTheme } from 'react-native-design';
@@ -67,7 +68,7 @@ const meta = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+// type Story = StoryObj<typeof meta>;
 
 export const Default: StoryObj<ComponentProps<typeof AutocompleteDropdown>> = {
   args: {
@@ -79,6 +80,7 @@ export const Default: StoryObj<ComponentProps<typeof AutocompleteDropdown>> = {
     shape: 'round',
   },
   render: (args) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [searchText, setSearchText] = useState<string>('');
 
     const filter = dataSet.filter((item) =>

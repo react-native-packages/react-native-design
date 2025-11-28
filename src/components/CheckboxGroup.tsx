@@ -78,8 +78,10 @@ function CheckboxGroup(props: PropsWithChildren<CheckboxGroupProps>) {
         {Children?.map(props?.children, (child) => {
           if (isValidElement(child)) {
             return cloneElement(child, {
+              // @ts-expect-error child props spread error
               ...child?.props,
               isControlled: true,
+              // @ts-expect-error child props not container id
               isChecked: checkedIds?.includes(child?.props?.id),
               onToggleCheckbox,
             } as CheckboxProps);

@@ -5,21 +5,18 @@ import {
 import { mergeObjects, responsive } from '@rnpack/utils';
 import { AutocompleteDropdown as RNAutocompleteDropdown } from 'react-native-autocomplete-dropdown';
 
-import type { ReactElement, MutableRefObject, ReactNode } from 'react';
+import type { ReactElement, ReactNode, RefObject } from 'react';
 import type {
   StyleProp as RNStyleProp,
   ViewStyle as RNViewStyle,
   TextStyle as RNTextStyle,
   TextInputProps as RNTextInputProps,
   ColorValue as RNColorValue,
-  NativeSyntheticEvent as RNNativeSyntheticEvent,
-  TextInputSubmitEditingEventData as RNTextInputSubmitEditingEventData,
-  TextInputFocusEventData as RNTextInputFocusEventData,
 } from 'react-native';
 import type {
-  AutocompleteDropdownRef as RNAutocompleteDropdownRef,
-  TAutocompleteDropdownItem as TRNAutocompleteDropdownItem,
-  AutocompleteDropdownProps as RNAutocompleteDropdownProps,
+  IAutocompleteDropdownRef as RNAutocompleteDropdownRef,
+  AutocompleteDropdownItem as TRNAutocompleteDropdownItem,
+  IAutocompleteDropdownProps as RNAutocompleteDropdownProps,
 } from 'react-native-autocomplete-dropdown';
 
 import { FormField } from './FormField';
@@ -50,7 +47,11 @@ interface AutocompleteDropdownProps extends BaseProps {
   placeholder?: string;
   textInputStyle?: RNStyleProp<RNTextStyle>;
   placeholderTextColor?: RNColorValue;
-  initialValue?: string | object;
+  initialValue?:
+    | string
+    | { id: string }
+    | TRNAutocompleteDropdownItem
+    | undefined;
   rightButtonsContainerStyle?: RNStyleProp<RNViewStyle>;
   inputContainerStyle?: RNStyleProp<RNViewStyle>;
   suggestionsListContainerStyle?: RNStyleProp<RNViewStyle>;
@@ -62,13 +63,11 @@ interface AutocompleteDropdownProps extends BaseProps {
   suggestionsListTextStyle?: RNStyleProp<RNTextStyle>;
   emptyResultText?: string;
   onChangeText?: (text: string) => void;
-  onSelectItem?: (item: TRNAutocompleteDropdownItem) => void;
+  onSelectItem?: (item: TRNAutocompleteDropdownItem | null) => void;
   onClearPress?: () => void;
-  onSubmitSearch?: (
-    e: RNNativeSyntheticEvent<RNTextInputSubmitEditingEventData>
-  ) => void;
+  onSubmitSearch?: RNTextInputProps['onSubmitEditing'];
   onOpenSuggestionsList?: (isOpened: boolean) => void;
-  onBlur?: (e: RNNativeSyntheticEvent<RNTextInputFocusEventData>) => void;
+  onBlur?: RNTextInputProps['onBlur'];
   showChevron?: boolean;
   closeOnBlur?: boolean;
   clearOnFocus?: boolean;
@@ -77,8 +76,8 @@ interface AutocompleteDropdownProps extends BaseProps {
   autoCapitalize?: Pick<TextInputProps, 'autoCapitalize'>['autoCapitalize'];
   isLoading?: boolean;
   useFilter?: boolean;
-  dropdownControllerRef?: MutableRefObject<
-    RNAutocompleteDropdownRef | undefined
+  dropdownControllerRef?: RefObject<
+    RNAutocompleteDropdownRef | undefined | null
   >;
   textInputProps?: RNTextInputProps;
   isDisabled?: boolean;
@@ -143,7 +142,7 @@ function AutocompleteDropdown(props: AutocompleteDropdownProps) {
           }
         }}
         initialValue={props?.initialValue}
-        dataSet={props?.dataSet}
+        dataSet={props?.dataSet ?? null}
         onChangeText={props?.onChangeText}
         onSelectItem={props?.onSelectItem}
         debounce={600}

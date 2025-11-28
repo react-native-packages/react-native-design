@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react-native';
-import type { ReactTestInstance } from 'react-test-renderer';
 
 import { Banner } from '../../src/components';
 
@@ -17,12 +16,12 @@ describe('Banner component', () => {
     });
 
     it('Banner component rendered successfully', () => {
-      const content: ReactTestInstance = screen?.getByText('Banner Default');
+      const content = screen?.getByText('Banner Default');
       expect(content).toBeTruthy();
     });
 
     it('Banner component props', () => {
-      const banner: ReactTestInstance = screen?.getByTestId('banner.text');
+      const banner = screen?.getByTestId('banner.text');
       expect(banner?.props?.children).toBe('Banner Default');
     });
   });
@@ -41,15 +40,15 @@ describe('Banner component', () => {
     });
 
     it('Banner component rendered successfully', () => {
-      const content: ReactTestInstance = screen?.getByText('Banner Info');
+      const content = screen?.getByText('Banner Info');
       expect(content).toBeTruthy();
 
-      const bannerIcon: ReactTestInstance = screen?.getByTestId('banner.icon');
+      const bannerIcon = screen?.getByTestId('banner.icon');
       expect(bannerIcon).toBeTruthy();
     });
 
     it('Banner component props', () => {
-      const banner: ReactTestInstance = screen?.getByTestId('banner.text');
+      const banner = screen?.getByTestId('banner.text');
       expect(banner?.props?.children).toBe('Banner Info');
     });
   });
