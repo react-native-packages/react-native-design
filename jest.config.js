@@ -1,15 +1,14 @@
 module.exports = {
   preset: 'react-native',
   verbose: true,
-  setupFiles: ['./__mock__/jestSetupFile.js'],
+  setupFiles: ['./__mocks__/jestSetupFile.js'],
   modulePathIgnorePatterns: [
     '<rootDir>/example/node_modules',
+    '<rootDir>/example/__mocks__',
+    '<rootDir>/example/__tests__',
     '<rootDir>/lib/',
   ],
-  transformIgnorePatterns: [
-    'node_modules/(?!react-native-notifier)/',
-    'node_modules/(?!react-native-base64)/',
-  ],
+  transformIgnorePatterns: [],
   transform: {
     '\\.js$': ['babel-jest', { configFile: './babel.config.testing.js' }],
   },

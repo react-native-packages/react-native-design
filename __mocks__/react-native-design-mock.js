@@ -1,0 +1,25 @@
+module.exports = {
+  NitroModules: {
+    createHybridObject: () => ({
+      init: () => {},
+      add: () => {},
+      createHybridNavigationBar: () => {},
+      createHybridStatusBar: () => ({}),
+    }),
+  },
+  AntDesignIconsName: {},
+  EntypoIconsName: {},
+  EvilIconsName: {},
+  FeatherIconsName: {},
+  FontAwesomeIconsName: {},
+  FontAwesome5IconsName: {},
+  FontAwesome6IconsName: {},
+  FontistoIconsName: {},
+  FoundationIconsName: {},
+  IonIconsName: {},
+  MaterialCommunityIconsName: {},
+  MaterialIconsName: {},
+  OctIconsName: {},
+  SimpleLineIconsName: {},
+  ZocialIconsName: {},
+};
