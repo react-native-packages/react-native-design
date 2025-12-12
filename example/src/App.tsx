@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native';
-import { ReactNativeDesignView } from 'react-native-design';
+// import { ReactNativeDesignView } from 'react-native-design';
 import StorybookUI from '../.storybook';
 
 export default StorybookUI;
@@ -7,7 +7,7 @@ export default StorybookUI;
 export function App() {
   return (
     <View style={styles.container}>
-      <ReactNativeDesignView color="#32a852" style={styles.box} />
+      {/* <ReactNativeDesignView color="#32a852" style={styles.box} /> */}
     </View>
   );
 }

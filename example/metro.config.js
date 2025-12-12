@@ -48,6 +48,8 @@ module.exports = withStorybook(
   finalConfig,
   {
     configPath: './.storybook',
+    enabled: false,
+    docTools: false,
   },
   {
     root,
