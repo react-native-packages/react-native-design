@@ -1,14 +1,14 @@
-package com.margelo.nitro.ReactNativeDesign
+package com.margelo.nitro.reactnativedesign
 
-import com.facebook.react.TurboReactPackage
+import com.facebook.react.BaseReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfoProvider
 import com.facebook.react.uimanager.ViewManager
 
-import com.margelo.nitro.ReactNativeDesign.views.HybridReactNativeDesignManager
+import com.margelo.nitro.reactnativedesign.views.HybridReactNativeDesignManager
 
-class ReactNativeDesignPackage : TurboReactPackage() {
+class ReactNativeDesignPackage : BaseReactPackage() {
     override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
         return null
     }
@@ -23,7 +23,7 @@ class ReactNativeDesignPackage : TurboReactPackage() {
 
     companion object {
         init {
-            System.loadLibrary("ReactNativeDesign")
+            System.loadLibrary("reactnativedesign")
         }
     }
 }

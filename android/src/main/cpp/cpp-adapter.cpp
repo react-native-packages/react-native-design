@@ -1,6 +1,6 @@
 #include <jni.h>
-#include "ReactNativeDesignOnLoad.hpp"
+#include "reactnativedesignOnLoad.hpp"
 
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void*) {
-  return margelo::nitro::ReactNativeDesign::initialize(vm);
+  return margelo::nitro::reactnativedesign::initialize(vm);
 }

@@ -1,15 +1,15 @@
 {
   "cxxNamespace": [
-    "ReactNativeDesign"
+    "reactnativedesign"
   ],
   "ios": {
     "iosModuleName": "ReactNativeDesign"
   },
   "android": {
     "androidNamespace": [
-      "ReactNativeDesign"
+      "reactnativedesign"
     ],
-    "androidCxxLibName": "ReactNativeDesign"
+    "androidCxxLibName": "reactnativedesign"
   },
   "autolinking": {
     "ReactNativeDesign": {

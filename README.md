@@ -5,13 +5,13 @@ react-native-design have lot of ui components with lot of predefined function an
 ## Installation
 
 ```sh
-yarn add react-native-design
+yarn add react-native-design react-native-nitro-modules
 ```
 
 ## Required dependencies
 
 ```sh
-yarn add react-native-nitro-modules "@react-native-async-storage/async-storage @rnpack/utils moti react react-native react-native-autocomplete-dropdown react-native-gesture-handler react-native-nitro-modules react-native-reanimated react-native-svg react-native-vector-icons react-native-worklets
+yarn add @react-native-async-storage/async-storage moti react-native-autocomplete-dropdown react-native-gesture-handler react-native-svg react-native-vector-icons react-native-reanimated react-native-worklets @rnpack/utils buffer
 ```
 
 ## Usage
@@ -62,7 +62,7 @@ The MIT License.
       <img src="https://avatars.githubusercontent.com/u/41302126?v=4" width="64" height="64" alt="Abiraman K">
     </td>
     <td>
-      <a href="https://github.com/AbiramanK" target="_blank">Abiraman K</a>
+      <a href="https://abiramank.github.io" target="_blank">Abiraman K</a>
     </td>
   </tr>
 </table>

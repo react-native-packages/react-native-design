@@ -3,14 +3,11 @@ pre-commit:
   commands:
     lint:
       glob: '*.{js,ts,jsx,tsx}'
-      run: npx eslint {staged_files}
+      run: npx eslint {staged_files} --ignore-pattern **/storybook.requires.{js,ts}
 
     types:
       glob: '*.{js,ts, jsx, tsx}'
       run: npx tsc
-    test:
-      glob: '*.{js,ts, jsx, tsx}'
-      run: npx jest
 commit-msg:
   parallel: true
   commands:

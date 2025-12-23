@@ -1,8 +1,8 @@
-import React, { type ComponentProps } from 'react';
 import { useState } from '@storybook/preview-api';
 import { Alert, StyleSheet, View } from 'react-native';
 import { responsive } from '@rnpack/utils';
 
+import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Button, Dialog, Text } from 'react-native-design';

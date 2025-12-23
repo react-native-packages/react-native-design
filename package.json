@@ -10,8 +10,7 @@
       "types": "./lib/typescript/src/index.d.ts",
       "default": "./lib/module/index.js"
     },
-    "./package.json": "./package.json",
-    "./__mocks__/*": "./__mocks__/*"
+    "./package.json": "./package.json"
   },
   "files": [
     "src",
@@ -32,7 +31,6 @@
     "!android/local.properties",
     "!**/__tests__",
     "!**/__fixtures__",
-    "!**/__mocks__",
     "!**/.*"
   ],
   "scripts": {
@@ -41,9 +39,9 @@
     "prepare": "bob build",
     "nitrogen": "nitrogen",
     "typecheck": "tsc",
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "release": "release-it patch --only-version",
-    "test": "jest"
+    "lint": "eslint \"**/*.{js,ts,tsx}\" --ignore-pattern \"**/storybook.requires.{js,ts}\"",
+    "test": "jest",
+    "release": "release-it --only-version"
   },
   "keywords": [
     "react-native",
@@ -69,18 +67,16 @@
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.35.0",
     "@react-native-async-storage/async-storage": "^2.2.0",
-    "@react-native/babel-preset": "0.81.1",
-    "@react-native/eslint-config": "^0.81.1",
+    "@react-native/babel-preset": "0.83.0",
+    "@react-native/eslint-config": "0.83.0",
     "@release-it/conventional-changelog": "^10.0.1",
-    "@rnpack/utils": "^0.1.12",
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/react": "^16.3.0",
+    "@rnpack/utils": "^0.1.14",
     "@testing-library/react-native": "^13.3.3",
     "@types/jest": "^29.5.14",
-    "@types/react": "^19.2.7",
-    "@types/react-dom": "^19.2.3",
+    "@types/react": "^19.2.0",
     "@types/react-native-vector-icons": "^6.4.18",
     "@types/react-test-renderer": "^19",
+    "buffer": "^6.0.3",
     "commitlint": "^19.8.1",
     "del-cli": "^6.0.0",
     "eslint": "^9.35.0",
@@ -91,17 +87,17 @@
     "moti": "^0.30.0",
     "nitrogen": "^0.31.10",
     "prettier": "^2.8.8",
-    "react": "19.1.0",
-    "react-native": "0.81.1",
+    "react": "19.2.0",
+    "react-native": "0.83.0",
     "react-native-autocomplete-dropdown": "^5.0.0",
-    "react-native-builder-bob": "^0.40.16",
-    "react-native-gesture-handler": "^2.29.1",
+    "react-native-builder-bob": "^0.40.13",
+    "react-native-gesture-handler": "^2.30.0",
     "react-native-nitro-modules": "^0.31.10",
-    "react-native-reanimated": "^4.1.5",
-    "react-native-svg": "^15.15.0",
+    "react-native-reanimated": "^4.2.1",
+    "react-native-svg": "^15.15.1",
     "react-native-vector-icons": "^10.3.0",
-    "react-native-worklets": "^0.6.1",
-    "react-test-renderer": "19.1.0",
+    "react-native-worklets": "^0.7.1",
+    "react-test-renderer": "19.2.0",
     "release-it": "^19.0.4",
     "turbo": "^2.5.6",
     "typescript": "^5.9.2"
@@ -109,12 +105,13 @@
   "peerDependencies": {
     "@react-native-async-storage/async-storage": "*",
     "@rnpack/utils": "*",
+    "buffer": "*",
     "moti": "*",
     "react": "*",
     "react-native": "*",
     "react-native-autocomplete-dropdown": "*",
     "react-native-gesture-handler": "*",
-    "react-native-nitro-modules": "*",
+    "react-native-nitro-modules": "^0.31.10",
     "react-native-reanimated": "*",
     "react-native-svg": "*",
     "react-native-vector-icons": "*",
@@ -156,6 +153,22 @@
     "trailingComma": "es5",
     "useTabs": false
   },
+  "jest": {
+    "preset": "react-native",
+    "verbose": true,
+    "setupFiles": [
+      "./__mocks__/jestSetupFile.js"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/example/node_modules",
+      "<rootDir>/lib/",
+      "<rootDir>/example/__mocks__",
+      "<rootDir>/example/__tests__"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@react-native|react-native|react-native-vector-icons|react-native-autocomplete-dropdown)/)"
+    ]
+  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
@@ -181,22 +194,22 @@
     }
   },
   "create-react-native-library": {
-    "languages": "kotlin-swift",
     "type": "nitro-view",
+    "languages": "kotlin-swift",
     "tools": [
       "eslint",
+      "jest",
       "lefthook",
-      "release-it",
-      "jest"
+      "release-it"
     ],
-    "version": "0.55.1"
+    "version": "0.56.0"
   },
   "codegenConfig": {
-    "name": "ReactNativeDesignSpec",
+    "name": "ReactNativeDesign",
     "type": "modules",
     "jsSrcsDir": "src",
     "android": {
-      "javaPackageName": "com.margelo.nitro.design"
+      "javaPackageName": "com.margelo.nitro.reactnativedesign"
     }
   }
 }

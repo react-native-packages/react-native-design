@@ -1,4 +1,4 @@
-package com.margelo.nitro.ReactNativeDesign
+package com.margelo.nitro.reactnativedesign
 
 import android.view.View
 import com.facebook.proguard.annotations.DoNotStrip

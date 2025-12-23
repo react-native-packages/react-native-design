@@ -1,6 +1,7 @@
 import { Alert, FlatList, StyleSheet, View } from 'react-native';
 import { responsive } from '@rnpack/utils';
 
+import type { Key } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Button } from 'react-native-design';
@@ -8,7 +9,7 @@ import type { ButtonProps, ButtonVariant } from 'react-native-design';
 
 const buttonVariants: Array<ButtonVariant> = ['contained', 'outlined', 'text'];
 
-const buttons: Array<ButtonProps> = [
+const buttons: Array<ButtonProps & { key: Key }> = [
   {
     key: 1,
     variant: 'contained',
@@ -269,7 +270,7 @@ function ButtonList(props: ButtonProps) {
   const data: Array<ButtonProps> = [];
 
   buttonVariants?.forEach((variant) => {
-    const tempButtons: Array<ButtonProps> = [];
+    const tempButtons: Array<ButtonProps & { key: Key }> = [];
 
     buttons?.forEach((button) => {
       tempButtons?.push({
